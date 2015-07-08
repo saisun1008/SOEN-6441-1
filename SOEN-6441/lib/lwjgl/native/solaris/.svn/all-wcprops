@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/soen6441/!svn/ver/27/trunk/DungeonMaster/lib/lwjgl/native/solaris
+END
+libopenal.so
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/soen6441/!svn/ver/27/trunk/DungeonMaster/lib/lwjgl/native/solaris/libopenal.so
+END
+libopenal64.so
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/soen6441/!svn/ver/27/trunk/DungeonMaster/lib/lwjgl/native/solaris/libopenal64.so
+END
+liblwjgl.so
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/soen6441/!svn/ver/27/trunk/DungeonMaster/lib/lwjgl/native/solaris/liblwjgl.so
+END
+liblwjgl64.so
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/soen6441/!svn/ver/27/trunk/DungeonMaster/lib/lwjgl/native/solaris/liblwjgl64.so
+END

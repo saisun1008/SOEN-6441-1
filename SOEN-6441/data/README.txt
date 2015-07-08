@@ -1,0 +1,1 @@
+This directory is used to keep game state files
