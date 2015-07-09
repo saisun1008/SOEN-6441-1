@@ -1,5 +1,6 @@
 package hf.game.items;
 
+import hf.game.common.CardType;
 import hf.game.common.Color;
 import hf.game.common.Direction;
 
@@ -12,10 +13,9 @@ import java.awt.image.BufferedImage;
  * @author sai sun
  *
  */
-public class LakeTile
+public class LakeTile extends Card
 {
     private boolean m_isFaceUp = false;
-    private BufferedImage m_image = null;
     private Color m_topColor = null;
     private Color m_bottomColor = null;
     private Color m_rightColor = null;
@@ -26,7 +26,6 @@ public class LakeTile
     private LakeTile m_bottomAdjacentTile = null;
     private LakeTile m_rightAdjacentTile = null;
     private LakeTile m_leftAdjacentTile = null;
-    private Player m_owner = null;
 
     /**
      * Constructor
@@ -49,8 +48,9 @@ public class LakeTile
             BufferedImage icon, LakeTile topTile, LakeTile botTile,
             LakeTile rightTile, LakeTile leftTile)
     {
+        super(1);
+        super.setImage(image);
         m_isFaceUp = faceup;
-        m_image = image;
         m_topColor = top;
         m_bottomColor = bottom;
         m_rightColor = right;
@@ -76,16 +76,6 @@ public class LakeTile
     public void flipFaceDown()
     {
         this.m_isFaceUp = false;
-    }
-
-    public BufferedImage get_image()
-    {
-        return m_image;
-    }
-
-    public void set_image(BufferedImage m_image)
-    {
-        this.m_image = m_image;
     }
 
     public Color get_topColor()
@@ -188,17 +178,6 @@ public class LakeTile
         this.m_leftAdjacentTile = m_leftAdjacentTile;
     }
 
-    public boolean assignToPlayer(Player p)
-    {
-        m_owner = null;
-        return true;
-    }
-
-    public void returnToDeck()
-    {
-        m_owner = null;
-    }
-
     /**
      * Place current lake tile card next to a given lake tile card
      * 
@@ -253,5 +232,25 @@ public class LakeTile
         }
 
         return false;
+    }
+
+    public void rotateTile(int degree)
+    {
+        switch (degree)
+        {
+        // TODO: implement the logic for rotate a tile
+        }
+    }
+
+    @Override
+    public CardType getCardType()
+    {
+        return CardType.LAKETILE;
+    }
+
+    @Override
+    public int compareTo(Card o)
+    {
+        return 0;
     }
 }
