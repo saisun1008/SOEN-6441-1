@@ -15,7 +15,7 @@ public class DedicationToken extends Card
      * @param image
      *            accept null value, image of the dedication token
      */
-    public DedicationToken(int value, BufferedImage image)
+    public DedicationToken(int value, String image)
     {
         super(value);
         super.setImage(image);

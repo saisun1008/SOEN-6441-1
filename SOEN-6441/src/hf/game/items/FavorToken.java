@@ -13,7 +13,7 @@ public class FavorToken extends Card
      * @param image
      *            accept null value, image of the token
      */
-    public FavorToken(BufferedImage image)
+    public FavorToken(String image)
     {
         super(1);
         super.setImage(image);

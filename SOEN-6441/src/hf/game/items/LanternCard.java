@@ -1,17 +1,17 @@
 package hf.game.items;
 
 import hf.game.common.CardType;
-import hf.game.common.Color;
+import hf.game.common.ColorEnum;
 
 import java.awt.image.BufferedImage;
 
 public class LanternCard extends Card
 {
-    private Color m_color = Color.RED;
+    private ColorEnum m_color = ColorEnum.RED;
     private BufferedImage m_image = null;
     private Player m_owner = null;
 
-    public LanternCard(Color color, BufferedImage image, Player p)
+    public LanternCard(ColorEnum color, String image, Player p)
     {
         super(1);
         super.assignToPlayer(p);
@@ -19,7 +19,7 @@ public class LanternCard extends Card
         m_color = color;
     }
 
-    public Color getColor()
+    public ColorEnum getColor()
     {
         return m_color;
     }
