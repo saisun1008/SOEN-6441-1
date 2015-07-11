@@ -1,7 +1,7 @@
 package hf.game.items;
 
 import hf.game.common.CardType;
-import hf.game.common.Color;
+import hf.game.common.ColorEnum;
 import hf.game.common.Direction;
 
 import java.awt.image.BufferedImage;
@@ -16,10 +16,10 @@ import java.awt.image.BufferedImage;
 public class LakeTile extends Card
 {
     private boolean m_isFaceUp = false;
-    private Color m_topColor = null;
-    private Color m_bottomColor = null;
-    private Color m_rightColor = null;
-    private Color m_leftColor = null;
+    private ColorEnum m_topColor = null;
+    private ColorEnum m_bottomColor = null;
+    private ColorEnum m_rightColor = null;
+    private ColorEnum m_leftColor = null;
     private boolean m_hasSpecialIcon = false;
     private BufferedImage m_specialIconImage = null;
     private LakeTile m_topAdjacentTile = null;
@@ -27,6 +27,11 @@ public class LakeTile extends Card
     private LakeTile m_rightAdjacentTile = null;
     private LakeTile m_leftAdjacentTile = null;
 
+    public LakeTile()
+    {
+        super();
+    }
+    
     /**
      * Constructor
      * 
@@ -43,8 +48,8 @@ public class LakeTile extends Card
      * @param rightTile
      * @param leftTile
      */
-    public LakeTile(boolean faceup, BufferedImage image, Color top,
-            Color bottom, Color right, Color left, boolean specialIcon,
+    public LakeTile(boolean faceup, String image, ColorEnum top,
+            ColorEnum bottom, ColorEnum right, ColorEnum left, boolean specialIcon,
             BufferedImage icon, LakeTile topTile, LakeTile botTile,
             LakeTile rightTile, LakeTile leftTile)
     {
@@ -63,6 +68,15 @@ public class LakeTile extends Card
         m_leftAdjacentTile = leftTile;
     }
 
+    @Override
+    public String getImage()
+    {
+        if(!isFaceUp())
+            return "data/laketileback.png";
+        
+        return super.getImage();
+    }
+
     public boolean isFaceUp()
     {
         return m_isFaceUp;
@@ -78,42 +92,42 @@ public class LakeTile extends Card
         this.m_isFaceUp = false;
     }
 
-    public Color get_topColor()
+    public ColorEnum get_topColor()
     {
         return m_topColor;
     }
 
-    public void set_topColor(Color m_topColor)
+    public void set_topColor(ColorEnum m_topColor)
     {
         this.m_topColor = m_topColor;
     }
 
-    public Color get_bottomColor()
+    public ColorEnum get_bottomColor()
     {
         return m_bottomColor;
     }
 
-    public void set_bottomColor(Color m_bottomColor)
+    public void set_bottomColor(ColorEnum m_bottomColor)
     {
         this.m_bottomColor = m_bottomColor;
     }
 
-    public Color get_rightColor()
+    public ColorEnum get_rightColor()
     {
         return m_rightColor;
     }
 
-    public void set_rightColor(Color m_rightColor)
+    public void set_rightColor(ColorEnum m_rightColor)
     {
         this.m_rightColor = m_rightColor;
     }
 
-    public Color get_leftColor()
+    public ColorEnum get_leftColor()
     {
         return m_leftColor;
     }
 
-    public void set_leftColor(Color m_leftColor)
+    public void set_leftColor(ColorEnum m_leftColor)
     {
         this.m_leftColor = m_leftColor;
     }

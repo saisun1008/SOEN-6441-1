@@ -7,9 +7,13 @@ import hf.game.common.CardType;
 public abstract class Card implements Comparable<Card>
 {
     protected Player m_owner = null;
-    protected BufferedImage m_image = null;
+    protected String m_image = null;
     protected int m_value = 0;
-
+    protected String id;
+    protected int x;
+    protected int y;
+    protected int size;
+    
     /**
      * Default constructor to set value of the card
      * 
@@ -53,7 +57,7 @@ public abstract class Card implements Comparable<Card>
      * 
      * @return image of the card
      */
-    public BufferedImage getImage()
+    public String getImage()
     {
         return m_image;
     }
@@ -64,7 +68,7 @@ public abstract class Card implements Comparable<Card>
      * @param image
      *            image to be used by the card
      */
-    public void setImage(BufferedImage image)
+    public void setImage(String image)
     {
         m_image = image;
     }
@@ -77,5 +81,50 @@ public abstract class Card implements Comparable<Card>
     public Player getOwner()
     {
         return m_owner;
+    }
+    
+    public String getId()
+    {
+        return id;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
+    }
+
+    public int getX()
+    {
+        return x;
+    }
+
+    public void setX(int x)
+    {
+        this.x = x;
+    }
+
+    public int getY()
+    {
+        return y;
+    }
+
+    public void setY(int y)
+    {
+        this.y = y;
+    }
+
+    public int getSize()
+    {
+        return size;
+    }
+
+    public void setSize(int size)
+    {
+        this.size = size;
+    }
+    
+    public Card()
+    {
+        
     }
 }

@@ -6,7 +6,7 @@ package hf.game.common;
  * @author sai sun
  *
  */
-public enum Color
+public enum ColorEnum
 {
     ORANGE, GREEN, PURPLE, GREY, BLUE, RED, BLACK;
 }
