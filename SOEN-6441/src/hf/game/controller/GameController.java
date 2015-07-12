@@ -81,6 +81,13 @@ public class GameController
         board = new BoardMapper().load(new FileInputStream(file));
         notifyAllObservers();
     }
+    
+    protected int verification(GameBoard board)
+    {
+        int playernum = board.getPlayerCount();
+        
+        return 1;
+    }
 
     public void attach(BoardObserver observer)
     {
