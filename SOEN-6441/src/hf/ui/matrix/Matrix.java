@@ -52,11 +52,11 @@ public class Matrix extends BasicGame {
                 if(mouseLeftClick)
                 {
                     ca.setSelectedCard(lake);
-                    System.out.println("lake card "+ lake.getId() +" has been selected");
+                    System.out.println("lake card "+ lake.getIndex() +" has been selected");
                 }else if(mouseRightClick)
                 {
                     lake.rotateTile();
-                    System.out.println("lake card "+ lake.getId() +" been rotated 90");
+                    System.out.println("lake card "+ lake.getIndex() +" been rotated 90");
                 }
             }
         }
@@ -79,7 +79,7 @@ public class Matrix extends BasicGame {
             entity.render( gc, g );
         
         for( LakeTile lake : ca.getLakeTiles().values() ){
-            if(lake.getId().equals("1"))//TODO get owner is Matrix
+            if(lake.getIndex() == 1)//TODO get owner is Matrix
                 continue;
             
             if(lake.getRotateDegrees()==0)

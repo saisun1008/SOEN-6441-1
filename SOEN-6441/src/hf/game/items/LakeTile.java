@@ -26,13 +26,14 @@ public class LakeTile extends Card
     private LakeTile m_bottomAdjacentTile = null;
     private LakeTile m_rightAdjacentTile = null;
     private LakeTile m_leftAdjacentTile = null;
+    private boolean isStartingCard = false;
     private int rotateDegrees = 0;
 
     public LakeTile()
     {
-        super();
+        super(0, 0);
     }
-    
+
     /**
      * Constructor
      * 
@@ -50,11 +51,11 @@ public class LakeTile extends Card
      * @param leftTile
      */
     public LakeTile(boolean faceup, String image, ColorEnum top,
-            ColorEnum bottom, ColorEnum right, ColorEnum left, boolean specialIcon,
-            BufferedImage icon, LakeTile topTile, LakeTile botTile,
-            LakeTile rightTile, LakeTile leftTile)
+            ColorEnum bottom, ColorEnum right, ColorEnum left,
+            boolean specialIcon, BufferedImage icon, LakeTile topTile,
+            LakeTile botTile, LakeTile rightTile, LakeTile leftTile, int index)
     {
-        super(1);
+        super(1, index);
         super.setImage(image);
         m_isFaceUp = faceup;
         m_topColor = top;
@@ -69,25 +70,30 @@ public class LakeTile extends Card
         m_leftAdjacentTile = leftTile;
     }
 
+    public void setIndex(int i)
+    {
+        super.setIndex(i);
+    }
+
     @Override
     public String getImage()
     {
-        if(!isFaceUp())
+        if (!isFaceUp())
             return "data/laketileback.png";
-        
+
         return super.getImage();
     }
 
-    public int getRotateDegrees()
+    public boolean isStartingCard()
     {
-        return rotateDegrees;
+        return isStartingCard;
     }
 
-    public void setRotateDegrees(int rotateDegrees)
+    public void setStartingCard(boolean isStartingCard)
     {
-        this.rotateDegrees = rotateDegrees;
+        this.isStartingCard = isStartingCard;
     }
-    
+
     public boolean isFaceUp()
     {
         return m_isFaceUp;
@@ -281,5 +287,15 @@ public class LakeTile extends Card
     public int compareTo(Card o)
     {
         return 0;
+    }
+    
+    public int getRotateDegrees()
+    {
+        return rotateDegrees;
+    }
+
+    public void setRotateDegrees(int rotateDegrees)
+    {
+        this.rotateDegrees = rotateDegrees;
     }
 }
