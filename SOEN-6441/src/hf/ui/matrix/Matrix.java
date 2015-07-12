@@ -1,29 +1,56 @@
 package hf.ui.matrix;
 
 import hf.controller.MatrixCalculator;
-import hf.game.common.ColorEnum;
 import hf.game.items.LakeTile;
 import hf.util.MouseEventValidation;
-
-import java.util.*;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.*;
 
+/**
+ * This is play zone Matrix UI which is used to show 21*21 Matrix cells.
+ * 
+ * @author caogc
+ * @since 2015-07-11
+ * 
+ */
 public class Matrix extends BasicGame {
     
-    MatrixCalculator ca = new MatrixCalculator();
+    private MatrixCalculator ca = new MatrixCalculator();
     
-    public Matrix(String gamename) {
-        super(gamename);
+    /**
+     * Matrix constructor
+     * 
+     * @param matrix name
+     */
+    public Matrix(String name) {
+        super(name);
     }
 
+    /**
+     * Initialization of Matrix, is used to initial all matrix cells objects.
+     * 
+     * Invoked automatically by UI program. 
+     * 
+     * @param GameContainer
+     * 
+     * @throws SlickException
+     */
     @Override
     public void init(GameContainer gc) throws SlickException {
         ca.init();
     }
     
    
+    /**
+     * Process mouse left/right click event.
+     * 
+     * Invoked automatically by UI program. 
+     * 
+     * @param GameContainer
+     *  
+     * @throws SlickException
+     */
     @Override
     public void update(GameContainer gc, int i) throws SlickException {
         
@@ -62,19 +89,17 @@ public class Matrix extends BasicGame {
         }
     }
 
+    /**
+     * Render Matrix UI.
+     * 
+     * Invoked automatically by UI program. 
+     * 
+     * @param GameContainer
+     *  
+     * @throws SlickException
+     */
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException {
-//        Random rand = new Random();
-//        final int gap = 1;
-//        int rows = 36;//(gc.getHeight() - 100) / (size + gap);
-//        int cols = 36;//gc.getWidth() / (size + gap);
-//        for (int i = 0; i < rows; i++) {
-//            for (int j = 0; j < cols; j++) {
-////                g.setColor(new Color(rand.nextInt(255), rand.nextInt(255), rand.nextInt(255)));
-//                g.drawImage(new Image("data/grass.png"), 11, 11);
-//                g.fillRect(widthStart + j * (matrixElementlenght + gap), heightStart + i * (matrixElementlenght + gap), matrixElementlenght, matrixElementlenght);
-//            }
-//        }
         for( BasicGame entity : ca.getEntities().values() )
             entity.render( gc, g );
         
@@ -89,11 +114,8 @@ public class Matrix extends BasicGame {
             }else
             {
                 Image img = new Image(lake.getImage());
-//                img.setCenterOfRotation((lake.getX() + lake.getSize() )/ 2, (lake.getY() + lake.getSize())/ 2);
                 img.setRotation(lake.getRotateDegrees());
                 img.draw(lake.getX(), lake.getY());
-//                g.drawImage(img,lake.getX(), lake.getY());
-//                g.fillRect(lake.getX(), lake.getY(),lake.getSize(),lake.getSize());
             }
         }
     }
