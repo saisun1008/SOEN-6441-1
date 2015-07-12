@@ -11,43 +11,50 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
  * A skeleton class for mapping Java InputStream/OutputStream to xStream XML
  * format and applications objects
  * 
- * @param <T> Typically one of World, Player or Level objects
+ * @param <T>
+ *            Typically one of GameBoard, Player
  * @see Player
- * @see Level
- * @see World
+ * @see GameBoard
+ * @author Sai
  * 
  */
-public class XmlMapper<T> implements IMapper<T> {
+public class XmlMapper<T> implements IMapper<T>
+{
 
-	private XStream xstream;
-	
-	/**
-	 * Constructor
-	 */
-	public XmlMapper() {
-		this.xstream = new XStream(new StaxDriver());
-	}
+    private XStream xstream;
 
-	/**
-	 * Map a Java InputStream (say, from a loaded file) into an xStream object
-	 * then to XML then cast to a game object
-	 * 
-	 * @return One of the Object types (current Player, World or Level)
-	 */
-	@SuppressWarnings("unchecked")
-	public T load(InputStream input) {
-		try {
-			return (T)xstream.fromXML(input);
-		}
-		catch (StreamException e) {
-			return null;
-		}
-	}
-	
-	/**
-	 * Save a given application object to file via a Java OutputStream and xStream
-	 */
-	public void save(T object, OutputStream output) {
-		xstream.toXML(object, output);
-	}
+    /**
+     * Constructor
+     */
+    public XmlMapper()
+    {
+        this.xstream = new XStream(new StaxDriver());
+    }
+
+    /**
+     * Map a Java InputStream (say, from a loaded file) into an xStream object
+     * then to XML then cast to a game object
+     * 
+     * @return One of the Object types (current Player, World or Level)
+     */
+    @SuppressWarnings("unchecked")
+    public T load(InputStream input)
+    {
+        try
+        {
+            return (T) xstream.fromXML(input);
+        } catch (StreamException e)
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Save a given application object to file via a Java OutputStream and
+     * xStream
+     */
+    public void save(T object, OutputStream output)
+    {
+        xstream.toXML(object, output);
+    }
 }

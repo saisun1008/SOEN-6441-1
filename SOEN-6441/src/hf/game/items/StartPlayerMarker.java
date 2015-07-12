@@ -3,13 +3,13 @@ package hf.game.items;
 public class StartPlayerMarker
 {
     private Player m_owner = null;
-    private StartPlayerMarker m_instance = null;
+    private static StartPlayerMarker m_instance = null;
 
     protected StartPlayerMarker()
     {
     }
 
-    public StartPlayerMarker getInstance()
+    public static StartPlayerMarker getInstance()
     {
         if (m_instance == null)
         {

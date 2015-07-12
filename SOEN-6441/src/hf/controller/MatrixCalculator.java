@@ -12,34 +12,35 @@ import java.util.*;
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.*;
 
-public class MatrixCalculator{
+public class MatrixCalculator
+{
     private int widthStart = 200;
     private int heightStart = 200;
     private int matrixElementlenght = 30;
-    Map<Integer,MatrixCell> entities = new HashMap<>();
-    Map<String,LakeTile> lakeTiles = new HashMap<>();
+    Map<Integer, MatrixCell> entities = new HashMap<>();
+    Map<Integer, LakeTile> lakeTiles = new HashMap<>();
     private Card selectedCard;
 
-    public Map<Integer,MatrixCell> getEntities()
+    public Map<Integer, MatrixCell> getEntities()
     {
         return entities;
     }
 
-    public void setEntities(Map<Integer,MatrixCell> entities)
+    public void setEntities(Map<Integer, MatrixCell> entities)
     {
         this.entities = entities;
     }
 
-    public Map<String, LakeTile> getLakeTiles()
+    public Map<Integer, LakeTile> getLakeTiles()
     {
         return lakeTiles;
     }
 
-    public void setLakeTiles(Map<String, LakeTile> lakeTiles)
+    public void setLakeTiles(Map<Integer, LakeTile> lakeTiles)
     {
         this.lakeTiles = lakeTiles;
     }
-    
+
     public Card getSelectedCard()
     {
         return selectedCard;
@@ -50,11 +51,12 @@ public class MatrixCalculator{
         this.selectedCard = selectedCard;
     }
 
-    public void init(){
+    public void init()
+    {
         initLakeTiles();
         initMatrixCell();
     }
-    
+
     void initLakeTiles()
     {
         LakeTile lake = new LakeTile();
@@ -63,8 +65,8 @@ public class MatrixCalculator{
         lake.set_rightColor(ColorEnum.BLUE);
         lake.set_bottomColor(ColorEnum.RED);
         lake.set_leftColor(ColorEnum.GREY);
-        lake.setId("1");
-        
+        lake.setIndex(1);
+
         LakeTile lake2 = new LakeTile();
         lake2.setImage("data/starttile.png");
         lake2.set_topColor(ColorEnum.BLACK);
@@ -74,9 +76,9 @@ public class MatrixCalculator{
         lake2.setX(200);
         lake2.setY(150);
         lake2.setSize(30);
-        lake2.setId("2");
+        lake2.setIndex(2);
         lake2.flipFaceUp();
-        
+
         LakeTile lake3 = new LakeTile();
         lake3.setImage("data/starttile.png");
         lake3.set_topColor(ColorEnum.BLACK);
@@ -86,9 +88,9 @@ public class MatrixCalculator{
         lake3.setX(231);
         lake3.setY(150);
         lake3.setSize(30);
-        lake3.setId("3");
+        lake3.setIndex(3);
         lake3.flipFaceUp();
-        
+
         LakeTile lake4 = new LakeTile();
         lake4.setImage("data/starttile.png");
         lake4.set_topColor(ColorEnum.BLACK);
@@ -98,52 +100,57 @@ public class MatrixCalculator{
         lake4.setX(262);
         lake4.setY(150);
         lake4.setSize(30);
-        lake4.setId("4");
+        lake4.setIndex(4);
         lake4.flipFaceUp();
-        
-        lakeTiles.put(lake.getId(), lake);
-        lakeTiles.put(lake2.getId(), lake2);
-        lakeTiles.put(lake3.getId(), lake3);
-        lakeTiles.put(lake4.getId(), lake4);
+
+        lakeTiles.put(lake.getIndex(), lake);
+        lakeTiles.put(lake2.getIndex(), lake2);
+        lakeTiles.put(lake3.getIndex(), lake3);
+        lakeTiles.put(lake4.getIndex(), lake4);
     }
-    
+
     void initMatrixCell()
     {
         int rows = 21;
         int cols = 21;
         int gap = 1;
         int id = 1;
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < cols; j++) {
+        for (int i = 0; i < rows; i++)
+        {
+            for (int j = 0; j < cols; j++)
+            {
                 MatrixCell matrixElement = new MatrixCell(this);
                 matrixElement.setId(id);
-                matrixElement.setX(widthStart + j * (matrixElementlenght + gap));
-                matrixElement.setY(heightStart + i * (matrixElementlenght + gap));
+                matrixElement
+                        .setX(widthStart + j * (matrixElementlenght + gap));
+                matrixElement.setY(heightStart + i
+                        * (matrixElementlenght + gap));
                 matrixElement.setSize(matrixElementlenght);
-                if(i==rows/2 && j==cols/2)
+                if (i == rows / 2 && j == cols / 2)
                 {
-                    matrixElement.setLake(lakeTiles.get("1"));
+                    matrixElement.setLake(lakeTiles.get(1));
                 }
                 id++;
-                entities.put(matrixElement.getId(),matrixElement);
+                entities.put(matrixElement.getId(), matrixElement);
             }
         }
     }
-    
+
     public void calculateMatrix(int id)
     {
         LakeTile lake = entities.get(id).getLake();
-        if(id==221 &&lake!=null && !lake.isFaceUp())
+        if (id == 221 && lake != null && !lake.isFaceUp())
         {
             placeStratLake(lake, id);
-        }else
+        } else
         {
-            if(selectedCard!=null && selectedCard.getCardType()==CardType.LAKETILE)
-              placeNewLake((LakeTile)selectedCard, id);
+            if (selectedCard != null
+                    && selectedCard.getCardType() == CardType.LAKETILE)
+                placeNewLake((LakeTile) selectedCard, id);
         }
     }
-    
-    public void placeNewLake(LakeTile lake,int id)
+
+    public void placeNewLake(LakeTile lake, int id)
     {
         System.out.println("place new lake.");
         entities.get(id).setLake(lake);
@@ -151,38 +158,41 @@ public class MatrixCalculator{
         LakeTile right = null;
         LakeTile top = null;
         LakeTile bottom = null;
-        if(id%21!=1)
-            left = entities.get(id-1).getLake();
-        
-        if(id%21!=0)
-            right = entities.get(id+1).getLake();
-        
-        if(id-21>0)
-            top = entities.get(id-21).getLake();
-        
-        if(id+21<=441)
-            bottom = entities.get(id+21).getLake();
-        
-        
-        System.out.println("left lake: "+(left==null? "no" :left.getId()));
-        System.out.println("right lake: "+(right==null? "no" : right.getId()));
-        System.out.println("top lake: "+(top==null?"no":top.getId()));
-        System.out.println("bottom lake: "+ (bottom==null?"no":bottom.getId()));
+        if (id % 21 != 1)
+            left = entities.get(id - 1).getLake();
+
+        if (id % 21 != 0)
+            right = entities.get(id + 1).getLake();
+
+        if (id - 21 > 0)
+            top = entities.get(id - 21).getLake();
+
+        if (id + 21 <= 441)
+            bottom = entities.get(id + 21).getLake();
+
+        System.out.println("left lake: "
+                + (left == null ? "no" : left.getIndex()));
+        System.out.println("right lake: "
+                + (right == null ? "no" : right.getIndex()));
+        System.out
+                .println("top lake: " + (top == null ? "no" : top.getIndex()));
+        System.out.println("bottom lake: "
+                + (bottom == null ? "no" : bottom.getIndex()));
         giveLanternCard();
     }
-    
-    public void placeStratLake(LakeTile lake,int id)
+
+    public void placeStratLake(LakeTile lake, int id)
     {
         System.out.println("place start lake.");
         lake.flipFaceUp();
         entities.get(id).setLake(lake);
         giveLanternCard();
     }
-    
+
     public void giveLanternCard()
     {
         System.out.println("give card");
-        //TODO
+        // TODO
     }
-    
+
 }

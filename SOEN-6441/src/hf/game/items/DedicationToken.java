@@ -3,9 +3,13 @@ package hf.game.items;
 import java.awt.image.BufferedImage;
 
 import hf.game.common.CardType;
+import hf.game.common.ColorEnum;
 
 public class DedicationToken extends Card
 {
+
+    private ColorEnum m_color;
+    private int m_numDots = 0;
 
     /**
      * Default constructor of the dedication token
@@ -14,11 +18,16 @@ public class DedicationToken extends Card
      *            value of the dedication token
      * @param image
      *            accept null value, image of the dedication token
+     * @param index
+     *            index of the card
      */
-    public DedicationToken(int value, String image)
+    public DedicationToken(int value, String image, int index, ColorEnum color,
+            int numDots)
     {
-        super(value);
+        super(value, index);
         super.setImage(image);
+        m_color = color;
+        m_numDots = numDots;
     }
 
     public CardType getCardType()
@@ -30,5 +39,20 @@ public class DedicationToken extends Card
     public int compareTo(Card o)
     {
         return 0;
+    }
+
+    public ColorEnum getColor()
+    {
+        return m_color;
+    }
+
+    /**
+     * Get number of dots on the card
+     * 
+     * @return
+     */
+    public int getNumDots()
+    {
+        return m_numDots;
     }
 }

@@ -4,25 +4,37 @@ import java.awt.image.BufferedImage;
 
 import hf.game.common.CardType;
 
+/**
+ * Abstract card class contains common attributes and functions for cards
+ * 
+ * @author Sai
+ *
+ */
 public abstract class Card implements Comparable<Card>
 {
     protected Player m_owner = null;
     protected String m_image = null;
     protected int m_value = 0;
-    protected String id;
+
     protected int x;
     protected int y;
     protected int size;
-    
+
+    protected int m_cardIndex = 0;
+
     /**
      * Default constructor to set value of the card
      * 
      * @param value
      *            value of the card
+     * 
+     * @param index
+     *            index of the card
      */
-    public Card(int value)
+    public Card(int value, int index)
     {
         m_value = value;
+        m_cardIndex = index;
     }
 
     /**
@@ -34,7 +46,10 @@ public abstract class Card implements Comparable<Card>
     public void assignToPlayer(Player player)
     {
         m_owner = player;
-        player.takeCard(this);
+        if (player != null)
+        {
+            player.takeCard(this);
+        }
     }
 
     /**
@@ -73,24 +88,24 @@ public abstract class Card implements Comparable<Card>
         m_image = image;
     }
 
+    /**
+     * Get card value
+     * 
+     * @return
+     */
     public int getCardValue()
     {
         return m_value;
     }
 
+    /**
+     * Get owner of the card
+     * 
+     * @return
+     */
     public Player getOwner()
     {
         return m_owner;
-    }
-    
-    public String getId()
-    {
-        return id;
-    }
-
-    public void setId(String id)
-    {
-        this.id = id;
     }
 
     public int getX()
@@ -122,9 +137,19 @@ public abstract class Card implements Comparable<Card>
     {
         this.size = size;
     }
-    
-    public Card()
+
+    /**
+     * Get index of the card
+     * 
+     * @return
+     */
+    public int getIndex()
     {
-        
+        return m_cardIndex;
+    }
+
+    public void setIndex(int index)
+    {
+        m_cardIndex = index;
     }
 }

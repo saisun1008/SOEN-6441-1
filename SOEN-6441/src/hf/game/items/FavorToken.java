@@ -12,10 +12,12 @@ public class FavorToken extends Card
      * 
      * @param image
      *            accept null value, image of the token
+     * @param index
+     *            index of the card
      */
-    public FavorToken(String image)
+    public FavorToken(String image, int index)
     {
-        super(1);
+        super(1, index);
         super.setImage(image);
     }
 

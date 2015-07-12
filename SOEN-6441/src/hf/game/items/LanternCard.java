@@ -11,9 +11,9 @@ public class LanternCard extends Card
     private BufferedImage m_image = null;
     private Player m_owner = null;
 
-    public LanternCard(ColorEnum color, String image, Player p)
+    public LanternCard(ColorEnum color, String image, Player p, int index)
     {
-        super(1);
+        super(1, index);
         super.assignToPlayer(p);
         super.setImage(image);
         m_color = color;

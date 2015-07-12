@@ -10,10 +10,9 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
- * A UI utility class which prompts the user for saving one of the three types
- * of persistent data - game, level and character
+ * A UI utility class which prompts the user for saving game board
  * 
- * @see Player
+ * @see GameBoard
  * 
  */
 public final class FileSaver
@@ -28,7 +27,7 @@ public final class FileSaver
 
     /**
      * A generic method which creates a dialog asking the user to save the
-     * current character, level, or game
+     * current game
      * 
      * @param object
      *            The object to be made persistent
