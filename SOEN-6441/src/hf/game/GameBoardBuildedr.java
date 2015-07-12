@@ -50,15 +50,14 @@ public class GameBoardBuildedr
         int index = 0;
         for (; index < CardType.LAKETILE.getNumberOfCard() - 1; index++)
         {
-            LakeTile tile = new LakeTile(false, null, ColorEnum.RED,
+            LakeTile tile = new LakeTile(false, "images/dummy.jpg", ColorEnum.RED,
                     ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE, false,
-                    null, null, null, null, null, index);
+                     index);
             tiles.add(tile);
         }
         // add the special starting card
-        LakeTile tile = new LakeTile(false, null, ColorEnum.RED,
-                ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE, false, null,
-                null, null, null, null, index);
+        LakeTile tile = new LakeTile(false, "images/dummy.jpg", ColorEnum.RED,
+                ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE, false, index);
         tile.setStartingCard(true);
         tiles.add(tile);
 

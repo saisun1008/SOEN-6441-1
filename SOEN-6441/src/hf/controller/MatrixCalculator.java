@@ -10,8 +10,8 @@ import java.util.*;
 
 public class MatrixCalculator
 {
-    private int widthStart = 200;
-    private int heightStart = 200;
+    private int widthStart = 300;
+    private int heightStart = 220;
     private int matrixElementlenght = 30;
     private Map<Integer, MatrixCell> entities = new HashMap<>();
     private Map<Integer, LakeTile> lakeTiles = new HashMap<>();

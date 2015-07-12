@@ -2,9 +2,6 @@ package hf.game.items;
 
 import hf.game.common.CardType;
 import hf.game.common.ColorEnum;
-import hf.game.common.Direction;
-
-import java.awt.image.BufferedImage;
 
 /**
  * LakeTile class is used to build lake tile cards in the game play, it's
@@ -21,11 +18,6 @@ public class LakeTile extends Card
     private ColorEnum m_rightColor = null;
     private ColorEnum m_leftColor = null;
     private boolean m_hasSpecialIcon = false;
-    private BufferedImage m_specialIconImage = null;
-    private LakeTile m_topAdjacentTile = null;
-    private LakeTile m_bottomAdjacentTile = null;
-    private LakeTile m_rightAdjacentTile = null;
-    private LakeTile m_leftAdjacentTile = null;
     private boolean isStartingCard = false;
     private int rotateDegrees = 0;
 
@@ -52,8 +44,7 @@ public class LakeTile extends Card
      */
     public LakeTile(boolean faceup, String image, ColorEnum top,
             ColorEnum bottom, ColorEnum right, ColorEnum left,
-            boolean specialIcon, BufferedImage icon, LakeTile topTile,
-            LakeTile botTile, LakeTile rightTile, LakeTile leftTile, int index)
+            boolean specialIcon, int index)
     {
         super(1, index);
         super.setImage(image);
@@ -63,11 +54,6 @@ public class LakeTile extends Card
         m_rightColor = right;
         m_leftColor = left;
         m_hasSpecialIcon = specialIcon;
-        m_specialIconImage = icon;
-        m_topAdjacentTile = topTile;
-        m_bottomAdjacentTile = botTile;
-        m_rightAdjacentTile = rightTile;
-        m_leftAdjacentTile = leftTile;
     }
 
     public void setIndex(int i)
@@ -157,112 +143,6 @@ public class LakeTile extends Card
     public void set_hasSpecialIcon(boolean m_hasSpecialIcon)
     {
         this.m_hasSpecialIcon = m_hasSpecialIcon;
-    }
-
-    public BufferedImage get_specialIconImage()
-    {
-        return m_specialIconImage;
-    }
-
-    public void set_specialIconImage(BufferedImage m_specialIconImage)
-    {
-        this.m_specialIconImage = m_specialIconImage;
-    }
-
-    public LakeTile get_topAdjacentTile()
-    {
-        return m_topAdjacentTile;
-    }
-
-    public void set_topAdjacentTile(LakeTile m_topAdjacentTile)
-    {
-        this.m_topAdjacentTile = m_topAdjacentTile;
-    }
-
-    public LakeTile get_bottomAdjacentTile()
-    {
-        return m_bottomAdjacentTile;
-    }
-
-    public void set_bottomAdjacentTile(LakeTile m_bottomAdjacentTile)
-    {
-        this.m_bottomAdjacentTile = m_bottomAdjacentTile;
-    }
-
-    public LakeTile get_rightAdjacentTile()
-    {
-        return m_rightAdjacentTile;
-    }
-
-    public void set_rightAdjacentTile(LakeTile m_rightAdjacentTile)
-    {
-        this.m_rightAdjacentTile = m_rightAdjacentTile;
-    }
-
-    public LakeTile get_leftAdjacentTile()
-    {
-        return m_leftAdjacentTile;
-    }
-
-    public void set_leftAdjacentTile(LakeTile m_leftAdjacentTile)
-    {
-        this.m_leftAdjacentTile = m_leftAdjacentTile;
-    }
-
-    /**
-     * Place current lake tile card next to a given lake tile card
-     * 
-     * @param tile
-     *            Lake tile card to be placed next to
-     * @param direction
-     *            Direction of the given card to be adjacent to current card
-     * @return
-     */
-    public boolean placeNextToTile(LakeTile tile, Direction direction)
-    {
-        switch (direction)
-        {
-        case TOP:
-        {
-            if (tile.get_topAdjacentTile() == null)
-            {
-                tile.set_topAdjacentTile(this);
-                this.set_bottomAdjacentTile(tile);
-                return true;
-            }
-        }
-
-        case BOTTOM:
-        {
-            if (tile.get_bottomAdjacentTile() == null)
-            {
-                tile.set_bottomAdjacentTile(this);
-                this.set_topAdjacentTile(tile);
-                return true;
-            }
-        }
-        case RIGHT:
-        {
-            if (tile.get_rightAdjacentTile() == null)
-            {
-                tile.set_rightAdjacentTile(this);
-                this.set_leftAdjacentTile(tile);
-                return true;
-            }
-        }
-
-        case LEFT:
-        {
-            if (tile.get_leftAdjacentTile() == null)
-            {
-                tile.set_leftAdjacentTile(this);
-                this.set_rightAdjacentTile(tile);
-                return true;
-            }
-        }
-        }
-
-        return false;
     }
 
     public void rotateTile()

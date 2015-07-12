@@ -21,4 +21,7 @@ public class GameProperties
     public static final int DECK_GAP = 50;
     public static final int DECK_HEIGHT = 100;
     public static final int DECK_WIDTH = 100;
+    //200 + 100 + 21*(30+1) +100 +200 + 300 width
+    //100 btn + 120 player + 21*(30+1) +120 player =1000
+    
 }

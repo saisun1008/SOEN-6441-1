@@ -125,7 +125,7 @@ public class Matrix extends BasicGame {
         try
         {
             AppGameContainer app = new AppGameContainer(new Matrix("aaaa"));
-            app.setDisplayMode(1300, 900, false);
+            app.setDisplayMode(1300, 1000, false);
             Display.setInitialBackground(1, 1, 1);
             app.start();
         }
