@@ -45,13 +45,13 @@ public class GameBoardBuildedr
         for (; index < CardType.LAKETILE.getNumberOfCard() - 1; index++)
         {
             LakeTile tile = new LakeTile(false, null, ColorEnum.RED,
-                    ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.GREY, false,
+                    ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE, false,
                     null, null, null, null, null, index);
             tiles.add(tile);
         }
         // add the special starting card
         LakeTile tile = new LakeTile(false, null, ColorEnum.RED,
-                ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.GREY, false, null,
+                ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE, false, null,
                 null, null, null, null, index);
         tile.setStartingCard(true);
         tiles.add(tile);
@@ -203,7 +203,7 @@ public class GameBoardBuildedr
         for (; index < 33; index++)
         {
             DedicationToken tile = new DedicationToken(4, null, index,
-                    ColorEnum.GREY, 0);
+                    ColorEnum.WHITE, 0);
             tiles.add(tile);
         }
         m_board.setDedicationTokenCollection(tiles);
@@ -277,7 +277,7 @@ public class GameBoardBuildedr
             dedicationdecks.put(ColorEnum.RED, new ArrayList<Integer>());
             dedicationdecks.put(ColorEnum.BLUE, new ArrayList<Integer>());
             dedicationdecks.put(ColorEnum.GREEN, new ArrayList<Integer>());
-            dedicationdecks.put(ColorEnum.GREY, new ArrayList<Integer>());
+            dedicationdecks.put(ColorEnum.WHITE, new ArrayList<Integer>());
             for (DedicationToken token : m_board.getDedicationTokenCollection())
             {
                 if (token.getNumDots() != 3 && token.getNumDots() != 4)
@@ -325,7 +325,7 @@ public class GameBoardBuildedr
             dedicationdecks1.put(ColorEnum.RED, new ArrayList<Integer>());
             dedicationdecks1.put(ColorEnum.BLUE, new ArrayList<Integer>());
             dedicationdecks1.put(ColorEnum.GREEN, new ArrayList<Integer>());
-            dedicationdecks1.put(ColorEnum.GREY, new ArrayList<Integer>());
+            dedicationdecks1.put(ColorEnum.WHITE, new ArrayList<Integer>());
             for (DedicationToken token : m_board.getDedicationTokenCollection())
             {
                 if (token.getNumDots() != 4)
@@ -373,7 +373,7 @@ public class GameBoardBuildedr
             dedicationdecks11.put(ColorEnum.RED, new ArrayList<Integer>());
             dedicationdecks11.put(ColorEnum.BLUE, new ArrayList<Integer>());
             dedicationdecks11.put(ColorEnum.GREEN, new ArrayList<Integer>());
-            dedicationdecks11.put(ColorEnum.GREY, new ArrayList<Integer>());
+            dedicationdecks11.put(ColorEnum.WHITE, new ArrayList<Integer>());
             for (DedicationToken token : m_board.getDedicationTokenCollection())
             {
                 ArrayList<Integer> list = dedicationdecks11.get(token

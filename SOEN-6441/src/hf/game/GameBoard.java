@@ -97,7 +97,7 @@ public class GameBoard
     public void makeNewRound()
     {
         roundExecutor++;
-        if (roundExecutor > 3)
+        if (roundExecutor >= numPlayer)
         {
             roundExecutor = 0;
         }

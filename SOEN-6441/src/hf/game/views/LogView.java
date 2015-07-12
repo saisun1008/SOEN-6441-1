@@ -1,4 +1,4 @@
-package hf.ui;
+package hf.game.views;
 
 import java.awt.GridLayout;
 
@@ -32,6 +32,7 @@ public class LogView extends JPanel
         this.scrollPane = new JScrollPane(textArea);
         textArea.setEditable(false);
         scrollPane.setFocusable(true);
+        textArea.setLineWrap(true);
         scrollPane
                 .setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         textArea.setFocusable(true);

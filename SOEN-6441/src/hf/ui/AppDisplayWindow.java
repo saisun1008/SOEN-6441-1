@@ -29,12 +29,12 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-public class MainView
+public class AppDisplayWindow
 {
     private static MenuBar menuBar;
     private static GameView gView;
 
-    public MainView()
+    public AppDisplayWindow()
     {
     }
 
@@ -82,6 +82,7 @@ public class MainView
                                 + "\n Player "
                                 + GameController.getInstance().getBoard()
                                         .getCurrentRoundPlayer().toString());
+                gView.gameStarted();
             }
         });
 
@@ -104,6 +105,7 @@ public class MainView
                                 + "players: "
                                 + GameController.getInstance().getBoard()
                                         .getPlayers());
+                gView.gameStarted();
 
             }
         });
@@ -125,7 +127,9 @@ public class MainView
         try
         {
             createMenuBar();
-            gView = new GameView(null);
+
+            gView = new GameView(GameController.getInstance().getBoard());
+            GameController.getInstance().attach(gView);
             JFrame frame = new JFrame("Havest Festival");
             frame.addWindowListener(new WindowAdapter()
             {
@@ -139,9 +143,9 @@ public class MainView
             Menu menu = new Menu();
             menu.add("save");
             frame.getContentPane().add(gView.getGameCanvas(),
-                    BorderLayout.NORTH);
-            gView.getLogView().setPreferredSize(new Dimension(640, 100));
-            frame.getContentPane().add(gView.getLogView(), BorderLayout.SOUTH);
+                    BorderLayout.CENTER);
+            gView.getLogView().setPreferredSize(new Dimension(300, 500));
+            frame.getContentPane().add(gView.getLogView(), BorderLayout.EAST);
             frame.setMenuBar(getGameMenuBar());
             frame.pack();
             frame.setVisible(true);
@@ -150,8 +154,8 @@ public class MainView
 
         } catch (SlickException ex)
         {
-            Logger.getLogger(MainView.class.getName()).log(Level.SEVERE, null,
-                    ex);
+            Logger.getLogger(AppDisplayWindow.class.getName()).log(
+                    Level.SEVERE, null, ex);
         }
     }
 }

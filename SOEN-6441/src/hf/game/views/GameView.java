@@ -1,8 +1,9 @@
 package hf.game.views;
 
 import hf.game.GameBoard;
+import hf.game.common.GameProperties;
+import hf.game.controller.BoardObserver;
 import hf.ui.GameCanvas;
-import hf.ui.LogView;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -10,11 +11,12 @@ import javax.swing.JPanel;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 
-public class GameView extends JPanel
+public class GameView extends JPanel implements BoardObserver
 {
     private LogView logView;
     private GameBoard gameBoard;
     private CanvasGameContainer appgc;
+    private GameCanvas mainView;
 
     public GameView(GameBoard board) throws SlickException
     {
@@ -30,9 +32,11 @@ public class GameView extends JPanel
 
     private void buildCanvas() throws SlickException
     {
-        GameCanvas mainView = new GameCanvas("Harvest Festival");
+        mainView = new GameCanvas("Harvest Festival");
         appgc = new CanvasGameContainer(mainView);
-        appgc.setBounds(0, 0, 600, 500);
+        mainView.setGameBoard(gameBoard);
+        appgc.setBounds(0, 0, GameProperties.GAME_WINDOW_WIDTH,
+                GameProperties.GAME_WINDOW_HEIGHT);
     }
 
     public CanvasGameContainer getGameCanvas()
@@ -95,5 +99,17 @@ public class GameView extends JPanel
             }
         }
         return ret;
+    }
+
+    public void gameStarted()
+    {
+        mainView.gameStarted();
+    }
+
+    @Override
+    public void update(GameBoard board)
+    {
+        gameBoard = board;
+        mainView.setGameBoard(board);
     }
 }

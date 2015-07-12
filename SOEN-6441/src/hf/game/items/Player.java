@@ -74,4 +74,9 @@ public class Player
     {
         return m_name + " at position " + m_sitLocation;
     }
+
+    public Direction getSitLocation()
+    {
+        return m_sitLocation;
+    }
 }

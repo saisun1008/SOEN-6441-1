@@ -5,9 +5,10 @@ import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
 import hf.game.common.Direction;
 import hf.game.items.Player;
-import hf.ui.LogView;
+import hf.game.views.LogView;
 import hf.util.FileSaver;
 
+import java.awt.Container;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -28,8 +29,9 @@ public class GameController
      *            The extension to filter
      */
 
-    private GameBoard board;
+    private static GameBoard board;
     private GameBoardBuildedr builder;
+    private ArrayList<BoardObserver> observers = new ArrayList<BoardObserver>();
 
     public GameBoard getBoard()
     {
@@ -77,6 +79,20 @@ public class GameController
     protected void fileLoaded(File file) throws FileNotFoundException
     {
         board = new BoardMapper().load(new FileInputStream(file));
+        notifyAllObservers();
+    }
+
+    public void attach(BoardObserver observer)
+    {
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers()
+    {
+        for (BoardObserver observer : observers)
+        {
+            observer.update(board);
+        }
     }
 
     public void saveGame()
@@ -86,7 +102,6 @@ public class GameController
 
     public void newGame()
     {
-        board = new GameBoard();
         builder = new GameBoardBuildedr(board);
         builder.buildAll();
     }

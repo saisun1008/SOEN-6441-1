@@ -8,5 +8,20 @@ package hf.game.common;
  */
 public enum ColorEnum
 {
-    ORANGE, GREEN, PURPLE, GREY, BLUE, RED, BLACK;
+    ORANGE(GameProperties.ORANGE_LANTERN), GREEN(GameProperties.GREEN_LANTERN), PURPLE(
+            GameProperties.PURPLE_LANTERN), WHITE(GameProperties.WHITE_LANTERN), BLUE(
+            GameProperties.BLUE_LANTERN), RED(GameProperties.RED_LANTERN), BLACK(
+            GameProperties.BLACK_LANTERN);
+
+    private String imagePath;
+
+    private ColorEnum(String imagePath)
+    {
+        this.imagePath = imagePath;
+    }
+
+    public String getImagePath()
+    {
+        return this.imagePath;
+    }
 }
