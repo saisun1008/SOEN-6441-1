@@ -1,5 +1,11 @@
 package hf.game.common;
 
+/**
+ * Game properties: e.g UI sizes
+ * 
+ * @author Sai
+ *
+ */
 public class GameProperties
 {
     public static final int GAME_WINDOW_WIDTH = 1000;

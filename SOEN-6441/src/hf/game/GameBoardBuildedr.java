@@ -29,6 +29,9 @@ public class GameBoardBuildedr
         m_board = board;
     }
 
+    /**
+     * Build all the cards
+     */
     public void buildAll()
     {
         loadLakeTileCard();
@@ -37,6 +40,9 @@ public class GameBoardBuildedr
         loadFavorToken();
     }
 
+    /**
+     * Load lake tile cards, now it's randomly creating cards
+     */
     private void loadLakeTileCard()
     {
         m_board.getLakeTileCollection().clear();
@@ -59,6 +65,9 @@ public class GameBoardBuildedr
         m_board.setLakeTileCollection(tiles);
     }
 
+    /**
+     * Load Lattern cards
+     */
     private void loadLatternCard()
     {
         m_board.getLatternCollection().clear();
@@ -74,6 +83,9 @@ public class GameBoardBuildedr
         m_board.setLatternCollection(tiles);
     }
 
+    /**
+     * Load dedication tokens
+     */
     private void loadDedicationCard()
     {
         m_board.getDedicationTokenCollection().clear();
@@ -209,6 +221,9 @@ public class GameBoardBuildedr
         m_board.setDedicationTokenCollection(tiles);
     }
 
+    /**
+     * Load favor tokens
+     */
     private void loadFavorToken()
     {
         m_board.getFavorTokenCollection().clear();
@@ -222,6 +237,12 @@ public class GameBoardBuildedr
         m_board.setFavorTokenCollection(tiles);
     }
 
+    /**
+     * Build players from given names
+     * 
+     * @param names
+     *            names of the players
+     */
     public void buildPlayers(String[] names)
     {
         ArrayList<Player> list = new ArrayList<Player>();

@@ -1,5 +1,11 @@
 package hf.game.common;
 
+/**
+ * Card type enum class, contains number of specific cards
+ * 
+ * @author Sai
+ *
+ */
 public enum CardType
 {
     LATERN(56), LAKETILE(36), DEDICATION(33), FAVOR(20);
