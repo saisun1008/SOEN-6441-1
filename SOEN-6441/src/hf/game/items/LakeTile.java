@@ -26,13 +26,13 @@ public class LakeTile extends Card
     private LakeTile m_bottomAdjacentTile = null;
     private LakeTile m_rightAdjacentTile = null;
     private LakeTile m_leftAdjacentTile = null;
-    private boolean isStartingCard = false;
+    private int rotateDegrees = 0;
 
     public LakeTile()
     {
-        super(0, 0);
+        super();
     }
-
+    
     /**
      * Constructor
      * 
@@ -50,11 +50,11 @@ public class LakeTile extends Card
      * @param leftTile
      */
     public LakeTile(boolean faceup, String image, ColorEnum top,
-            ColorEnum bottom, ColorEnum right, ColorEnum left,
-            boolean specialIcon, BufferedImage icon, LakeTile topTile,
-            LakeTile botTile, LakeTile rightTile, LakeTile leftTile, int index)
+            ColorEnum bottom, ColorEnum right, ColorEnum left, boolean specialIcon,
+            BufferedImage icon, LakeTile topTile, LakeTile botTile,
+            LakeTile rightTile, LakeTile leftTile)
     {
-        super(1, index);
+        super(1);
         super.setImage(image);
         m_isFaceUp = faceup;
         m_topColor = top;
@@ -69,30 +69,25 @@ public class LakeTile extends Card
         m_leftAdjacentTile = leftTile;
     }
 
-    public void setIndex(int i)
-    {
-        super.setIndex(i);
-    }
-
     @Override
     public String getImage()
     {
-        if (!isFaceUp())
+        if(!isFaceUp())
             return "data/laketileback.png";
-
+        
         return super.getImage();
     }
 
-    public boolean isStartingCard()
+    public int getRotateDegrees()
     {
-        return isStartingCard;
+        return rotateDegrees;
     }
 
-    public void setStartingCard(boolean isStartingCard)
+    public void setRotateDegrees(int rotateDegrees)
     {
-        this.isStartingCard = isStartingCard;
+        this.rotateDegrees = rotateDegrees;
     }
-
+    
     public boolean isFaceUp()
     {
         return m_isFaceUp;
@@ -264,12 +259,16 @@ public class LakeTile extends Card
         return false;
     }
 
-    public void rotateTile(int degree)
+    public void rotateTile()
     {
-        switch (degree)
-        {
-        // TODO: implement the logic for rotate a tile
-        }
+        ColorEnum colorEnum = m_topColor;
+        m_topColor = m_rightColor;
+        m_rightColor = m_bottomColor;
+        m_bottomColor = m_leftColor;
+        m_leftColor = colorEnum;
+        rotateDegrees= rotateDegrees+90;
+        if(rotateDegrees==360)
+            rotateDegrees = 0;
     }
 
     @Override

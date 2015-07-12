@@ -3,6 +3,7 @@ package hf.ui.matrix;
 
 import hf.controller.MatrixCalculator;
 import hf.game.items.LakeTile;
+import hf.util.MouseEventValidation;
 
 import org.newdawn.slick.*;
 
@@ -24,8 +25,15 @@ public class MatrixCell extends BasicGame
     
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
-       Image img = new Image(image);
-       img.draw(x, y,size,size);
+        Image img = new Image(image);
+        if(lake!=null &&lake.getRotateDegrees()!=0)
+        {
+            img.setRotation(lake.getRotateDegrees());
+            img.draw(x, y);
+        }else
+        {
+           img.draw(x, y,size,size);
+        }
     }
 
     public void init(GameContainer arg0) throws SlickException
