@@ -122,7 +122,7 @@ public class MatrixCalculator{
                 matrixElement.setSize(matrixElementlenght);
                 if(i==rows/2 && j==cols/2)
                 {
-                    matrixElement.setLake(lakeTiles.get("1"));
+                    matrixElement.setLake(lakeTiles.get(1));
                 }
                 id++;
                 entities.put(matrixElement.getId(),matrixElement);
