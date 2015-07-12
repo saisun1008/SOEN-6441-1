@@ -5,19 +5,15 @@ import hf.game.common.ColorEnum;
 import hf.game.items.Card;
 import hf.game.items.LakeTile;
 import hf.ui.matrix.MatrixCell;
-import hf.util.MouseEventValidation;
 
 import java.util.*;
-
-import org.lwjgl.opengl.Display;
-import org.newdawn.slick.*;
 
 public class MatrixCalculator{
     private int widthStart = 200;
     private int heightStart = 200;
     private int matrixElementlenght = 30;
-    Map<Integer,MatrixCell> entities = new HashMap<>();
-    Map<Integer,LakeTile> lakeTiles = new HashMap<>();
+    private Map<Integer,MatrixCell> entities = new HashMap<>();
+    private Map<Integer,LakeTile> lakeTiles = new HashMap<>();
     private Card selectedCard;
 
     public Map<Integer,MatrixCell> getEntities()
@@ -130,12 +126,17 @@ public class MatrixCalculator{
         }
     }
     
-    public void calculateMatrix(int id)
+    /**
+     * Place lake tile to matrix cell.
+     * 
+     * @param id Lake Tile id
+     */
+    public void placeLakeTile(int id)
     {
         LakeTile lake = entities.get(id).getLake();
         if(id==221 &&lake!=null && !lake.isFaceUp())
         {
-            placeStratLake(lake, id);
+            placeStartLake(lake);
         }else
         {
             if(selectedCard!=null && selectedCard.getCardType()==CardType.LAKETILE)
@@ -143,6 +144,12 @@ public class MatrixCalculator{
         }
     }
     
+    /**
+     * Place new lake tile to matrix cell.
+     * 
+     * @param lake LakeTile
+     * @param id Lake Tile id
+     */
     public void placeNewLake(LakeTile lake,int id)
     {
         LakeTile left = null;
@@ -177,11 +184,16 @@ public class MatrixCalculator{
         giveLanternCard();
     }
     
-    public void placeStratLake(LakeTile lake,int id)
+    /**
+     * Flip start lake tile up
+     * 
+     * @param lake LakeTile
+     */
+    public void placeStartLake(LakeTile lake)
     {
         System.out.println("place start lake.");
         lake.flipFaceUp();
-        entities.get(id).setLake(lake);
+        entities.get(lake.getIndex()).setLake(lake);
         giveLanternCard();
     }
     
