@@ -51,7 +51,7 @@ public class MatrixCalculator{
         initMatrixCell();
     }
     
-    void initLakeTiles()
+    public void initLakeTiles()
     {
         LakeTile lake = new LakeTile();
         lake.setImage("data/starttile.png");
@@ -103,7 +103,7 @@ public class MatrixCalculator{
         lakeTiles.put(lake4.getIndex(), lake4);
     }
     
-    void initMatrixCell()
+    public void initMatrixCell()
     {
         int rows = 21;
         int cols = 21;
