@@ -23,7 +23,7 @@ public class MatrixCalculatorTest
         LakeTile lt = new LakeTile();
         lt.setIndex(1);
         assertFalse(lt.isFaceUp());
-        mc.placeStartLake(lt);
+        mc.placeStartLake(lt,221);
         assertTrue(lt.isFaceUp());
     }
 }

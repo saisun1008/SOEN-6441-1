@@ -136,7 +136,7 @@ public class MatrixCalculator{
         LakeTile lake = entities.get(id).getLake();
         if(id==221 &&lake!=null && !lake.isFaceUp())
         {
-            placeStartLake(lake);
+            placeStartLake(lake,id);
         }else
         {
             if(selectedCard!=null && selectedCard.getCardType()==CardType.LAKETILE)
@@ -189,11 +189,11 @@ public class MatrixCalculator{
      * 
      * @param lake LakeTile
      */
-    public void placeStartLake(LakeTile lake)
+    public void placeStartLake(LakeTile lake,int id)
     {
         System.out.println("place start lake.");
         lake.flipFaceUp();
-        entities.get(lake.getIndex()).setLake(lake);
+        entities.get(id).setLake(lake);
         giveLanternCard();
     }
     
