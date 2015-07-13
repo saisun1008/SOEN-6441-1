@@ -19,14 +19,14 @@ public class TestXmlMapper
 
     private String xmlMock(int value, boolean isTrue)
     {
-        return "<?xml version=\"1.0\" ?><test.dnd.util.TestXmlMapper_-SmallMock>"
+        return "<?xml version=\"1.0\" ?><test.hf.util.TestXmlMapper_-SmallMock>"
                 + "<value>"
                 + value
                 + "</value>"
                 + "<isTrue>"
                 + isTrue
                 + "</isTrue><outer-class></outer-class>"
-                + "</test.dnd.util.TestXmlMapper_-SmallMock>";
+                + "</test.hf.util.TestXmlMapper_-SmallMock>";
     }
 
     @Test
