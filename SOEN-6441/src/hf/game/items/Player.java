@@ -2,7 +2,7 @@ package hf.game.items;
 
 import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
-import hf.game.common.Direction;
+import hf.game.common.LocationEnum;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,7 +18,7 @@ public class Player
     private final ArrayList<Integer> m_favorTokenList = new ArrayList<Integer>();
     private StartPlayerMarker m_startMarker = null;
     private String m_name = null;
-    private Direction m_sitLocation = null;
+    private LocationEnum m_sitLocation = null;
     private GameBoard m_currentBoard = null;
 
     /**
@@ -32,7 +32,7 @@ public class Player
      * @param board
      *            game board object it's located at
      */
-    public Player(String name, Direction sitLocation, GameBoard board)
+    public Player(String name, LocationEnum sitLocation, GameBoard board)
     {
         m_name = name;
         m_sitLocation = sitLocation;
@@ -103,7 +103,7 @@ public class Player
         return m_name + " at position " + m_sitLocation;
     }
 
-    public Direction getSitLocation()
+    public LocationEnum getSitLocation()
     {
         return m_sitLocation;
     }

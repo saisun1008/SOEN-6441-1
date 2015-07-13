@@ -1,11 +1,11 @@
 package hf.ui;
 
+import hf.game.common.GameProperties;
 import hf.game.controller.GameController;
 import hf.game.views.GameView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
@@ -17,16 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import org.lwjgl.opengl.Display;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.CanvasGameContainer;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class AppDisplayWindow
@@ -144,7 +136,8 @@ public class AppDisplayWindow
             menu.add("save");
             frame.getContentPane().add(gView.getGameCanvas(),
                     BorderLayout.CENTER);
-            gView.getLogView().setPreferredSize(new Dimension(300, 500));
+            gView.getLogView().setPreferredSize(
+                    new Dimension(300, GameProperties.GAME_WINDOW_HEIGHT));
             frame.getContentPane().add(gView.getLogView(), BorderLayout.EAST);
             frame.setMenuBar(getGameMenuBar());
             frame.pack();

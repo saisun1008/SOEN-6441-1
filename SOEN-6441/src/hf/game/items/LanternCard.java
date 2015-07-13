@@ -24,11 +24,6 @@ public class LanternCard extends Card
         return m_color;
     }
 
-    public Player getOwner()
-    {
-        return m_owner;
-    }
-
     @Override
     public CardType getCardType()
     {

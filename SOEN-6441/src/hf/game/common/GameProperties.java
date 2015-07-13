@@ -8,8 +8,8 @@ package hf.game.common;
  */
 public class GameProperties
 {
-    public static final int GAME_WINDOW_WIDTH = 1000;
-    public static final int GAME_WINDOW_HEIGHT = 800;
+    public static final int GAME_WINDOW_WIDTH = 1300;
+    public static final int GAME_WINDOW_HEIGHT = 1000;
     public static final int SIDE_PANELMARGIN = 200;
     public static final String RED_LANTERN = "images/cards/red.jpg";
     public static final String BLUE_LANTERN = "images/cards/blue.jpg";
@@ -21,7 +21,7 @@ public class GameProperties
     public static final int DECK_GAP = 50;
     public static final int DECK_HEIGHT = 100;
     public static final int DECK_WIDTH = 100;
-    //200 + 100 + 21*(30+1) +100 +200 + 300 width
-    //100 btn + 120 player + 21*(30+1) +120 player =1000
-    
+    // 200 + 100 + 21*(30+1) +100 +200 + 300 width
+    // 100 btn + 120 player + 21*(30+1) +120 player =1000
+
 }

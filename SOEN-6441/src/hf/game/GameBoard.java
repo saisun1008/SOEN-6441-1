@@ -1,14 +1,13 @@
 package hf.game;
 
 import hf.game.common.ColorEnum;
-import hf.game.common.Direction;
+import hf.game.common.LocationEnum;
 import hf.game.items.DedicationToken;
 import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
 
-import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -53,10 +52,10 @@ public class GameBoard
 
     /**
      * Integer value to indicate which player should be taking this run, it's
-     * related to the Direction ENUM Order is TOP->LEFT->BOT->RIGHT, its range
-     * is [0-3]
+     * related to the LocationEnum ENUM Order is TOP->LEFT->BOT->RIGHT, its
+     * range is [0-3]
      * 
-     * @see Direction
+     * @see LocationEnum
      */
     private int roundExecutor = 0;
 
@@ -110,7 +109,7 @@ public class GameBoard
      * 
      * @return direction of the start player for the game
      */
-    public Direction getStartPlayerByDirection()
+    public LocationEnum getStartPlayerByDirection()
     {
         return getCurrentRoundPlayer().getSitLocation();
     }
@@ -220,5 +219,25 @@ public class GameBoard
     public void setPlayers(ArrayList<Player> m_players)
     {
         this.m_players = m_players;
+    }
+
+    /**
+     * Get player by providing a location
+     * 
+     * @param loc
+     *            location to find the player
+     * @return Player object
+     */
+    public Player getPlayerByLocation(LocationEnum loc)
+    {
+        for (Player p : m_players)
+        {
+            if (p.getSitLocation() == loc)
+            {
+                return p;
+            }
+        }
+
+        return null;
     }
 }

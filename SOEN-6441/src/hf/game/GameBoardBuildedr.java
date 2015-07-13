@@ -1,17 +1,17 @@
 package hf.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-
 import hf.game.common.CardType;
 import hf.game.common.ColorEnum;
-import hf.game.common.Direction;
+import hf.game.common.LocationEnum;
 import hf.game.items.DedicationToken;
 import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Random;
 
 /**
  * GameBoardBuilder should contain the functions to initialize or change game
@@ -22,7 +22,7 @@ import hf.game.items.Player;
  */
 public class GameBoardBuildedr
 {
-    private GameBoard m_board;
+    private final GameBoard m_board;
 
     public GameBoardBuildedr(GameBoard board)
     {
@@ -247,7 +247,7 @@ public class GameBoardBuildedr
         ArrayList<Player> list = new ArrayList<Player>();
         for (int i = 0; i < m_board.getPlayerCount(); i++)
         {
-            Player p = new Player(names[i], Direction.values()[i], m_board);
+            Player p = new Player(names[i], LocationEnum.values()[i], m_board);
             list.add(p);
         }
         m_board.setPlayers(list);
@@ -267,7 +267,7 @@ public class GameBoardBuildedr
         case 2:
             // first build lakeTiles
             m_board.setLakeTileDeck(takeRandomSubset(
-                    m_board.getLakeTileCollection(), 16));
+                    m_board.getLakeTileCollection(), 16, LocationEnum.CENTER));
             // build lantern card decks
             HashMap<ColorEnum, ArrayList<Integer>> decks = new HashMap<ColorEnum, ArrayList<Integer>>();
             for (ColorEnum color : ColorEnum.values())
@@ -315,7 +315,7 @@ public class GameBoardBuildedr
         // case for 3 players
         case 3:
             m_board.setLakeTileDeck(takeRandomSubset(
-                    m_board.getLakeTileCollection(), 18));
+                    m_board.getLakeTileCollection(), 18, LocationEnum.CENTER));
             // build lantern card decks
             HashMap<ColorEnum, ArrayList<Integer>> decks1 = new HashMap<ColorEnum, ArrayList<Integer>>();
             for (ColorEnum color : ColorEnum.values())
@@ -363,7 +363,7 @@ public class GameBoardBuildedr
         // case for 4 players
         case 4:
             m_board.setLakeTileDeck(takeRandomSubset(
-                    m_board.getLakeTileCollection(), 20));
+                    m_board.getLakeTileCollection(), 20, LocationEnum.CENTER));
             // build lantern card decks
             HashMap<ColorEnum, ArrayList<Integer>> decks11 = new HashMap<ColorEnum, ArrayList<Integer>>();
             for (ColorEnum color : ColorEnum.values())
@@ -416,30 +416,43 @@ public class GameBoardBuildedr
      *            subset size
      * @return randomly selected subset
      */
-    private ArrayList<Integer> takeRandomSubset(Iterable<LakeTile> items, int m)
+    private ArrayList<Integer> takeRandomSubset(ArrayList<LakeTile> items,
+            int m, LocationEnum assignTarget)
     {
         ArrayList<Integer> res = new ArrayList<Integer>(m);
         Random rnd = new Random();
         int count = 0;
-        for (LakeTile item : items)
+        while (count <= m)
         {
-            if (item.isStartingCard())
+            int randomIndex = rnd.nextInt(items.size());
+            while (items.get(randomIndex).isStartingCard()
+                    || items.get(randomIndex).getOwner() != null)
             {
-                continue;
+                randomIndex = rnd.nextInt(items.size());
             }
-            count++;
-            if (count <= m)
+            res.add(randomIndex);
+            if (assignTarget != LocationEnum.CENTER)
             {
-                res.add(item.getIndex());
+                items.get(randomIndex).assignToPlayer(
+                        m_board.getPlayerByLocation(assignTarget));
             } else
             {
-                int r = rnd.nextInt(count);
-                if (r < m)
-                {
-                    res.set(r, item.getIndex());
-                }
+                items.get(randomIndex).setOwner(assignTarget);
             }
+            count++;
         }
         return res;
+    }
+
+    /**
+     * This function will will assign intial player hand cards to each player
+     */
+    public void assignInitialHandCards()
+    {
+        for (Player p : m_board.getPlayers())
+        {
+            takeRandomSubset(m_board.getLakeTileCollection(), 3,
+                    p.getSitLocation());
+        }
     }
 }

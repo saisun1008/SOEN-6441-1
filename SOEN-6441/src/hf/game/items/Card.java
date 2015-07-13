@@ -1,8 +1,7 @@
 package hf.game.items;
 
-import java.awt.image.BufferedImage;
-
 import hf.game.common.CardType;
+import hf.game.common.LocationEnum;
 
 /**
  * Abstract card class contains common attributes and functions for cards
@@ -12,7 +11,7 @@ import hf.game.common.CardType;
  */
 public abstract class Card implements Comparable<Card>
 {
-    protected Player m_owner = null;
+    protected LocationEnum m_owner = null;
     protected String m_image = null;
     protected int m_value = 0;
 
@@ -45,7 +44,7 @@ public abstract class Card implements Comparable<Card>
      */
     public void assignToPlayer(Player player)
     {
-        m_owner = player;
+        m_owner = player.getSitLocation();
         if (player != null)
         {
             player.takeCard(this);
@@ -57,7 +56,18 @@ public abstract class Card implements Comparable<Card>
      */
     public void returnToDeck()
     {
-        m_owner = null;
+        m_owner = LocationEnum.CENTER;
+    }
+
+    /**
+     * Set owner of the card, represented by the location of the card
+     * 
+     * @param owner
+     *            location enum of the card
+     */
+    public void setOwner(LocationEnum owner)
+    {
+        m_owner = owner;
     }
 
     /**
@@ -103,7 +113,7 @@ public abstract class Card implements Comparable<Card>
      * 
      * @return
      */
-    public Player getOwner()
+    public LocationEnum getOwner()
     {
         return m_owner;
     }

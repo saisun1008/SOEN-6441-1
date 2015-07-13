@@ -2,7 +2,7 @@ package hf.ui;
 
 import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
-import hf.game.common.Direction;
+import hf.game.common.LocationEnum;
 import hf.game.common.GameProperties;
 import hf.game.items.Player;
 
@@ -90,7 +90,7 @@ public class GameCanvas extends BasicGame
     {
         for (Player player : gameBoard.getPlayers())
         {
-            if (player.getSitLocation() == Direction.TOP)
+            if (player.getSitLocation() == LocationEnum.TOP)
             {
                 g.drawString(player.getName(),
                         GameProperties.GAME_WINDOW_WIDTH / 2, 10);
@@ -100,7 +100,7 @@ public class GameCanvas extends BasicGame
                     g.drawString("(Playing)",
                             GameProperties.GAME_WINDOW_WIDTH / 2 + 60, 10);
                 }
-            } else if (player.getSitLocation() == Direction.LEFT)
+            } else if (player.getSitLocation() == LocationEnum.LEFT)
             {
                 g.drawString(player.getName(),
                         10 + GameProperties.SIDE_PANELMARGIN,
@@ -112,7 +112,7 @@ public class GameCanvas extends BasicGame
                             60 + GameProperties.SIDE_PANELMARGIN,
                             GameProperties.GAME_WINDOW_HEIGHT / 2);
                 }
-            } else if (player.getSitLocation() == Direction.BOTTOM)
+            } else if (player.getSitLocation() == LocationEnum.BOTTOM)
             {
                 g.drawString(player.getName(),
                         GameProperties.GAME_WINDOW_WIDTH / 2,

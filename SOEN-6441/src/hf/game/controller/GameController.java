@@ -3,7 +3,7 @@ package hf.game.controller;
 import hf.game.BoardMapper;
 import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
-import hf.game.common.Direction;
+import hf.game.common.LocationEnum;
 import hf.game.items.Player;
 import hf.game.views.LogView;
 import hf.util.FileSaver;
