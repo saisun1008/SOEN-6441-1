@@ -1,6 +1,6 @@
 <m__LakeTileCollection>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_1.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -16,7 +16,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_2.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -32,7 +32,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_3.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -48,7 +48,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_4.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -64,7 +64,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_5.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -80,7 +80,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_6.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -96,7 +96,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_7.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -112,7 +112,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_8.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -128,7 +128,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_9.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -144,7 +144,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_10.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -160,7 +160,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_11.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -176,7 +176,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_12.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -192,7 +192,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_13.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -208,7 +208,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_14.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -224,7 +224,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_15.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -240,7 +240,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_16.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -256,7 +256,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_17.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -272,7 +272,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_18.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
