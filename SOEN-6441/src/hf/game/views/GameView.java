@@ -35,6 +35,7 @@ public class GameView extends JPanel implements BoardObserver
         mainView = new GameCanvas("Harvest Festival");
         appgc = new CanvasGameContainer(mainView);
         mainView.setGameBoard(gameBoard);
+        mainView.attach(logView);
         appgc.setBounds(0, 0, GameProperties.GAME_WINDOW_WIDTH,
                 GameProperties.GAME_WINDOW_HEIGHT);
     }

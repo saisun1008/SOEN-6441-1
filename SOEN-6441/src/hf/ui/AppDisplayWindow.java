@@ -3,6 +3,7 @@ package hf.ui;
 import hf.game.common.GameProperties;
 import hf.game.controller.GameController;
 import hf.game.views.GameView;
+import hf.ui.matrix.Matrix;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

@@ -89,7 +89,7 @@ public class GameBoard
      */
     public Player getCurrentRoundPlayer()
     {
-        return m_players.get(roundExecutor);
+        return m_players.get(numPlayer - roundExecutor - 1);
     }
 
     /**
@@ -129,7 +129,7 @@ public class GameBoard
      */
     public void getRandomStartPlayer()
     {
-        roundExecutor = new Random().nextInt(numPlayer - 1);
+        roundExecutor = new Random().nextInt(numPlayer);
     }
 
     /**
@@ -239,5 +239,49 @@ public class GameBoard
         }
 
         return null;
+    }
+
+    /**
+     * Get lake tile object by its index
+     * 
+     * @param index
+     * @return Lake tile object
+     */
+    public LakeTile getLakeTileByIndex(int index)
+    {
+        return m_LakeTileCollection.get(index);
+    }
+
+    /**
+     * Get LanternCard object by its index
+     * 
+     * @param index
+     * @return LanternCard object
+     */
+    public LanternCard getLanterCardByIndex(int index)
+    {
+        return m_LatternCollection.get(index);
+    }
+
+    /**
+     * Get DedicationToken object by its index
+     * 
+     * @param index
+     * @return DedicationToken object
+     */
+    public DedicationToken getDedicationTokenByIndex(int index)
+    {
+        return m_DedicationTokenCollection.get(index);
+    }
+
+    /**
+     * Get FavorToken object by its index
+     * 
+     * @param index
+     * @return FavorToken object
+     */
+    public FavorToken getFavorTokenByIndex(int index)
+    {
+        return m_FavorTokenCollection.get(index);
     }
 }

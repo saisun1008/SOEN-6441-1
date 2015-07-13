@@ -50,14 +50,15 @@ public class GameBoardBuildedr
         int index = 0;
         for (; index < CardType.LAKETILE.getNumberOfCard() - 1; index++)
         {
-            LakeTile tile = new LakeTile(false, "images/dummy.jpg",
+            LakeTile tile = new LakeTile(false, "images/tiles/foldedTile.jpg",
                     ColorEnum.RED, ColorEnum.BLUE, ColorEnum.GREEN,
                     ColorEnum.WHITE, false, index);
             tiles.add(tile);
         }
         // add the special starting card
-        LakeTile tile = new LakeTile(false, "images/dummy.jpg", ColorEnum.RED,
-                ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE, false, index);
+        LakeTile tile = new LakeTile(false, "images/tiles/foldedTile.jpg",
+                ColorEnum.RED, ColorEnum.BLUE, ColorEnum.GREEN,
+                ColorEnum.WHITE, false, index);
         tile.setStartingCard(true);
         tiles.add(tile);
 
@@ -229,7 +230,7 @@ public class GameBoardBuildedr
         ArrayList<FavorToken> tiles = new ArrayList<FavorToken>();
         for (int index = 0; index < CardType.FAVOR.getNumberOfCard(); index++)
         {
-            FavorToken tile = new FavorToken(null, index);
+            FavorToken tile = new FavorToken("images/favor_token.jpg", index);
             tiles.add(tile);
         }
 
@@ -237,7 +238,9 @@ public class GameBoardBuildedr
     }
 
     /**
-     * Build players from given names
+     * Build players from given names, and initialize every data structure
+     * related to players: decks, initial hand cards, and randomly selected
+     * start player
      * 
      * @param names
      *            names of the players
@@ -252,6 +255,8 @@ public class GameBoardBuildedr
         }
         m_board.setPlayers(list);
         buildDecks();
+        assignInitialHandCards();
+        m_board.getRandomStartPlayer();
 
     }
 
@@ -422,7 +427,7 @@ public class GameBoardBuildedr
         ArrayList<Integer> res = new ArrayList<Integer>(m);
         Random rnd = new Random();
         int count = 0;
-        while (count <= m)
+        while (count < m)
         {
             int randomIndex = rnd.nextInt(items.size());
             while (items.get(randomIndex).isStartingCard()

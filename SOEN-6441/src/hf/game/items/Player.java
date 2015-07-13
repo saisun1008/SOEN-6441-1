@@ -12,10 +12,31 @@ import java.util.List;
 
 public class Player
 {
-    private final HashMap<ColorEnum, ArrayList<Integer>> m_lanternList = new HashMap<ColorEnum, ArrayList<Integer>>();
-    private final ArrayList<Integer> m_lakeTileList = new ArrayList<Integer>();
-    private final HashMap<ColorEnum, ArrayList<Integer>> m_dedicationTokenList = new HashMap<ColorEnum, ArrayList<Integer>>();
-    private final ArrayList<Integer> m_favorTokenList = new ArrayList<Integer>();
+    private final HashMap<ColorEnum, ArrayList<Integer>> lanternList = new HashMap<ColorEnum, ArrayList<Integer>>();
+    private final ArrayList<Integer> lakeTileList = new ArrayList<Integer>();
+    private final HashMap<ColorEnum, ArrayList<Integer>> dedicationTokenList = new HashMap<ColorEnum, ArrayList<Integer>>();
+    private final ArrayList<Integer> favorTokenList = new ArrayList<Integer>();
+
+    public HashMap<ColorEnum, ArrayList<Integer>> getLanternList()
+    {
+        return lanternList;
+    }
+
+    public ArrayList<Integer> getLakeTileList()
+    {
+        return lakeTileList;
+    }
+
+    public HashMap<ColorEnum, ArrayList<Integer>> getDedicationTokenList()
+    {
+        return dedicationTokenList;
+    }
+
+    public ArrayList<Integer> getFavorTokenList()
+    {
+        return favorTokenList;
+    }
+
     private StartPlayerMarker m_startMarker = null;
     private String m_name = null;
     private LocationEnum m_sitLocation = null;
@@ -36,10 +57,10 @@ public class Player
     {
         m_name = name;
         m_sitLocation = sitLocation;
-        m_lakeTileList.clear();
-        m_lakeTileList.clear();
-        m_dedicationTokenList.clear();
-        m_favorTokenList.clear();
+        lakeTileList.clear();
+        lakeTileList.clear();
+        dedicationTokenList.clear();
+        favorTokenList.clear();
         m_currentBoard = board;
     }
 
@@ -49,10 +70,10 @@ public class Player
         {
         case DEDICATION:
             ArrayList<Integer> list;
-            if (m_dedicationTokenList.containsKey(((DedicationToken) card)
+            if (dedicationTokenList.containsKey(((DedicationToken) card)
                     .getColor()))
             {
-                list = m_dedicationTokenList.get(((DedicationToken) card)
+                list = dedicationTokenList.get(((DedicationToken) card)
                         .getColor());
                 list.add(card.getIndex());
 
@@ -62,18 +83,17 @@ public class Player
                 list.add(card.getIndex());
 
             }
-            m_dedicationTokenList
-                    .put(((DedicationToken) card).getColor(), list);
+            dedicationTokenList.put(((DedicationToken) card).getColor(), list);
             break;
 
         case FAVOR:
-            m_favorTokenList.add(card.getIndex());
+            favorTokenList.add(card.getIndex());
             break;
         case LATERN:
             ArrayList<Integer> list1;
-            if (m_lanternList.containsKey(((LanternCard) card).getColor()))
+            if (lanternList.containsKey(((LanternCard) card).getColor()))
             {
-                list1 = m_lanternList.get(((LanternCard) card).getColor());
+                list1 = lanternList.get(((LanternCard) card).getColor());
                 list1.add(card.getIndex());
 
             } else
@@ -82,11 +102,11 @@ public class Player
                 list1.add(card.getIndex());
 
             }
-            m_lanternList.put(((LanternCard) card).getColor(), list1);
+            lanternList.put(((LanternCard) card).getColor(), list1);
             break;
 
         case LAKETILE:
-            m_lakeTileList.add(card.getIndex());
+            lakeTileList.add(card.getIndex());
             // we may need to sort
             // Collections.sort(m_lakeTileList);
             break;

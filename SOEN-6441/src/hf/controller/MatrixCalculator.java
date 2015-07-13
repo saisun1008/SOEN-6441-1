@@ -11,7 +11,7 @@ import java.util.*;
 public class MatrixCalculator
 {
     private int widthStart = 300;
-    private int heightStart = 220;
+    private int heightStart = 150;
     private int matrixElementlenght = 30;
     private Map<Integer, MatrixCell> entities = new HashMap<>();
     private Map<Integer, LakeTile> lakeTiles = new HashMap<>();
@@ -72,7 +72,7 @@ public class MatrixCalculator
         lake2.set_bottomColor(ColorEnum.RED);
         lake2.set_leftColor(ColorEnum.WHITE);
         lake2.setX(200);
-        lake2.setY(150);
+        lake2.setY(80);
         lake2.setSize(30);
         lake2.setIndex(2);
         lake2.flipFaceUp();
@@ -84,7 +84,7 @@ public class MatrixCalculator
         lake3.set_bottomColor(ColorEnum.RED);
         lake3.set_leftColor(ColorEnum.WHITE);
         lake3.setX(231);
-        lake3.setY(150);
+        lake3.setY(80);
         lake3.setSize(30);
         lake3.setIndex(3);
         lake3.flipFaceUp();
@@ -96,7 +96,7 @@ public class MatrixCalculator
         lake4.set_bottomColor(ColorEnum.RED);
         lake4.set_leftColor(ColorEnum.WHITE);
         lake4.setX(262);
-        lake4.setY(150);
+        lake4.setY(80);
         lake4.setSize(30);
         lake4.setIndex(4);
         lake4.flipFaceUp();

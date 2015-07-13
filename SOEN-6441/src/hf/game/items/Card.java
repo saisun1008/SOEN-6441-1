@@ -44,9 +44,10 @@ public abstract class Card implements Comparable<Card>
      */
     public void assignToPlayer(Player player)
     {
-        m_owner = player.getSitLocation();
+        m_owner = null;
         if (player != null)
         {
+            m_owner = player.getSitLocation();
             player.takeCard(this);
         }
     }

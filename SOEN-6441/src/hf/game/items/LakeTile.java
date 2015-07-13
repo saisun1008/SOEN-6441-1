@@ -152,8 +152,8 @@ public class LakeTile extends Card
         m_rightColor = m_bottomColor;
         m_bottomColor = m_leftColor;
         m_leftColor = colorEnum;
-        rotateDegrees= rotateDegrees+90;
-        if(rotateDegrees==360)
+        rotateDegrees = rotateDegrees + 90;
+        if (rotateDegrees == 360)
             rotateDegrees = 0;
     }
 
@@ -168,7 +168,7 @@ public class LakeTile extends Card
     {
         return 0;
     }
-    
+
     public int getRotateDegrees()
     {
         return rotateDegrees;
