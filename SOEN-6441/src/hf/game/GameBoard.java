@@ -8,8 +8,10 @@ import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
 
+import java.nio.file.DirectoryStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 /**
  * Game board should contain everything the game needs, players, decks of
@@ -104,6 +106,16 @@ public class GameBoard
     }
 
     /**
+     * Return the start player represented by his/her direction
+     * 
+     * @return direction of the start player for the game
+     */
+    public Direction getStartPlayerByDirection()
+    {
+        return getCurrentRoundPlayer().getSitLocation();
+    }
+
+    /**
      * Set how many players are in the game
      * 
      * @param num
@@ -113,6 +125,19 @@ public class GameBoard
         numPlayer = num;
     }
 
+    /**
+     * initialize the roundExecutor, random among the number of players
+     */
+    public void getRandomStartPlayer()
+    {
+        roundExecutor = new Random().nextInt(numPlayer - 1);
+    }
+
+    /**
+     * Get number count of current players
+     * 
+     * @return player count
+     */
     public int getPlayerCount()
     {
         return numPlayer;

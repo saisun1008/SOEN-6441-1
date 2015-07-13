@@ -1,18 +1,20 @@
 package hf.game.items;
 
 import hf.game.GameBoard;
+import hf.game.common.ColorEnum;
 import hf.game.common.Direction;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 public class Player
 {
-    private final ArrayList<Integer> m_lanternList = new ArrayList<Integer>();
+    private final HashMap<ColorEnum, ArrayList<Integer>> m_lanternList = new HashMap<ColorEnum, ArrayList<Integer>>();
     private final ArrayList<Integer> m_lakeTileList = new ArrayList<Integer>();
-    private final ArrayList<Integer> m_dedicationTokenList = new ArrayList<Integer>();
+    private final HashMap<ColorEnum, ArrayList<Integer>> m_dedicationTokenList = new HashMap<ColorEnum, ArrayList<Integer>>();
     private final ArrayList<Integer> m_favorTokenList = new ArrayList<Integer>();
     private StartPlayerMarker m_startMarker = null;
     private String m_name = null;
@@ -46,15 +48,41 @@ public class Player
         switch (card.getCardType())
         {
         case DEDICATION:
-            m_dedicationTokenList.add(card.getIndex());
+            ArrayList<Integer> list;
+            if (m_dedicationTokenList.containsKey(((DedicationToken) card)
+                    .getColor()))
+            {
+                list = m_dedicationTokenList.get(((DedicationToken) card)
+                        .getColor());
+                list.add(card.getIndex());
+
+            } else
+            {
+                list = new ArrayList<Integer>();
+                list.add(card.getIndex());
+
+            }
+            m_dedicationTokenList
+                    .put(((DedicationToken) card).getColor(), list);
             break;
 
         case FAVOR:
             m_favorTokenList.add(card.getIndex());
             break;
         case LATERN:
-            m_lanternList.add(card.getIndex());
-            Collections.sort(m_lanternList);
+            ArrayList<Integer> list1;
+            if (m_lanternList.containsKey(((LanternCard) card).getColor()))
+            {
+                list1 = m_lanternList.get(((LanternCard) card).getColor());
+                list1.add(card.getIndex());
+
+            } else
+            {
+                list1 = new ArrayList<Integer>();
+                list1.add(card.getIndex());
+
+            }
+            m_lanternList.put(((LanternCard) card).getColor(), list1);
             break;
 
         case LAKETILE:
