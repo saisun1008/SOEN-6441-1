@@ -1,4 +1,3 @@
-</m__LatternCollection>
 <m__LakeTileCollection>
 <hf.game.items.LakeTile>
 <m__image>images/dummy.jpg</m__image>
@@ -8,10 +7,10 @@
 <size>0</size>
 <m__cardIndex>0</m__cardIndex>
 <m__isFaceUp>false</m__isFaceUp>
-<m__topColor>RED</m__topColor>
-<m__bottomColor>BLUE</m__bottomColor>
-<m__rightColor>GREEN</m__rightColor>
-<m__leftColor>WHITE</m__leftColor>
+<m__topColor>GREEN</m__topColor>
+<m__bottomColor>BLACK</m__bottomColor>
+<m__rightColor>BLUE</m__rightColor>
+<m__leftColor>ORANGE</m__leftColor>
 <m__hasSpecialIcon>false</m__hasSpecialIcon>
 <isStartingCard>false</isStartingCard>
 <rotateDegrees>0</rotateDegrees>
