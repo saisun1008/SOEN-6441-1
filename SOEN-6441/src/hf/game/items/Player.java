@@ -40,7 +40,7 @@ public class Player
     private StartPlayerMarker m_startMarker = null;
     private String m_name = null;
     private LocationEnum m_sitLocation = null;
-    private GameBoard m_currentBoard = null;
+//not use delete by yin    private GameBoard m_currentBoard = null;
 
     /**
      * Default constructor, include name of the player, sit position of the
@@ -53,7 +53,7 @@ public class Player
      * @param board
      *            game board object it's located at
      */
-    public Player(String name, LocationEnum sitLocation, GameBoard board)
+    public Player(String name, LocationEnum sitLocation)
     {
         m_name = name;
         m_sitLocation = sitLocation;
@@ -61,7 +61,7 @@ public class Player
         lakeTileList.clear();
         dedicationTokenList.clear();
         favorTokenList.clear();
-        m_currentBoard = board;
+//not use delete by yin        m_currentBoard = board;
     }
 
     public void takeCard(Card card)

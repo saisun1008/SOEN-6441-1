@@ -86,6 +86,7 @@ public class GameController
     {
         int playernum = board.getPlayerCount();
         
+        
         return 1;
     }
 

@@ -250,7 +250,7 @@ public class GameBoardBuildedr
         ArrayList<Player> list = new ArrayList<Player>();
         for (int i = 0; i < m_board.getPlayerCount(); i++)
         {
-            Player p = new Player(names[i], LocationEnum.values()[i], m_board);
+            Player p = new Player(names[i], LocationEnum.values()[i]);
             list.add(p);
         }
         m_board.setPlayers(list);
