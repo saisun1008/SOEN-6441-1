@@ -96,7 +96,7 @@ public class GameBoardBuildedr
         ColorEnum color = ColorEnum.RED;
 
         // generate RED dedication tokens
-        for (; index < 10; index++)
+        for (index = 0; index < 9; index++)
         {
             int numDots = 0;
             if (index <= 0)
@@ -123,7 +123,7 @@ public class GameBoardBuildedr
                 {
                     numDots = 3;
                 }
-            } else if (index <= 9)
+            } else if (index <= 8)
             {
                 value = 4;
             }
@@ -134,34 +134,34 @@ public class GameBoardBuildedr
 
         // generate BLUE dedication tokens
         color = ColorEnum.BLUE;
-        for (; index < 20; index++)
+        for (index = 0; index < 9; index++)
         {
             int numDots = 0;
-            if (index - 10 <= 0)
+            if (index <= 0)
             {
                 value = 9;
-            } else if (index - 10 <= 2)
+            } else if (index <= 2)
             {
                 value = 8;
-                if (index - 10 == 2)
+                if (index == 2)
                 {
                     numDots = 4;
                 }
-            } else if (index - 10 <= 4)
+            } else if (index <= 4)
             {
                 value = 7;
-                if (index - 10 == 4)
+                if (index == 4)
                 {
                     numDots = 3;
                 }
-            } else if (index - 10 <= 6)
+            } else if (index <= 6)
             {
                 value = 6;
-                if (index - 10 == 6)
+                if (index == 6)
                 {
                     numDots = 3;
                 }
-            } else if (index - 10 <= 9)
+            } else if (index <= 8)
             {
                 value = 5;
             }
@@ -172,37 +172,37 @@ public class GameBoardBuildedr
 
         // generate GREEN dedication tokens
         color = ColorEnum.GREEN;
-        for (; index < 30; index++)
+        for (index = 0; index < 9; index++)
         {
             int numDots = 0;
-            if (index - 20 <= 0)
+            if (index <= 0)
             {
                 value = 10;
-            } else if (index - 20 <= 2)
+            } else if (index <= 2)
             {
                 value = 9;
-                if (index - 20 == 2)
+                if (index == 2)
                 {
                     numDots = 4;
                 }
-            } else if (index - 20 <= 4)
+            } else if (index <= 4)
             {
                 value = 8;
-                if (index - 20 == 4)
+                if (index == 4)
                 {
                     numDots = 3;
                 }
-            } else if (index - 20 <= 6)
+            } else if (index <= 6)
             {
                 value = 7;
-                if (index - 20 == 6)
+                if (index == 6)
                 {
                     numDots = 3;
                 }
-            } else if (index - 20 <= 8)
+            } else if (index <= 7)
             {
                 value = 6;
-            } else
+            } else if (index <= 8)
             {
                 value = 5;
             }
@@ -212,7 +212,7 @@ public class GameBoardBuildedr
         }
 
         // Generate 3 grey cards
-        for (; index < 33; index++)
+        for (index = 0; index < 3; index++)
         {
             DedicationToken tile = new DedicationToken(4, null, index,
                     ColorEnum.WHITE, 0);
