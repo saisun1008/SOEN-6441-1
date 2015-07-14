@@ -37,7 +37,7 @@ public class Player
         return favorTokenList;
     }
 
-    private StartPlayerMarker m_startMarker = null;
+//not use delete by yin    private StartPlayerMarker m_startMarker = null;
     private String m_name = null;
     private LocationEnum m_sitLocation = null;
 //not use delete by yin    private GameBoard m_currentBoard = null;
