@@ -8,7 +8,11 @@ import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
+import hf.util.XmlMapper;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
@@ -47,21 +51,35 @@ public class GameBoardBuildedr
     {
         m_board.getLakeTileCollection().clear();
         ArrayList<LakeTile> tiles = new ArrayList<LakeTile>();
-        int index = 0;
-        for (; index < CardType.LAKETILE.getNumberOfCard() - 1; index++)
+        File laketileFile = new File("data/lakeTile.xml");
+        if (laketileFile.exists())
         {
+            XmlMapper<ArrayList<LakeTile>> mapper = new XmlMapper<>();
+            try
+            {
+                tiles = mapper.load(new FileInputStream(laketileFile));
+            } catch (FileNotFoundException e)
+            {
+                e.printStackTrace();
+            }
+        } else
+        {
+            int index = 0;
+            for (; index < CardType.LAKETILE.getNumberOfCard() - 1; index++)
+            {
+                LakeTile tile = new LakeTile(false,
+                        "images/tiles/foldedTile.jpg", ColorEnum.RED,
+                        ColorEnum.BLUE, ColorEnum.GREEN, ColorEnum.WHITE,
+                        false, index);
+                tiles.add(tile);
+            }
+            // add the special starting card
             LakeTile tile = new LakeTile(false, "images/tiles/foldedTile.jpg",
                     ColorEnum.RED, ColorEnum.BLUE, ColorEnum.GREEN,
                     ColorEnum.WHITE, false, index);
+            tile.setStartingCard(true);
             tiles.add(tile);
         }
-        // add the special starting card
-        LakeTile tile = new LakeTile(false, "images/tiles/foldedTile.jpg",
-                ColorEnum.RED, ColorEnum.BLUE, ColorEnum.GREEN,
-                ColorEnum.WHITE, false, index);
-        tile.setStartingCard(true);
-        tiles.add(tile);
-
         m_board.setLakeTileCollection(tiles);
     }
 

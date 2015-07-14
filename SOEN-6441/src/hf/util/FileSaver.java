@@ -1,9 +1,12 @@
 package hf.util;
 
+import hf.game.GameBoard;
+import hf.game.items.LakeTile;
 import hf.game.items.Player;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -70,6 +73,11 @@ public final class FileSaver
      */
     public static String savePlayer(Player player)
     {
-        return saveFileDialog(player, "Player Files", "char");
+        return saveFileDialog(player, "Player Files", "player");
+    }
+
+    public static String saveLakeTileCollection(ArrayList<LakeTile> list)
+    {
+        return saveFileDialog(list, "Player Files", "laketile");
     }
 }

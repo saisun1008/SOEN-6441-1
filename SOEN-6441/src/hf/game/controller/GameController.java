@@ -3,21 +3,13 @@ package hf.game.controller;
 import hf.game.BoardMapper;
 import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
-import hf.game.common.ColorEnum;
-import hf.game.common.LocationEnum;
-import hf.game.items.DedicationToken;
 import hf.game.items.LakeTile;
-import hf.game.items.LanternCard;
-import hf.game.items.Player;
-import hf.game.views.LogView;
 import hf.util.FileSaver;
 
-import java.awt.Container;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -86,23 +78,24 @@ public class GameController
         board = new BoardMapper().load(new FileInputStream(file));
         notifyAllObservers();
     }
-    
+
     /**
-     * verified LakeTile Card in the saved xml file when it loaded
-     * project build 1 check the card collection correct;
+     * verified LakeTile Card in the saved xml file when it loaded project build
+     * 1 check the card collection correct;
+     * 
      * @param board
-     * @return 0 success, 1 failed 
-     */    
+     * @return 0 success, 1 failed
+     */
     protected int verifiedLakeTileCard(GameBoard board)
     {
         int returnvalue = 0;
         int index = 0;
         // first check lakeTilesCollection
         ArrayList<LakeTile> LakeTileCollection = board.getLakeTileCollection();
-        for(index = 0; index <= LakeTileCollection.size(); index++)
+        for (index = 0; index <= LakeTileCollection.size(); index++)
         {
             LakeTile LakeTileCard = LakeTileCollection.get(index);
-            if(LakeTileCard.getIndex()== index)
+            if (LakeTileCard.getIndex() == index)
             {
                 LakeTileCollection.remove(index);
             }
@@ -110,50 +103,52 @@ public class GameController
         if (!LakeTileCollection.isEmpty())
         {
             returnvalue = 1;
-        }            
+        }
         return returnvalue;
     }
-    
+
     /**
-     * verified Lattern card in the saved xml file when it loaded
-     * project build 1 check the card collection correct;
+     * verified Lattern card in the saved xml file when it loaded project build
+     * 1 check the card collection correct;
+     * 
      * @param board
-     * @return 0 success, 1 failed 
-     */ 
+     * @return 0 success, 1 failed
+     */
     protected int verifiedLatternCard(GameBoard board)
     {
         int returnvalue = 0;
         return returnvalue;
     }
-    
+
     /**
-     * verified Dedication card in the saved xml file when it loaded
-     * project build 1 check the card collection correct;
+     * verified Dedication card in the saved xml file when it loaded project
+     * build 1 check the card collection correct;
+     * 
      * @param board
-     * @return 0 success, 1 failed 
-     */ 
+     * @return 0 success, 1 failed
+     */
     protected int verifiedDedicationCard(GameBoard board)
     {
         int returnvalue = 0;
         return returnvalue;
     }
-    
+
     /**
-     * verified FavorToken card in the saved xml file when it loaded
-     * project build 1 check the card collection correct;
+     * verified FavorToken card in the saved xml file when it loaded project
+     * build 1 check the card collection correct;
+     * 
      * @param board
-     * @return 0 success, 1 failed 
-     */ 
+     * @return 0 success, 1 failed
+     */
     protected int verifiedFavorToken(GameBoard board)
     {
         int returnvalue = 0;
-        if(board.getFavorTokenCollection().size() != 20)
+        if (board.getFavorTokenCollection().size() != 20)
         {
             returnvalue = 1;
         }
         return returnvalue;
     }
-    
 
     public void attach(BoardObserver observer)
     {
