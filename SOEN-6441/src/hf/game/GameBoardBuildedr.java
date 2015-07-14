@@ -47,7 +47,7 @@ public class GameBoardBuildedr
     /**
      * Load lake tile cards, now it's randomly creating cards
      */
-    private void loadLakeTileCard()
+    public void loadLakeTileCard()
     {
         m_board.getLakeTileCollection().clear();
         ArrayList<LakeTile> tiles = new ArrayList<LakeTile>();
@@ -86,7 +86,7 @@ public class GameBoardBuildedr
     /**
      * Load Lattern cards
      */
-    private void loadLatternCard()
+    public void loadLatternCard()
     {
         m_board.getLatternCollection().clear();
         ArrayList<LanternCard> tiles = new ArrayList<LanternCard>();
@@ -104,7 +104,7 @@ public class GameBoardBuildedr
     /**
      * Load dedication tokens
      */
-    private void loadDedicationCard()
+    public void loadDedicationCard()
     {
         m_board.getDedicationTokenCollection().clear();
         ArrayList<DedicationToken> tiles = new ArrayList<DedicationToken>();
@@ -242,7 +242,7 @@ public class GameBoardBuildedr
     /**
      * Load favor tokens
      */
-    private void loadFavorToken()
+    public void loadFavorToken()
     {
         m_board.getFavorTokenCollection().clear();
         ArrayList<FavorToken> tiles = new ArrayList<FavorToken>();
@@ -439,7 +439,7 @@ public class GameBoardBuildedr
      *            subset size
      * @return randomly selected subset
      */
-    private ArrayList<Integer> takeRandomSubset(ArrayList<LakeTile> items,
+    public ArrayList<Integer> takeRandomSubset(ArrayList<LakeTile> items,
             int m, LocationEnum assignTarget)
     {
         ArrayList<Integer> res = new ArrayList<Integer>(m);
