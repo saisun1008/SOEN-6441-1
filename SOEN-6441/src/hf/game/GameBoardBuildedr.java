@@ -437,6 +437,9 @@ public class GameBoardBuildedr
      *            list of the items
      * @param m
      *            subset size
+     * 
+     * @param assignTarget
+     *            target to be given the random selected items
      * @return randomly selected subset
      */
     public ArrayList<Integer> takeRandomSubset(ArrayList<LakeTile> items,
