@@ -16,6 +16,26 @@ public class MatrixCalculatorTest
     {
         mc.init();
     }
+
+    @Test
+    public void testPlaceLakeTile()
+    {
+        // No selected card
+        mc.setSelectedCard(null);
+        mc.placeLakeTile(3);
+        assertNull(mc.getEntities().get(3).getLake());
+    }
+
+    @Test
+    public void testPlaceNewLake()
+    {
+        mc.placeNewLake(new LakeTile(), 221);
+        mc.placeNewLake(new LakeTile(), 200);
+        assertNotNull(mc.getEntities().get(221 - 21).getLake());
+        assertNull(mc.getEntities().get(221 + 21).getLake());
+        assertNull(mc.getEntities().get(221 - 1).getLake());
+        assertNull(mc.getEntities().get(221 + 1).getLake());
+    }
     
     @Test
     public void testPlaceStartLake()
