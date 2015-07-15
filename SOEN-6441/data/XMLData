@@ -352,7 +352,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_22.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -368,7 +368,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_23.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -384,7 +384,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_24.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -400,7 +400,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_25.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -416,7 +416,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_26.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -432,7 +432,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_27.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -448,7 +448,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_28.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -464,7 +464,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_29.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
@@ -480,7 +480,7 @@
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
 <hf.game.items.LakeTile>
-<m__image>images/dummy.jpg</m__image>
+<m__image>images\Laketiles\LakeTile_30.jpg</m__image>
 <m__value>1</m__value>
 <x>0</x>
 <y>0</y>
