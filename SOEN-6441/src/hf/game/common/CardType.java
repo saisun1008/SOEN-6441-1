@@ -8,7 +8,7 @@ package hf.game.common;
  */
 public enum CardType
 {
-    LATERN(56), LAKETILE(36), DEDICATION(33), FAVOR(20);
+    LATERN(56), LAKETILE(36), DEDICATION(30), FAVOR(20);
 
     private int m_numberOfCard;
 
