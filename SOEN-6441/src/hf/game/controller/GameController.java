@@ -96,7 +96,6 @@ public class GameController
         {
             System.out.println("token ok");
         }        
-
         notifyAllObservers();
     }
 
