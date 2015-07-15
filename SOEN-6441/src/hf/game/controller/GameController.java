@@ -3,6 +3,8 @@ package hf.game.controller;
 import hf.game.BoardMapper;
 import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
+import hf.game.common.ColorEnum;
+import hf.game.items.DedicationToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.util.FileSaver;
@@ -167,6 +169,152 @@ public class GameController
     protected int verifiedDedicationCard(GameBoard board)
     {
         int returnvalue = 0;
+        ArrayList<DedicationToken> tiles = new ArrayList<DedicationToken>();
+        int index = 0,index_dedication=0;
+        int value = 8;
+        ColorEnum color = ColorEnum.RED;
+
+        // generate RED dedication tokens
+        for (index = 0; index < 9; index++)
+        {
+            int numDots = 0;
+            if (index <= 0)
+            {
+                value = 8;
+            } else if (index <= 2)
+            {
+                value = 7;
+                if (index == 2)
+                {
+                    numDots = 4;
+                }
+            } else if (index <= 4)
+            {
+                value = 6;
+                if (index == 4)
+                {
+                    numDots = 3;
+                }
+            } else if (index <= 7)
+            {
+                value = 5;
+                if (index == 7)
+                {
+                    numDots = 3;
+                }
+            } else if (index <= 8)
+            {
+                value = 4;
+            }
+            DedicationToken tile = new DedicationToken(value, null, index,
+                    color, numDots);
+            tiles.add(tile);
+        }
+
+        // generate BLUE dedication tokens
+        color = ColorEnum.BLUE;
+        for (index = 0; index < 9; index++)
+        {
+            int numDots = 0;
+            if (index <= 0)
+            {
+                value = 9;
+            } else if (index <= 2)
+            {
+                value = 8;
+                if (index == 2)
+                {
+                    numDots = 4;
+                }
+            } else if (index <= 4)
+            {
+                value = 7;
+                if (index == 4)
+                {
+                    numDots = 3;
+                }
+            } else if (index <= 6)
+            {
+                value = 6;
+                if (index == 6)
+                {
+                    numDots = 3;
+                }
+            } else if (index <= 8)
+            {
+                value = 5;
+            }
+            DedicationToken tile = new DedicationToken(value, null, index,
+                    color, numDots);
+            tiles.add(tile);
+        }
+
+        // generate GREEN dedication tokens
+        color = ColorEnum.GREEN;
+        for (index = 0; index < 9; index++)
+        {
+            int numDots = 0;
+            if (index <= 0)
+            {
+                value = 10;
+            } else if (index <= 2)
+            {
+                value = 9;
+                if (index == 2)
+                {
+                    numDots = 4;
+                }
+            } else if (index <= 4)
+            {
+                value = 8;
+                if (index == 4)
+                {
+                    numDots = 3;
+                }
+            } else if (index <= 6)
+            {
+                value = 7;
+                if (index == 6)
+                {
+                    numDots = 3;
+                }
+            } else if (index <= 7)
+            {
+                value = 6;
+            } else if (index <= 8)
+            {
+                value = 5;
+            }
+            DedicationToken tile = new DedicationToken(value, null, index,
+                    color, numDots);
+            tiles.add(tile);
+        }
+
+        // Generate 3 grey cards
+        for (index = 0; index < 3; index++)
+        {
+            DedicationToken tile = new DedicationToken(4, null, index,
+                    ColorEnum.WHITE, 0);
+            tiles.add(tile);
+        }
+        
+        ArrayList<DedicationToken> compare_tiles = board.getDedicationTokenCollection();
+        for (index = 0; index <= compare_tiles.size(); index++)
+        {
+            DedicationToken DedicationCard = compare_tiles.get(index);
+            for(index_dedication = 0;index_dedication<=tiles.size();index_dedication++)
+            {
+                if(DedicationCard.equals(tiles.get(index_dedication)))
+                {
+                    tiles.remove(index_dedication);
+                }
+            }
+        }
+        if (!tiles.isEmpty())
+        {
+            returnvalue = 1;
+        }
+        
         return returnvalue;
     }
 
