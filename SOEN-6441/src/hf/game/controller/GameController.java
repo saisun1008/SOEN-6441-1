@@ -4,6 +4,7 @@ import hf.game.BoardMapper;
 import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
 import hf.game.items.LakeTile;
+import hf.game.items.LanternCard;
 import hf.util.FileSaver;
 
 import java.io.File;
@@ -117,6 +118,42 @@ public class GameController
     protected int verifiedLatternCard(GameBoard board)
     {
         int returnvalue = 0;
+        int index = 0;
+        int ORANGE = 8,GREEN = 8,PURPLE = 8,WHITE = 8,BLUE = 8,RED = 8,BLACK = 8;
+        ArrayList<LanternCard> LanternCardCollection = board.getLatternCollection();
+        for (index = 0; index <= LanternCardCollection.size(); index++)
+        {
+            LanternCard Lantern = LanternCardCollection.get(index);
+            if (Lantern.getColor().name() == "ORANGE")
+            {
+                ORANGE--;
+            }
+            else if (Lantern.getColor().name() == "GREEN")
+            {
+                GREEN--;
+            }
+            else if (Lantern.getColor().name() == "PURPLE")
+            {
+                PURPLE--;
+            }
+            else if (Lantern.getColor().name() == "WHITE")
+            {
+                WHITE--;
+            }else if (Lantern.getColor().name() == "BLUE")
+            {
+                BLUE--;
+            }else if (Lantern.getColor().name() == "RED")
+            {
+                RED--;
+            }else if (Lantern.getColor().name() == "BLACK")
+            {
+                BLACK--;
+            }
+        }
+        if(ORANGE!=0&&GREEN!=0&&PURPLE!=0&&WHITE!=0&&BLUE!=0&&RED!=0&&BLACK!=0)
+        {
+            returnvalue = 1;
+        }
         return returnvalue;
     }
 
