@@ -77,8 +77,26 @@ public class GameController
     }
 
     protected void fileLoaded(File file) throws FileNotFoundException
-    {
+    {  
         board = new BoardMapper().load(new FileInputStream(file));
+       
+        if(verifiedLakeTileCard(board)==0)
+        {
+            System.out.println("LakeTileCard ok");
+        }
+        if(verifiedLatternCard(board)==0)
+        {
+            System.out.println("LatternCard ok");
+        }
+        if(verifiedDedicationCard(board)==0)
+        {
+            System.out.println("DedicationCard ok");
+        }
+        if (verifiedFavorToken(board)==0)
+        {
+            System.out.println("token ok");
+        }        
+
         notifyAllObservers();
     }
 
@@ -95,17 +113,13 @@ public class GameController
         int index = 0;
         // first check lakeTilesCollection
         ArrayList<LakeTile> LakeTileCollection = board.getLakeTileCollection();
-        for (index = 0; index <= LakeTileCollection.size(); index++)
+        for (index = 0; index < LakeTileCollection.size(); index++)
         {
             LakeTile LakeTileCard = LakeTileCollection.get(index);
-            if (LakeTileCard.getIndex() == index)
+            if (LakeTileCard.getIndex() != index)
             {
-                LakeTileCollection.remove(index);
+                returnvalue = 1;
             }
-        }
-        if (!LakeTileCollection.isEmpty())
-        {
-            returnvalue = 1;
         }
         return returnvalue;
     }
@@ -123,7 +137,7 @@ public class GameController
         int index = 0;
         int ORANGE = 8,GREEN = 8,PURPLE = 8,WHITE = 8,BLUE = 8,RED = 8,BLACK = 8;
         ArrayList<LanternCard> LanternCardCollection = board.getLatternCollection();
-        for (index = 0; index <= LanternCardCollection.size(); index++)
+        for (index = 0; index < LanternCardCollection.size(); index++)
         {
             LanternCard Lantern = LanternCardCollection.get(index);
             if (Lantern.getColor().name() == "ORANGE")
@@ -297,20 +311,24 @@ public class GameController
                     ColorEnum.WHITE, 0);
             tiles.add(tile);
         }
-        
+        int indicator = 0;
         ArrayList<DedicationToken> compare_tiles = board.getDedicationTokenCollection();
-        for (index = 0; index <= compare_tiles.size(); index++)
+        for (index = 0; index < compare_tiles.size(); index++)
         {
             DedicationToken DedicationCard = compare_tiles.get(index);
-            for(index_dedication = 0;index_dedication<=tiles.size();index_dedication++)
+            for(index_dedication = 0;index_dedication<tiles.size();index_dedication++)
             {
-                if(DedicationCard.equals(tiles.get(index_dedication)))
+                if(DedicationCard.getCardValue()==tiles.get(index_dedication).getCardValue()
+                        &&DedicationCard.getNumDots()==tiles.get(index_dedication).getNumDots()
+                        &&DedicationCard.getColor()==tiles.get(index_dedication).getColor()
+                        )
                 {
-                    tiles.remove(index_dedication);
+                    indicator++;
+                    break;
                 }
             }
         }
-        if (!tiles.isEmpty())
+        if (indicator != tiles.size())
         {
             returnvalue = 1;
         }
