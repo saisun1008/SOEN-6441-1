@@ -178,4 +178,10 @@ public class LakeTile extends Card
     {
         this.rotateDegrees = rotateDegrees;
     }
+
+    public String toString()
+    {
+        return "Lake Tile Card " + m_cardIndex + " Directions: [" + m_topColor
+                + m_bottomColor + m_rightColor + m_leftColor;
+    }
 }

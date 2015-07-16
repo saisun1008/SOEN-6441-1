@@ -38,6 +38,7 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     private boolean rerender = false;
     private ArrayList<ViewEventObserver> observers;
     private static Matrix matrixView;
+    private boolean redrawn = false;
 
     public GameCanvas(String title)
     {
@@ -46,6 +47,13 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
         matrixView = new Matrix("battle board");
         matrixView.attach(this);
         observers = new ArrayList<ViewEventObserver>();
+    }
+
+    public void reDrawMatrix()
+    {
+        matrixView = new Matrix("battle board");
+        matrixView.attach(this);
+        redrawn = true;
     }
 
     @Override
@@ -60,6 +68,15 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     @Override
     public void update(GameContainer gc, int i) throws SlickException
     {
+        if (redrawn)
+        {
+            matrixView.init(gc);
+            redrawn = false;
+            if (matrixView.getEntities() == null)
+            {
+                matrixView.setEntities(gameBoard.getEntities());
+            }
+        }
         if (rerender)
         {
             render(gc, gc.getGraphics());
@@ -291,6 +308,17 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     public void setGameBoard(GameBoard board)
     {
         gameBoard = board;
+        setEntities();
+    }
+
+    public void setEntities()
+    {
+        matrixView.setEntities(gameBoard.getEntities());
+    }
+
+    public Matrix getMatrixView()
+    {
+        return matrixView;
     }
 
     public void attach(ViewEventObserver observer)

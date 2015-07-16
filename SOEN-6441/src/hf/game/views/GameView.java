@@ -1,9 +1,14 @@
 package hf.game.views;
 
+import java.util.Map;
+
 import hf.game.GameBoard;
 import hf.game.common.GameProperties;
 import hf.game.controller.BoardObserver;
+import hf.game.controller.MatrixObserver;
 import hf.ui.GameCanvas;
+import hf.ui.matrix.Matrix;
+import hf.ui.matrix.MatrixCell;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -11,7 +16,7 @@ import javax.swing.JPanel;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 
-public class GameView extends JPanel implements BoardObserver
+public class GameView extends JPanel implements BoardObserver, MatrixObserver
 {
     private LogView logView;
     private GameBoard gameBoard;
@@ -30,6 +35,11 @@ public class GameView extends JPanel implements BoardObserver
         return logView;
     }
 
+    public GameCanvas getMainCanvas()
+    {
+        return mainView;
+    }
+
     private void buildCanvas() throws SlickException
     {
         mainView = new GameCanvas("Harvest Festival");
@@ -38,6 +48,11 @@ public class GameView extends JPanel implements BoardObserver
         mainView.attach(logView);
         appgc.setBounds(0, 0, GameProperties.GAME_WINDOW_WIDTH,
                 GameProperties.GAME_WINDOW_HEIGHT);
+    }
+
+    public Matrix getMatrix()
+    {
+        return mainView.getMatrixView();
     }
 
     public CanvasGameContainer getGameCanvas()
@@ -112,5 +127,11 @@ public class GameView extends JPanel implements BoardObserver
     {
         gameBoard = board;
         mainView.setGameBoard(board);
+    }
+
+    @Override
+    public void update(Map<Integer, MatrixCell> entities)
+    {
+
     }
 }

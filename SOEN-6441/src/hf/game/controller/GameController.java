@@ -7,18 +7,20 @@ import hf.game.common.ColorEnum;
 import hf.game.items.DedicationToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
+import hf.ui.matrix.MatrixCell;
 import hf.util.FileSaver;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class GameController
+public class GameController implements MatrixObserver
 {
     /**
      * A dialog for selecting a file (to load)
@@ -77,25 +79,25 @@ public class GameController
     }
 
     protected void fileLoaded(File file) throws FileNotFoundException
-    {  
+    {
         board = new BoardMapper().load(new FileInputStream(file));
-       
-        if(verifiedLakeTileCard(board)==0)
+
+        if (verifiedLakeTileCard(board) == 0)
         {
             System.out.println("LakeTileCard ok");
         }
-        if(verifiedLatternCard(board)==0)
+        if (verifiedLatternCard(board) == 0)
         {
             System.out.println("LatternCard ok");
         }
-        if(verifiedDedicationCard(board)==0)
+        if (verifiedDedicationCard(board) == 0)
         {
             System.out.println("DedicationCard ok");
         }
-        if (verifiedFavorToken(board)==0)
+        if (verifiedFavorToken(board) == 0)
         {
             System.out.println("token ok");
-        }        
+        }
         notifyAllObservers();
     }
 
@@ -134,38 +136,37 @@ public class GameController
     {
         int returnvalue = 0;
         int index = 0;
-        int ORANGE = 8,GREEN = 8,PURPLE = 8,WHITE = 8,BLUE = 8,RED = 8,BLACK = 8;
-        ArrayList<LanternCard> LanternCardCollection = board.getLatternCollection();
+        int ORANGE = 8, GREEN = 8, PURPLE = 8, WHITE = 8, BLUE = 8, RED = 8, BLACK = 8;
+        ArrayList<LanternCard> LanternCardCollection = board
+                .getLatternCollection();
         for (index = 0; index < LanternCardCollection.size(); index++)
         {
             LanternCard Lantern = LanternCardCollection.get(index);
             if (Lantern.getColor().name() == "ORANGE")
             {
                 ORANGE--;
-            }
-            else if (Lantern.getColor().name() == "GREEN")
+            } else if (Lantern.getColor().name() == "GREEN")
             {
                 GREEN--;
-            }
-            else if (Lantern.getColor().name() == "PURPLE")
+            } else if (Lantern.getColor().name() == "PURPLE")
             {
                 PURPLE--;
-            }
-            else if (Lantern.getColor().name() == "WHITE")
+            } else if (Lantern.getColor().name() == "WHITE")
             {
                 WHITE--;
-            }else if (Lantern.getColor().name() == "BLUE")
+            } else if (Lantern.getColor().name() == "BLUE")
             {
                 BLUE--;
-            }else if (Lantern.getColor().name() == "RED")
+            } else if (Lantern.getColor().name() == "RED")
             {
                 RED--;
-            }else if (Lantern.getColor().name() == "BLACK")
+            } else if (Lantern.getColor().name() == "BLACK")
             {
                 BLACK--;
             }
         }
-        if(ORANGE!=0&&GREEN!=0&&PURPLE!=0&&WHITE!=0&&BLUE!=0&&RED!=0&&BLACK!=0)
+        if (ORANGE != 0 && GREEN != 0 && PURPLE != 0 && WHITE != 0 && BLUE != 0
+                && RED != 0 && BLACK != 0)
         {
             returnvalue = 1;
         }
@@ -183,7 +184,7 @@ public class GameController
     {
         int returnvalue = 0;
         ArrayList<DedicationToken> tiles = new ArrayList<DedicationToken>();
-        int index = 0,index_dedication=0;
+        int index = 0, index_dedication = 0;
         int value = 8;
         ColorEnum color = ColorEnum.RED;
 
@@ -311,16 +312,19 @@ public class GameController
             tiles.add(tile);
         }
         int indicator = 0;
-        ArrayList<DedicationToken> compare_tiles = board.getDedicationTokenCollection();
+        ArrayList<DedicationToken> compare_tiles = board
+                .getDedicationTokenCollection();
         for (index = 0; index < compare_tiles.size(); index++)
         {
             DedicationToken DedicationCard = compare_tiles.get(index);
-            for(index_dedication = 0;index_dedication<tiles.size();index_dedication++)
+            for (index_dedication = 0; index_dedication < tiles.size(); index_dedication++)
             {
-                if(DedicationCard.getCardValue()==tiles.get(index_dedication).getCardValue()
-                        &&DedicationCard.getNumDots()==tiles.get(index_dedication).getNumDots()
-                        &&DedicationCard.getColor()==tiles.get(index_dedication).getColor()
-                        )
+                if (DedicationCard.getCardValue() == tiles
+                        .get(index_dedication).getCardValue()
+                        && DedicationCard.getNumDots() == tiles.get(
+                                index_dedication).getNumDots()
+                        && DedicationCard.getColor() == tiles.get(
+                                index_dedication).getColor())
                 {
                     indicator++;
                     break;
@@ -331,7 +335,7 @@ public class GameController
         {
             returnvalue = 1;
         }
-        
+
         return returnvalue;
     }
 
@@ -384,5 +388,11 @@ public class GameController
     public void buildPlayers(String[] names)
     {
         builder.buildPlayers(names);
+    }
+
+    @Override
+    public void update(Map<Integer, MatrixCell> entities)
+    {
+        board.setEntities(entities);
     }
 }

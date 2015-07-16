@@ -7,9 +7,11 @@ import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
+import hf.ui.matrix.MatrixCell;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -60,6 +62,11 @@ public class GameBoard
     private int roundExecutor = 0;
 
     /**
+     * matrix entities
+     */
+    Map<Integer, MatrixCell> m_entities;
+
+    /**
      * Initialize Card collections
      */
     public GameBoard()
@@ -75,6 +82,17 @@ public class GameBoard
 
         m_players = new ArrayList<Player>();
         roundExecutor = 0;
+        m_entities = new HashMap<Integer, MatrixCell>();
+    }
+
+    public Map<Integer, MatrixCell> getEntities()
+    {
+        return m_entities;
+    }
+
+    public void setEntities(Map<Integer, MatrixCell> entities)
+    {
+        this.m_entities = entities;
     }
 
     public ArrayList<LanternCard> getLatternCollection()

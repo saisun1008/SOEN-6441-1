@@ -2,11 +2,15 @@ package hf.controller;
 
 import hf.game.common.CardType;
 import hf.game.common.ColorEnum;
+import hf.game.controller.BoardObserver;
+import hf.game.controller.MatrixObserver;
 import hf.game.items.Card;
 import hf.game.items.LakeTile;
 import hf.ui.matrix.MatrixCell;
 
 import java.util.*;
+
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 public class MatrixCalculator
 {
@@ -17,6 +21,13 @@ public class MatrixCalculator
     private Map<Integer, LakeTile> lakeTiles = new HashMap<>();
 
     private Card selectedCard;
+    @XStreamOmitField
+    private ArrayList<MatrixObserver> observers;
+
+    public MatrixCalculator()
+    {
+        observers = new ArrayList<MatrixObserver>();
+    }
 
     public Map<Integer, MatrixCell> getEntities()
     {
@@ -132,6 +143,8 @@ public class MatrixCalculator
                 entities.put(matrixElement.getId(), matrixElement);
             }
         }
+        placeStartLake(lakeTiles.get(1), 221);
+        notifyAllObservers();
     }
 
     /**
@@ -152,6 +165,7 @@ public class MatrixCalculator
                     && selectedCard.getCardType() == CardType.LAKETILE)
                 placeNewLake((LakeTile) selectedCard, id);
         }
+        notifyAllObservers();
     }
 
     /**
@@ -210,7 +224,7 @@ public class MatrixCalculator
     {
         System.out.println("place start lake.");
         lake.flipFaceUp();
-        entities.get(id).setLake(lake);
+        entities.put(id, entities.get(id).setLake(lake));
         giveLanternCard();
     }
 
@@ -218,6 +232,19 @@ public class MatrixCalculator
     {
         System.out.println("give card");
         // TODO
+    }
+
+    public void attach(MatrixObserver observer)
+    {
+        observers.add(observer);
+    }
+
+    public void notifyAllObservers()
+    {
+        for (MatrixObserver observer : observers)
+        {
+            observer.update(entities);
+        }
     }
 
 }

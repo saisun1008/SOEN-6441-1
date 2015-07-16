@@ -1,8 +1,10 @@
 package hf.ui.matrix;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import hf.controller.MatrixCalculator;
+import hf.game.controller.MatrixObserver;
 import hf.game.controller.ViewEventObserver;
 import hf.game.items.LakeTile;
 import hf.util.MouseEventValidation;
@@ -17,11 +19,12 @@ import org.newdawn.slick.*;
  * @since 2015-07-11
  * 
  */
-public class Matrix extends BasicGame
+public class Matrix extends BasicGame implements MatrixObserver
 {
 
     private MatrixCalculator ca = new MatrixCalculator();
     private ArrayList<ViewEventObserver> observers;
+    private ArrayList<MatrixObserver> matrixObservers;
 
     /**
      * Matrix constructor
@@ -33,6 +36,21 @@ public class Matrix extends BasicGame
     {
         super(name);
         observers = new ArrayList<ViewEventObserver>();
+        matrixObservers = new ArrayList<MatrixObserver>();
+    }
+
+    public void setEntities(Map<Integer, MatrixCell> entities)
+    {
+        for (int key : entities.keySet())
+        {
+            entities.get(key).setCa(ca);
+        }
+        ca.setEntities(entities);
+    }
+
+    public Map<Integer, MatrixCell> getEntities()
+    {
+        return ca.getEntities();
     }
 
     /**
@@ -149,6 +167,26 @@ public class Matrix extends BasicGame
         {
             observer.update(msg);
         }
+    }
+
+    public void attach(MatrixObserver observer)
+    {
+        matrixObservers.add(observer);
+        ca.attach(observer);
+    }
+
+    public void notifyAllObservers()
+    {
+        for (MatrixObserver observer : matrixObservers)
+        {
+            observer.update(ca.getEntities());
+        }
+    }
+
+    @Override
+    public void update(Map<Integer, MatrixCell> entities)
+    {
+        notifyAllObservers();
     }
 
     /*

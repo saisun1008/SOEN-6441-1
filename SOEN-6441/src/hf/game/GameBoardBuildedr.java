@@ -8,6 +8,7 @@ import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
+import hf.ui.matrix.MatrixCell;
 import hf.util.XmlMapper;
 
 import java.io.File;

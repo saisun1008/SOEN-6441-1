@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.StreamException;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
+import com.thoughtworks.xstream.mapper.MapperWrapper;
 
 /**
  * A skeleton class for mapping Java InputStream/OutputStream to xStream XML
@@ -28,7 +29,32 @@ public class XmlMapper<T> implements IMapper<T>
      */
     public XmlMapper()
     {
-        this.xstream = new XStream(new StaxDriver());
+        // ignore observers object when serialize
+        this.xstream = new XStream(new StaxDriver())
+        {
+            @Override
+            protected MapperWrapper wrapMapper(MapperWrapper next)
+            {
+                return new MapperWrapper(next)
+                {
+                    @Override
+                    @SuppressWarnings("rawtypes")
+                    public boolean shouldSerializeMember(Class definedIn,
+                            String fieldName)
+                    {
+                        if (fieldName.equals("observers")
+                                || fieldName.equals("entities"))
+                        {
+                            return false;
+                        }
+
+                        return super
+                                .shouldSerializeMember(definedIn, fieldName);
+                    }
+                };
+            }
+        };
+        ;
     }
 
     /**

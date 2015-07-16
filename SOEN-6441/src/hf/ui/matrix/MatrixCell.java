@@ -18,48 +18,54 @@ public class MatrixCell extends BasicGame
     /**
      * Matrix Cell constructor
      * 
-     * @param ca :Matrix Calculator
+     * @param ca
+     *            :Matrix Calculator
      */
     public MatrixCell(MatrixCalculator ca)
     {
         super(null);
         this.ca = ca;
     }
-    
+
     private int id;
     private int x;
     private int y;
     private int size;
-    private String image ="data/grass.png";
+    private String image = "data/grass.png";
     private LakeTile lake;
     private MatrixCalculator ca;
-    
+
     /**
      * Render Matrix Cell UI.
      * 
-     * Invoked automatically by UI program. 
+     * Invoked automatically by UI program.
      * 
      * @param GameContainer
-     *  
+     * 
      * @throws SlickException
      */
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
         Image img = new Image(image);
-        if(lake!=null &&lake.getRotateDegrees()!=0)
+        if (lake != null && lake.getRotateDegrees() != 0)
         {
             img.setRotation(lake.getRotateDegrees());
             img.draw(x, y);
-        }else
+        } else
         {
-           img.draw(x, y,size,size);
+            img.draw(x, y, size, size);
         }
+    }
+
+    public void setCa(MatrixCalculator ca)
+    {
+        this.ca = ca;
     }
 
     /**
      * Initialization of Matrix Cell, is used to initial matrix cell object.
      * 
-     * Invoked automatically by UI program. 
+     * Invoked automatically by UI program.
      * 
      * @param GameContainer
      * 
@@ -72,10 +78,10 @@ public class MatrixCell extends BasicGame
     /**
      * Process mouse left click event on matrix cell.
      * 
-     * Invoked automatically by UI program. 
+     * Invoked automatically by UI program.
      * 
      * @param GameContainer
-     *  
+     * 
      * @throws SlickException
      */
     public void update(GameContainer gc, int i) throws SlickException
@@ -83,14 +89,14 @@ public class MatrixCell extends BasicGame
         Input input = gc.getInput();
         int xpos = input.getMouseX();
         int ypos = input.getMouseY();
-        
-        if ((xpos > x && xpos < x+size) && (ypos > y && ypos < y+size)) 
+
+        if ((xpos > x && xpos < x + size) && (ypos > y && ypos < y + size))
         {
-            System.out.println("maxtrix cell "+id+"has been clicked");
+            System.out.println("maxtrix cell " + id + "has been clicked");
             ca.placeLakeTile(id);
         }
     }
-    
+
     /**
      * Get Maxtrix cell ID
      * 
@@ -104,13 +110,14 @@ public class MatrixCell extends BasicGame
     /**
      * Set Maxtrix cell ID
      * 
-     * @param Maxtrix cell id
+     * @param Maxtrix
+     *            cell id
      */
     public void setId(int id)
     {
         this.id = id;
     }
-    
+
     /**
      * Get Maxtrix cell location coordinate X
      * 
@@ -124,7 +131,8 @@ public class MatrixCell extends BasicGame
     /**
      * Set Maxtrix cell location coordinate X
      * 
-     * @param Maxtrix cell location coordinate X
+     * @param Maxtrix
+     *            cell location coordinate X
      */
     public void setX(int x)
     {
@@ -144,7 +152,8 @@ public class MatrixCell extends BasicGame
     /**
      * Set Maxtrix cell location coordinate Y
      * 
-     * @param Maxtrix cell location coordinate Y
+     * @param Maxtrix
+     *            cell location coordinate Y
      */
     public void setY(int y)
     {
@@ -164,7 +173,8 @@ public class MatrixCell extends BasicGame
     /**
      * Set Maxtrix cell location size
      * 
-     * @param Maxtrix cell location size
+     * @param Maxtrix
+     *            cell location size
      */
     public void setSize(int size)
     {
@@ -184,13 +194,14 @@ public class MatrixCell extends BasicGame
     /**
      * Set Maxtrix cell image
      * 
-     * @param Maxtrix cell image
+     * @param Maxtrix
+     *            cell image
      */
     public void setImage(String image)
     {
         this.image = image;
     }
-    
+
     /**
      * Get Lake Tile in this matrix cell
      * 
@@ -206,11 +217,14 @@ public class MatrixCell extends BasicGame
      * 
      * Set lake tile image to matrix cell image
      * 
-     * @param Lake Tile
+     * @param Lake
+     *            Tile
+     * @return
      */
-    public void setLake(LakeTile lake)
+    public MatrixCell setLake(LakeTile lake)
     {
         this.image = lake.getImage();
         this.lake = lake;
+        return this;
     }
 }

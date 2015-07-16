@@ -2,6 +2,7 @@ package hf.ui;
 
 import hf.game.common.GameProperties;
 import hf.game.controller.GameController;
+import hf.game.items.LakeTile;
 import hf.game.views.GameView;
 import hf.ui.matrix.Matrix;
 
@@ -53,6 +54,8 @@ public class AppDisplayWindow
         {
             public void actionPerformed(ActionEvent arg0)
             {
+                GameController.getInstance().getBoard()
+                        .setEntities(gView.getMatrix().getEntities());
                 GameController.getInstance().saveGame();
                 gView.getLogView().log("Game is saved to data directory");
 
@@ -76,6 +79,18 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getCurrentRoundPlayer().toString());
                 gView.gameStarted();
+                gView.getMatrix().setEntities(
+                        GameController.getInstance().getBoard().getEntities());
+                LakeTile target = null;
+                for (LakeTile index : GameController.getInstance().getBoard()
+                        .getLakeTileCollection())
+                {
+                    if (index.isStartingCard())
+                    {
+                        target = index;
+                    }
+                }
+                gView.getLogView().log(target.toString());
             }
         });
 
@@ -98,6 +113,7 @@ public class AppDisplayWindow
                                 + "players: "
                                 + GameController.getInstance().getBoard()
                                         .getPlayers());
+                gView.getMainCanvas().reDrawMatrix();
                 gView.gameStarted();
 
             }
@@ -122,6 +138,7 @@ public class AppDisplayWindow
             createMenuBar();
 
             gView = new GameView(GameController.getInstance().getBoard());
+            gView.getMatrix().attach(GameController.getInstance());
             GameController.getInstance().attach(gView);
             JFrame frame = new JFrame("Havest Festival");
             frame.addWindowListener(new WindowAdapter()
