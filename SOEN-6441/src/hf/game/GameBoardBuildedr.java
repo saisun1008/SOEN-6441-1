@@ -113,9 +113,10 @@ public class GameBoardBuildedr
         int index = 0;
         int value = 8;
         ColorEnum color = ColorEnum.RED;
+        int cardCnt = 0;
 
         // generate RED dedication tokens
-        for (index = 0; index < 9; index++)
+        for (; cardCnt < 9; index++)
         {
             int numDots = 0;
             if (index <= 0)
@@ -146,96 +147,107 @@ public class GameBoardBuildedr
             {
                 value = 4;
             }
-            DedicationToken tile = new DedicationToken(value, null, index,
-                    color, numDots);
+            DedicationToken tile = new DedicationToken(value,
+                    "images/Dedications/DedicationRed_" + (cardCnt + 1)
+                            + ".jpg", index, color, numDots);
             tiles.add(tile);
+            cardCnt++;
         }
 
         // generate BLUE dedication tokens
         color = ColorEnum.BLUE;
-        for (index = 0; index < 9; index++)
+        cardCnt = 0;
+        for (; cardCnt < 9; index++)
         {
             int numDots = 0;
-            if (index <= 0)
+            if (cardCnt <= 0)
             {
                 value = 9;
-            } else if (index <= 2)
+            } else if (cardCnt <= 2)
             {
                 value = 8;
-                if (index == 2)
+                if (cardCnt == 2)
                 {
                     numDots = 4;
                 }
-            } else if (index <= 4)
+            } else if (cardCnt <= 4)
             {
                 value = 7;
-                if (index == 4)
+                if (cardCnt == 4)
                 {
                     numDots = 3;
                 }
-            } else if (index <= 6)
+            } else if (cardCnt <= 6)
             {
                 value = 6;
-                if (index == 6)
+                if (cardCnt == 6)
                 {
                     numDots = 3;
                 }
-            } else if (index <= 8)
+            } else if (cardCnt <= 8)
             {
                 value = 5;
             }
-            DedicationToken tile = new DedicationToken(value, null, index,
-                    color, numDots);
+            DedicationToken tile = new DedicationToken(value,
+                    "images/Dedications/DedicationBlue_" + (cardCnt + 1)
+                            + ".jpg", index, color, numDots);
             tiles.add(tile);
+            cardCnt++;
         }
 
         // generate GREEN dedication tokens
         color = ColorEnum.GREEN;
-        for (index = 0; index < 9; index++)
+        cardCnt = 0;
+        for (; cardCnt < 9; index++)
         {
             int numDots = 0;
-            if (index <= 0)
+            if (cardCnt <= 0)
             {
                 value = 10;
-            } else if (index <= 2)
+            } else if (cardCnt <= 2)
             {
                 value = 9;
-                if (index == 2)
+                if (cardCnt == 2)
                 {
                     numDots = 4;
                 }
-            } else if (index <= 4)
+            } else if (cardCnt <= 4)
             {
                 value = 8;
-                if (index == 4)
+                if (cardCnt == 4)
                 {
                     numDots = 3;
                 }
-            } else if (index <= 6)
+            } else if (cardCnt <= 6)
             {
                 value = 7;
-                if (index == 6)
+                if (cardCnt == 6)
                 {
                     numDots = 3;
                 }
-            } else if (index <= 7)
+            } else if (cardCnt <= 7)
             {
                 value = 6;
-            } else if (index <= 8)
+            } else if (cardCnt <= 8)
             {
                 value = 5;
             }
-            DedicationToken tile = new DedicationToken(value, null, index,
-                    color, numDots);
+            DedicationToken tile = new DedicationToken(value,
+                    "images/Dedications/DedicationGreen_" + (cardCnt + 1)
+                            + ".jpg", index, color, numDots);
             tiles.add(tile);
+            cardCnt++;
         }
 
         // Generate 3 grey cards
-        for (index = 0; index < 3; index++)
+        cardCnt = 0;
+        for (; cardCnt < 3; index++)
         {
-            DedicationToken tile = new DedicationToken(4, null, index,
+            DedicationToken tile = new DedicationToken(4,
+                    "images/Dedications/DedicationGrey.jpg", index,
                     ColorEnum.WHITE, 0);
             tiles.add(tile);
+            cardCnt++;
         }
         m_board.setDedicationTokenCollection(tiles);
     }

@@ -13,6 +13,7 @@ import hf.ui.matrix.Matrix;
 import java.awt.Container;
 import java.awt.MenuBar;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 
 import org.newdawn.slick.BasicGame;
@@ -296,7 +297,28 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
                     imageCount * GameProperties.DECK_HEIGHT + 10);
             imageCount++;
         }
-        //
+        // render dedication token
+        for (ColorEnum color : gameBoard.getDedicationTokenDeck().keySet())
+        {
+            ArrayList<Integer> list = gameBoard.getDedicationTokenDeck().get(
+                    color);
+            Collections.sort(list);
+            Image im = new Image(gameBoard.getDedicationTokenByIndex(
+                    list.get(0)).getImage());
+            g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
+            g.drawString(Integer.toString(list.size()),
+                    GameProperties.DECK_WIDTH + 10, imageCount
+                            * GameProperties.DECK_HEIGHT + 10);
+            imageCount++;
+        }
+
+        // render favor token
+        Image im = new Image(gameBoard.getFavorTokenByIndex(0).getImage());
+        g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
+        g.drawString(
+                Integer.toString(gameBoard.getFavorTokenCollection().size()),
+                GameProperties.DECK_WIDTH + 10, imageCount
+                        * GameProperties.DECK_HEIGHT + 10);
     }
 
     public void gameStarted()
