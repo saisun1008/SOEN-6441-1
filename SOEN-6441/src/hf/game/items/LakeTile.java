@@ -65,7 +65,7 @@ public class LakeTile extends Card
     public String getImage()
     {
         if (!isFaceUp())
-            return "data/laketileback.png";
+            return m_image;
 
         return super.getImage();
     }
