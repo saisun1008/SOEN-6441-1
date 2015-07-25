@@ -210,6 +210,10 @@ public class MatrixCalculator
         LakeTile lake = gameBoard.getLakeTileByIndex(index);
         System.out.println("place new lake.");
         entities.get(id).setLake(lake);
+        
+        gameBoard.getCurrentRoundPlayer().getLakeTileList().remove(selectedCardIndex);
+        if(gameBoard.getLakeTileDeck()!=null && !gameBoard.getLakeTileDeck().isEmpty())
+            gameBoard.getCurrentRoundPlayer().getLakeTileList().add(gameBoard.getLakeTileDeck().get(0));
         selectedCardIndex = null;
 
         System.out.println("left lake: "
@@ -340,7 +344,7 @@ public class MatrixCalculator
                        gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
                }
                
-               if(lake.hasSpecialIcon())
+               if(lake.hasSpecialIcon()&& p.getName().equals(gameBoard.getCurrentRoundPlayer().getName()))
                    gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
                    
                ArrayList<Integer> deckLartain = null;
