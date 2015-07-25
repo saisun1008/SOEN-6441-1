@@ -84,7 +84,7 @@ public class GameBoard
         m_players = new ArrayList<Player>();
         roundExecutor = 0;
         m_entities = new HashMap<Integer, MatrixCell>();
-        matrixLocation_index.put(0, 221);
+        matrixLocation_index.put(221, 0);
     }
 
     public Map<Integer, MatrixCell> getEntities()
