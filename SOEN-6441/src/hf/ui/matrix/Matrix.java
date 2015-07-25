@@ -80,6 +80,11 @@ public class Matrix extends BasicGame implements MatrixObserver
     public void init(GameContainer gc) throws SlickException
     {
     }
+    
+    public void loadMatrix(GameBoard gameBoard)
+    {
+        ca.init(gameBoard);
+    }
 
     /**
      * Process mouse left/right click event.
@@ -202,7 +207,6 @@ public class Matrix extends BasicGame implements MatrixObserver
     public void setGameBoard(GameBoard board)
     {
         gameBoard = board;
-        ca.init(board);
     }
     /*
      * public static void main(String [] arguments) { try { AppGameContainer app

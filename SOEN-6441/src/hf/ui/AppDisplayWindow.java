@@ -114,6 +114,7 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getPlayers());
                 gView.getMainCanvas().reDrawMatrix();
+                gView.getMatrix().loadMatrix(GameController.getInstance().getBoard());
                 gView.gameStarted();
 
             }
