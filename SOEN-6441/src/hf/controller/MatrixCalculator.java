@@ -221,6 +221,7 @@ public class MatrixCalculator
         System.out.println("bottom lake: "
                 + (bottom == null ? "no" : bottom.getIndex()));
         giveLanternCard(lake,left,right,top,bottom);
+        gameBoard.makeNewRound();
     }
 
     /**
