@@ -244,11 +244,6 @@ public class MatrixCalculator
         
             for(Player p:gameBoard.getPlayers())
             {
-               if(gameBoard.getCurrentRoundPlayer().getName().equals(p.getName()))
-               {
-                       
-               }
-               
                if(lakeLeft!=null && lake.get_leftColor()==lakeLeft.get_rightColor())
                {
                    ArrayList<Integer> deckLartain1 = null;
