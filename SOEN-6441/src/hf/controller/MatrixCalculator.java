@@ -7,8 +7,11 @@ import java.util.Map;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import hf.game.GameBoard;
+import hf.game.common.ColorEnum;
+import hf.game.common.LocationEnum;
 import hf.game.controller.MatrixObserver;
 import hf.game.items.LakeTile;
+import hf.game.items.Player;
 import hf.ui.matrix.MatrixCell;
 
 public class MatrixCalculator
@@ -162,7 +165,7 @@ public class MatrixCalculator
     public void placeLakeTile(int id)
     {
         LakeTile lake = entities.get(id).getLake();
-        if (id == 221 && lake != null && !lake.isFaceUp())
+        if (id == 221 && lake != null)
         {
             placeStartLake(lake, id);
         } else
@@ -217,7 +220,7 @@ public class MatrixCalculator
                 .println("top lake: " + (top == null ? "no" : top.getIndex()));
         System.out.println("bottom lake: "
                 + (bottom == null ? "no" : bottom.getIndex()));
-        giveLanternCard();
+        giveLanternCard(lake,left,right,top,bottom);
     }
 
     /**
@@ -231,12 +234,50 @@ public class MatrixCalculator
         System.out.println("place start lake.");
         lake.flipFaceUp();
         entities.put(id, entities.get(id).setLake(lake));
-        giveLanternCard();
+        giveLanternCard(lake,null,null,null,null);
     }
 
-    public void giveLanternCard()
+    public void giveLanternCard(LakeTile lake,LakeTile lakeLeft,LakeTile lakeRight,LakeTile lakeTop,LakeTile lakeBtm)
     {
         System.out.println("give card");
+        
+            for(Player p:gameBoard.getPlayers())
+            {
+               if(gameBoard.getCurrentRoundPlayer().getName().equals(p.getName()))
+               {
+                   
+               }
+                   
+               ArrayList<Integer> deckLartain = null;
+               ColorEnum color = null;
+               if(p.getSitLocation()==LocationEnum.LEFT)
+               {
+                   color = lake.get_leftColor();
+               } else if(p.getSitLocation()==LocationEnum.RIGHT)
+               {
+                   color =lake.get_rightColor();
+               }else if(p.getSitLocation()==LocationEnum.TOP)
+               {
+                   color =lake.get_topColor();
+               } else if(p.getSitLocation()==LocationEnum.BOTTOM)
+               {
+                   color =lake.get_bottomColor();
+               }
+               
+               deckLartain = gameBoard.getLatternDecks().get(color);
+               if(deckLartain.size()>0)
+               {
+                   deckLartain.remove(deckLartain.size()-1);
+                   gameBoard.getLatternDecks().put(color, deckLartain);
+               }
+               
+               ArrayList<Integer> palyLantern = p.getLanternList().get(color);
+               if(palyLantern==null)
+                   palyLantern = new ArrayList<>();
+               
+               palyLantern.add(1);
+               p.getLanternList().put(color, palyLantern);
+            }
         // TODO
     }
 
