@@ -1,16 +1,15 @@
 package hf.controller;
 
-import hf.game.common.CardType;
-import hf.game.common.ColorEnum;
-import hf.game.controller.BoardObserver;
-import hf.game.controller.MatrixObserver;
-import hf.game.items.Card;
-import hf.game.items.LakeTile;
-import hf.ui.matrix.MatrixCell;
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+import hf.game.GameBoard;
+import hf.game.controller.MatrixObserver;
+import hf.game.items.LakeTile;
+import hf.ui.matrix.MatrixCell;
 
 public class MatrixCalculator
 {
@@ -18,9 +17,11 @@ public class MatrixCalculator
     private int heightStart = 150;
     private int matrixElementlenght = 30;
     private Map<Integer, MatrixCell> entities = new HashMap<>();
-    private Map<Integer, LakeTile> lakeTiles = new HashMap<>();
-
-    private Card selectedCard;
+//    private Map<Integer, LakeTile> lakeTiles = new HashMap<>();
+//    List<Integer> lakeTikeIndexList = new ArrayList<>();
+    private Integer selectedCardIndex;
+    private GameBoard gameBoard;
+    
     @XStreamOmitField
     private ArrayList<MatrixObserver> observers;
 
@@ -39,83 +40,86 @@ public class MatrixCalculator
         this.entities = entities;
     }
 
-    public Map<Integer, LakeTile> getLakeTiles()
+//    public Map<Integer, LakeTile> getLakeTiles()
+//    {
+//        return lakeTiles;
+//    }
+//
+//    public void setLakeTiles(Map<Integer, LakeTile> lakeTiles)
+//    {
+//        this.lakeTiles = lakeTiles;
+//        for(int i :lakeTiles.keySet())
+//         gameBoard.setLakeTileByIndex(i, lakeTiles.get(i));
+//    }
+
+    public Integer getSelectedCard()
     {
-        return lakeTiles;
+        return selectedCardIndex;
     }
 
-    public void setLakeTiles(Map<Integer, LakeTile> lakeTiles)
+    public void setSelectedCard(Integer selectedCard)
     {
-        this.lakeTiles = lakeTiles;
+        this.selectedCardIndex = selectedCard;
     }
 
-    public Card getSelectedCard()
+    public void init(GameBoard board)
     {
-        return selectedCard;
-    }
-
-    public void setSelectedCard(Card selectedCard)
-    {
-        this.selectedCard = selectedCard;
-    }
-
-    public void init()
-    {
+        gameBoard = board;
         initLakeTiles();
         initMatrixCell();
     }
 
     public void initLakeTiles()
     {
-        LakeTile lake = new LakeTile();
-        lake.setImage("data/starttile.png");
-        lake.set_topColor(ColorEnum.BLACK);
-        lake.set_rightColor(ColorEnum.BLUE);
-        lake.set_bottomColor(ColorEnum.RED);
-        lake.set_leftColor(ColorEnum.WHITE);
-        lake.setIndex(1);
-        ;
-
-        LakeTile lake2 = new LakeTile();
-        lake2.setImage("data/starttile.png");
-        lake2.set_topColor(ColorEnum.BLACK);
-        lake2.set_rightColor(ColorEnum.BLUE);
-        lake2.set_bottomColor(ColorEnum.RED);
-        lake2.set_leftColor(ColorEnum.WHITE);
-        lake2.setX(200);
-        lake2.setY(80);
-        lake2.setSize(30);
-        lake2.setIndex(2);
-        lake2.flipFaceUp();
-
-        LakeTile lake3 = new LakeTile();
-        lake3.setImage("data/starttile.png");
-        lake3.set_topColor(ColorEnum.BLACK);
-        lake3.set_rightColor(ColorEnum.BLUE);
-        lake3.set_bottomColor(ColorEnum.RED);
-        lake3.set_leftColor(ColorEnum.WHITE);
-        lake3.setX(231);
-        lake3.setY(80);
-        lake3.setSize(30);
-        lake3.setIndex(3);
-        lake3.flipFaceUp();
-
-        LakeTile lake4 = new LakeTile();
-        lake4.setImage("data/starttile.png");
-        lake4.set_topColor(ColorEnum.BLACK);
-        lake4.set_rightColor(ColorEnum.BLUE);
-        lake4.set_bottomColor(ColorEnum.RED);
-        lake4.set_leftColor(ColorEnum.WHITE);
-        lake4.setX(262);
-        lake4.setY(80);
-        lake4.setSize(30);
-        lake4.setIndex(4);
-        lake4.flipFaceUp();
-
-        lakeTiles.put(lake.getIndex(), lake);
-        lakeTiles.put(lake2.getIndex(), lake2);
-        lakeTiles.put(lake3.getIndex(), lake3);
-        lakeTiles.put(lake4.getIndex(), lake4);
+//        LakeTile lake = new LakeTile();
+//        lake.setImage("data/starttile.png");
+//        lake.set_topColor(ColorEnum.BLACK);
+//        lake.set_rightColor(ColorEnum.BLUE);
+//        lake.set_bottomColor(ColorEnum.RED);
+//        lake.set_leftColor(ColorEnum.WHITE);
+//        lake.setIndex(1);
+//        ;
+//
+//        LakeTile lake2 = new LakeTile();
+//        lake2.setImage("data/starttile.png");
+//        lake2.set_topColor(ColorEnum.BLACK);
+//        lake2.set_rightColor(ColorEnum.BLUE);
+//        lake2.set_bottomColor(ColorEnum.RED);
+//        lake2.set_leftColor(ColorEnum.WHITE);
+//        lake2.setX(200);
+//        lake2.setY(80);
+//        lake2.setSize(30);
+//        lake2.setIndex(2);
+//        lake2.flipFaceUp();
+//
+//        LakeTile lake3 = new LakeTile();
+//        lake3.setImage("data/starttile.png");
+//        lake3.set_topColor(ColorEnum.BLACK);
+//        lake3.set_rightColor(ColorEnum.BLUE);
+//        lake3.set_bottomColor(ColorEnum.RED);
+//        lake3.set_leftColor(ColorEnum.WHITE);
+//        lake3.setX(231);
+//        lake3.setY(80);
+//        lake3.setSize(30);
+//        lake3.setIndex(3);
+//        lake3.flipFaceUp();
+//
+//        LakeTile lake4 = new LakeTile();
+//        lake4.setImage("data/starttile.png");
+//        lake4.set_topColor(ColorEnum.BLACK);
+//        lake4.set_rightColor(ColorEnum.BLUE);
+//        lake4.set_bottomColor(ColorEnum.RED);
+//        lake4.set_leftColor(ColorEnum.WHITE);
+//        lake4.setX(262);
+//        lake4.setY(80);
+//        lake4.setSize(30);
+//        lake4.setIndex(4);
+//        lake4.flipFaceUp();
+//
+//        lakeTiles.put(lake.getIndex(), lake);
+//        lakeTiles.put(lake2.getIndex(), lake2);
+//        lakeTiles.put(lake3.getIndex(), lake3);
+//        lakeTiles.put(lake4.getIndex(), lake4);
     }
 
     public void initMatrixCell()
@@ -135,15 +139,17 @@ public class MatrixCalculator
                 matrixElement.setY(heightStart + i
                         * (matrixElementlenght + gap));
                 matrixElement.setSize(matrixElementlenght);
-                if (i == rows / 2 && j == cols / 2)
-                {
-                    matrixElement.setLake(lakeTiles.get(1));
-                }
+//                if (i == rows / 2 && j == cols / 2)
+//                {
+//                    matrixElement.setLake(gameBoard.getLakeTileByIndex(1));
+//                }
+                if(gameBoard.getMatrixLocationIndex().containsKey(id))
+                    matrixElement.setLake(gameBoard.getLakeTileByIndex(gameBoard.getMatrixLocationIndex().get(id)));
                 id++;
                 entities.put(matrixElement.getId(), matrixElement);
             }
         }
-        placeStartLake(lakeTiles.get(1), 221);
+        placeStartLake(gameBoard.getLakeTileByIndex(gameBoard.getMatrixLocationIndex().get(221)), 221);
         notifyAllObservers();
     }
 
@@ -161,9 +167,8 @@ public class MatrixCalculator
             placeStartLake(lake, id);
         } else
         {
-            if (selectedCard != null
-                    && selectedCard.getCardType() == CardType.LAKETILE)
-                placeNewLake((LakeTile) selectedCard, id);
+            if (selectedCardIndex != null)
+                placeNewLake(selectedCardIndex, id);
         }
         notifyAllObservers();
     }
@@ -176,7 +181,7 @@ public class MatrixCalculator
      * @param id
      *            Lake Tile id
      */
-    public void placeNewLake(LakeTile lake, int id)
+    public void placeNewLake(int index, int id)
     {
         LakeTile left = null;
         LakeTile right = null;
@@ -199,9 +204,10 @@ public class MatrixCalculator
             return;
         }
 
+        LakeTile lake = gameBoard.getLakeTileByIndex(index);
         System.out.println("place new lake.");
         entities.get(id).setLake(lake);
-        selectedCard = null;
+        selectedCardIndex = null;
 
         System.out.println("left lake: "
                 + (left == null ? "no" : left.getIndex()));
@@ -246,5 +252,4 @@ public class MatrixCalculator
             observer.update(entities);
         }
     }
-
 }

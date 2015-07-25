@@ -46,7 +46,8 @@ public class GameBoard
      */
 
     private ArrayList<Player> m_players;
-
+    private Map<Integer, Integer> matrixLocation_index = new HashMap<>();
+    
     /**
      * Number of players
      */
@@ -83,6 +84,7 @@ public class GameBoard
         m_players = new ArrayList<Player>();
         roundExecutor = 0;
         m_entities = new HashMap<Integer, MatrixCell>();
+        matrixLocation_index.put(0, 221);
     }
 
     public Map<Integer, MatrixCell> getEntities()
@@ -173,6 +175,11 @@ public class GameBoard
     public void setLakeTileCollection(ArrayList<LakeTile> m_LakeTileCollection)
     {
         this.m_LakeTileCollection = m_LakeTileCollection;
+    }
+    
+    public void setLakeTileByIndex(int index,LakeTile lakeTile)
+    {
+        this.m_LakeTileCollection.set(index, lakeTile);
     }
 
     public ArrayList<DedicationToken> getDedicationTokenCollection()
@@ -301,5 +308,15 @@ public class GameBoard
     public FavorToken getFavorTokenByIndex(int index)
     {
         return m_FavorTokenCollection.get(index);
+    }
+    
+    public Map<Integer, Integer> getMatrixLocationIndex()
+    {
+        return matrixLocation_index;
+    }
+
+    public void setMatrixLocationIndex(Map<Integer, Integer> indexMatrixLocation)
+    {
+        this.matrixLocation_index = indexMatrixLocation;
     }
 }

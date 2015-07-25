@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import hf.controller.MatrixCalculator;
+import hf.game.GameBoard;
 import hf.game.items.LakeTile;
 
 public class MatrixCalculatorTest
@@ -14,7 +15,7 @@ public class MatrixCalculatorTest
     @Before
     public void before()
     {
-        mc.init();
+        mc.init(new GameBoard());
     }
 
     @Test
@@ -29,8 +30,8 @@ public class MatrixCalculatorTest
     @Test
     public void testPlaceNewLake()
     {
-        mc.placeNewLake(new LakeTile(), 221);
-        mc.placeNewLake(new LakeTile(), 200);
+        mc.placeNewLake(1, 221);
+        mc.placeNewLake(2, 200);
         assertNotNull(mc.getEntities().get(221 - 21).getLake());
         assertNull(mc.getEntities().get(221 + 21).getLake());
         assertNull(mc.getEntities().get(221 - 1).getLake());

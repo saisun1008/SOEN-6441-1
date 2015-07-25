@@ -335,6 +335,7 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     {
         gameBoard = board;
         setEntities();
+        matrixView.setGameBoard(board);
     }
 
     public void setEntities()
