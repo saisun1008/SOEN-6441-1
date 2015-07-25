@@ -246,8 +246,107 @@ public class MatrixCalculator
             {
                if(gameBoard.getCurrentRoundPlayer().getName().equals(p.getName()))
                {
-                   
+                       
                }
+               
+               if(lakeLeft!=null && lake.get_leftColor()==lakeLeft.get_rightColor())
+               {
+                   ArrayList<Integer> deckLartain1 = null;
+                   if(p.getSitLocation()==LocationEnum.RIGHT)
+                   {
+                       deckLartain1 = gameBoard.getLatternDecks().get(lake.get_leftColor());
+                       if(deckLartain1.size()>0)
+                       {
+                           deckLartain1.remove(deckLartain1.size()-1);
+                           gameBoard.getLatternDecks().put(lake.get_leftColor(), deckLartain1);
+                       }
+                       
+                       ArrayList<Integer> palyLantern = p.getLanternList().get(lake.get_leftColor());
+                       if(palyLantern==null)
+                           palyLantern = new ArrayList<>();
+                       
+                       palyLantern.add(1);
+                       p.getLanternList().put(lake.get_leftColor(), palyLantern);
+                   }
+                   
+                   if(lakeLeft.hasSpecialIcon())
+                       gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
+               }
+               
+               if(lakeRight!=null && lake.get_rightColor()==lakeRight.get_leftColor())
+               {
+                   ArrayList<Integer> deckLartain1 = null;
+                   if(p.getSitLocation()==LocationEnum.LEFT)
+                   {
+                       deckLartain1 = gameBoard.getLatternDecks().get(lake.get_rightColor());
+                       if(deckLartain1.size()>0)
+                       {
+                           deckLartain1.remove(deckLartain1.size()-1);
+                           gameBoard.getLatternDecks().put(lake.get_rightColor(), deckLartain1);
+                       }
+                       
+                       ArrayList<Integer> palyLantern = p.getLanternList().get(lake.get_rightColor());
+                       if(palyLantern==null)
+                           palyLantern = new ArrayList<>();
+                       
+                       palyLantern.add(1);
+                       p.getLanternList().put(lake.get_rightColor(), palyLantern);
+                   }
+                   
+                   if(lakeRight.hasSpecialIcon())
+                       gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
+               }
+               
+               if(lakeTop!=null && lake.get_topColor()==lakeTop.get_bottomColor())
+               {
+                   ArrayList<Integer> deckLartain1 = null;
+                   if(p.getSitLocation()==LocationEnum.BOTTOM)
+                   {
+                       deckLartain1 = gameBoard.getLatternDecks().get(lake.get_topColor());
+                       if(deckLartain1.size()>0)
+                       {
+                           deckLartain1.remove(deckLartain1.size()-1);
+                           gameBoard.getLatternDecks().put(lake.get_topColor(), deckLartain1);
+                       }
+                       
+                       ArrayList<Integer> palyLantern = p.getLanternList().get(lake.get_topColor());
+                       if(palyLantern==null)
+                           palyLantern = new ArrayList<>();
+                       
+                       palyLantern.add(1);
+                       p.getLanternList().put(lake.get_topColor(), palyLantern);
+                   }
+                   
+                   if(lakeTop.hasSpecialIcon())
+                       gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
+               }
+               
+               if(lakeBtm!=null && lake.get_bottomColor()==lakeBtm.get_topColor())
+               {
+                   ArrayList<Integer> deckLartain1 = null;
+                   if(p.getSitLocation()==LocationEnum.TOP)
+                   {
+                       deckLartain1 = gameBoard.getLatternDecks().get(lake.get_bottomColor());
+                       if(deckLartain1.size()>0)
+                       {
+                           deckLartain1.remove(deckLartain1.size()-1);
+                           gameBoard.getLatternDecks().put(lake.get_bottomColor(), deckLartain1);
+                       }
+                       
+                       ArrayList<Integer> palyLantern = p.getLanternList().get(lake.get_bottomColor());
+                       if(palyLantern==null)
+                           palyLantern = new ArrayList<>();
+                       
+                       palyLantern.add(1);
+                       p.getLanternList().put(lake.get_bottomColor(), palyLantern);
+                   }
+                   
+                   if(lakeBtm.hasSpecialIcon())
+                       gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
+               }
+               
+               if(lake.hasSpecialIcon())
+                   gameBoard.getCurrentRoundPlayer().getFavorTokenList().add(1);
                    
                ArrayList<Integer> deckLartain = null;
                ColorEnum color = null;
