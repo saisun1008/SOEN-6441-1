@@ -1,17 +1,5 @@
 package hf.ui;
 
-import hf.game.GameBoard;
-import hf.game.common.ColorEnum;
-import hf.game.common.LocationEnum;
-import hf.game.common.GameProperties;
-import hf.game.controller.BoardObserver;
-import hf.game.controller.ViewEventObserver;
-import hf.game.items.Player;
-import hf.game.views.GameView;
-import hf.ui.matrix.Matrix;
-
-import java.awt.Container;
-import java.awt.MenuBar;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -22,6 +10,15 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import hf.game.GameBoard;
+import hf.game.common.ColorEnum;
+import hf.game.common.GameProperties;
+import hf.game.common.LocationEnum;
+import hf.game.controller.ViewEventObserver;
+import hf.game.items.Player;
+import hf.ui.matrix.Matrix;
+import hf.util.MouseEventValidation;
 
 /**
  * Main game canvas, should perform all the UI rendering the updates
@@ -69,6 +66,9 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     @Override
     public void update(GameContainer gc, int i) throws SlickException
     {
+        boolean mouseLeftClick = MouseEventValidation.isMouseLeftClick(gc);
+        boolean mouseRightClick = MouseEventValidation.isMouseRightClick(gc);
+        
         if (redrawn)
         {
             matrixView.init(gc);
@@ -83,8 +83,9 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
             render(gc, gc.getGraphics());
             rerender = false;
         }
+        
         Input input = gc.getInput();
-        if (input.isMousePressed(input.MOUSE_LEFT_BUTTON))
+        if (mouseLeftClick)
         {
             if (input.getMouseX() >= GameProperties.GAME_WINDOW_WIDTH / 2 - 200
                     && input.getMouseX() <= GameProperties.GAME_WINDOW_WIDTH / 2 - 140
@@ -93,6 +94,9 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
                 gameBoard.makeNewRound();
             }
         }
+        
+        matrixView.setMouseLeftClick(mouseLeftClick);
+        matrixView.setMouseRightClick(mouseRightClick);
         matrixView.update(gc, i);
     }
 

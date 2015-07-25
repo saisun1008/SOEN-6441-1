@@ -25,7 +25,9 @@ public class Matrix extends BasicGame implements MatrixObserver
     private MatrixCalculator ca = new MatrixCalculator();
     private ArrayList<ViewEventObserver> observers;
     private ArrayList<MatrixObserver> matrixObservers;
-
+    private boolean isMouseLeftClick = false;
+    private boolean isMouseRightClick = false;
+    
     /**
      * Matrix constructor
      * 
@@ -39,6 +41,16 @@ public class Matrix extends BasicGame implements MatrixObserver
         matrixObservers = new ArrayList<MatrixObserver>();
     }
 
+    public void setMouseLeftClick(boolean isMouseLeftClick)
+    {
+        this.isMouseLeftClick = isMouseLeftClick;
+    }
+
+    public void setMouseRightClick(boolean isMouseRightClick)
+    {
+        this.isMouseRightClick = isMouseRightClick;
+    }
+    
     public void setEntities(Map<Integer, MatrixCell> entities)
     {
         for (int key : entities.keySet())
@@ -80,10 +92,7 @@ public class Matrix extends BasicGame implements MatrixObserver
     @Override
     public void update(GameContainer gc, int i) throws SlickException
     {
-
-        boolean mouseLeftClick = MouseEventValidation.isMouseLeftClick(gc);
-        boolean mouseRightClick = MouseEventValidation.isMouseRightClick(gc);
-        if (!mouseLeftClick && !mouseRightClick)
+        if (!isMouseLeftClick && !isMouseRightClick)
             return;
 
         for (BasicGame entity : ca.getEntities().values())
@@ -107,12 +116,12 @@ public class Matrix extends BasicGame implements MatrixObserver
                     return;
                 }
 
-                if (mouseLeftClick)
+                if (isMouseLeftClick)
                 {
                     ca.setSelectedCard(lake);
                     notifyAllObservers("lake card " + lake.getIndex()
                             + " has been selected");
-                } else if (mouseRightClick)
+                } else if (isMouseRightClick)
                 {
                     lake.rotateTile();
                     notifyAllObservers("lake card " + lake.getIndex()
