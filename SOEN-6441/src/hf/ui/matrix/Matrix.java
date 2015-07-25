@@ -83,6 +83,7 @@ public class Matrix extends BasicGame implements MatrixObserver
     
     public void loadMatrix(GameBoard gameBoard)
     {
+        this.gameBoard = gameBoard;
         ca.init(gameBoard);
     }
 
@@ -107,34 +108,38 @@ public class Matrix extends BasicGame implements MatrixObserver
         }
 
 //        for (LakeTile lake : ca.getLakeTiles().values())
-//        {
-//            Input input = gc.getInput();
-//            int xpos = input.getMouseX();
-//            int ypos = input.getMouseY();
-//
-//            if ((xpos > lake.getX() && xpos < lake.getX() + lake.getSize())
-//                    && (ypos > lake.getY() && ypos < lake.getY()
-//                            + lake.getSize()))
-//            {
-//                if (!lake.isFaceUp())
-//                {
-//                    notifyAllObservers("invalid select");
-//                    return;
-//                }
-//
-//                if (isMouseLeftClick)
-//                {
-//                    ca.setSelectedCard(lake);
-//                    notifyAllObservers("lake card " + lake.getIndex()
-//                            + " has been selected");
-//                } else if (isMouseRightClick)
-//                {
-//                    lake.rotateTile();
-//                    notifyAllObservers("lake card " + lake.getIndex()
-//                            + " been rotated 90");
-//                }
-//            }
-//        }
+        if(gameBoard.getCurrentRoundPlayer()!=null)
+            for (Integer lakeIndex : gameBoard.getCurrentRoundPlayer().getLakeTileList())
+            {
+                Input input = gc.getInput();
+                int xpos = input.getMouseX();
+                int ypos = input.getMouseY();
+    
+                LakeTile lake = gameBoard.getLakeTileByIndex(lakeIndex);
+                if ((xpos > lake.getX() && xpos < lake.getX() + lake.getSize())
+                        && (ypos > lake.getY() && ypos < lake.getY()
+                                + lake.getSize()))
+                {
+//                    if (!lake.isFaceUp())
+//                    {
+//                        notifyAllObservers("invalid select");
+//                        return;
+//                    }
+    
+                    if (isMouseLeftClick)
+                    {
+                        ca.setSelectedCard(lakeIndex);
+                        notifyAllObservers("lake card " + lake.getIndex()
+                                + " has been selected");
+                    } else if (isMouseRightClick)
+                    {
+                        lake.rotateTile();
+                        gameBoard.setLakeTileByIndex(lakeIndex, lake);
+                        notifyAllObservers("lake card " + lake.getIndex()
+                                + " been rotated 90");
+                    }
+                }
+            }
     }
 
     /**

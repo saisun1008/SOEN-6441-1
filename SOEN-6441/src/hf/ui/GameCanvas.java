@@ -16,6 +16,7 @@ import hf.game.common.ColorEnum;
 import hf.game.common.GameProperties;
 import hf.game.common.LocationEnum;
 import hf.game.controller.ViewEventObserver;
+import hf.game.items.LakeTile;
 import hf.game.items.Player;
 import hf.ui.matrix.Matrix;
 import hf.util.MouseEventValidation;
@@ -198,9 +199,14 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
         // draw lake tiles
         for (int index : p.getLakeTileList())
         {
-            g.drawImage(new Image(gameBoard.getLakeTileByIndex(index)
+            LakeTile lakeTile = gameBoard.getLakeTileByIndex(index);
+            g.drawImage(new Image(lakeTile
                     .getImage()), x + xCount * 50, y + 40 + yCount * 50);
 
+            lakeTile.setX( x + xCount * 50);
+            lakeTile.setY( y + 40 + yCount * 50);
+            lakeTile.setSize(30);
+            gameBoard.setLakeTileByIndex(index, lakeTile);
             xCount++;
         }
         g.drawString(Integer.toString(p.getLakeTileList().size()), x + xCount
