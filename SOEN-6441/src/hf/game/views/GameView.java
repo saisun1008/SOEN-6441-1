@@ -6,6 +6,7 @@ import hf.game.GameBoard;
 import hf.game.common.GameProperties;
 import hf.game.controller.BoardObserver;
 import hf.game.controller.MatrixObserver;
+import hf.game.controller.ViewEventObserver;
 import hf.ui.GameCanvas;
 import hf.ui.matrix.Matrix;
 import hf.ui.matrix.MatrixCell;
@@ -16,23 +17,34 @@ import javax.swing.JPanel;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 
-public class GameView extends JPanel implements BoardObserver, MatrixObserver
+public class GameView extends JPanel implements BoardObserver, MatrixObserver,
+        ViewEventObserver
 {
     private LogView logView;
     private GameBoard gameBoard;
     private CanvasGameContainer appgc;
     private GameCanvas mainView;
+    private SelectionView selectionView;
 
     public GameView(GameBoard board) throws SlickException
     {
         logView = new LogView();
+
         gameBoard = board;
+
+        selectionView = new SelectionView(this, board);
+
         buildCanvas();
     }
 
     public LogView getLogView()
     {
         return logView;
+    }
+
+    public SelectionView getSelectionView()
+    {
+        return selectionView;
     }
 
     public GameCanvas getMainCanvas()
@@ -132,6 +144,17 @@ public class GameView extends JPanel implements BoardObserver, MatrixObserver
     @Override
     public void update(Map<Integer, MatrixCell> entities)
     {
+
+    }
+
+    @Override
+    public void updateEvent(String event)
+    {
+        if (event.equals("L_TO_D"))
+        {
+            selectionView.showPanel(true);
+            selectionView.buildByType(event);
+        }
 
     }
 }

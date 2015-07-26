@@ -1,8 +1,14 @@
 package hf.ui;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+
+import javax.swing.JCheckBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -16,6 +22,7 @@ import hf.game.common.ColorEnum;
 import hf.game.common.GameProperties;
 import hf.game.common.LocationEnum;
 import hf.game.controller.ViewEventObserver;
+import hf.game.controller.ViewLogObserver;
 import hf.game.items.LakeTile;
 import hf.game.items.Player;
 import hf.ui.matrix.Matrix;
@@ -27,7 +34,7 @@ import hf.util.MouseEventValidation;
  * @author Sai
  *
  */
-public class GameCanvas extends BasicGame implements ViewEventObserver
+public class GameCanvas extends BasicGame implements ViewLogObserver
 {
 
     private boolean gameStarted = false;
@@ -35,9 +42,14 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     private Image foldedLakeTileImage;
     private GameBoard gameBoard;
     private boolean rerender = false;
-    private ArrayList<ViewEventObserver> observers;
+    private ArrayList<ViewLogObserver> LogObservers;
+    private ArrayList<ViewEventObserver> EventObservers;
     private static Matrix matrixView;
     private boolean redrawn = false;
+    private int lanternToDedicationBtnX = 0;
+    private int lanternToDedicationBtnY = 0;
+    private int favorExchangeBtnX = 0;
+    private int favorExchangeBtnY = 0;
 
     public GameCanvas(String title)
     {
@@ -45,7 +57,8 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
         gameStarted = false;
         matrixView = new Matrix("battle board");
         matrixView.attach(this);
-        observers = new ArrayList<ViewEventObserver>();
+        LogObservers = new ArrayList<ViewLogObserver>();
+        EventObservers = new ArrayList<ViewEventObserver>();
     }
 
     public void reDrawMatrix()
@@ -69,7 +82,7 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
     {
         boolean mouseLeftClick = MouseEventValidation.isMouseLeftClick(gc);
         boolean mouseRightClick = MouseEventValidation.isMouseRightClick(gc);
-        
+
         if (redrawn)
         {
             matrixView.init(gc);
@@ -84,18 +97,19 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
             render(gc, gc.getGraphics());
             rerender = false;
         }
-        
+
         Input input = gc.getInput();
         if (mouseLeftClick)
         {
-            if (input.getMouseX() >= GameProperties.GAME_WINDOW_WIDTH / 2 - 200
-                    && input.getMouseX() <= GameProperties.GAME_WINDOW_WIDTH / 2 - 140
-                    && input.getMouseY() >= 10 && input.getMouseY() <= 70)
+            if (input.getMouseX() >= lanternToDedicationBtnX
+                    && input.getMouseX() <= lanternToDedicationBtnX + 30
+                    && input.getMouseY() >= lanternToDedicationBtnY
+                    && input.getMouseY() <= lanternToDedicationBtnY + 30)
             {
-                gameBoard.makeNewRound();
+                sendEvent("L_TO_D");
             }
         }
-        
+
         matrixView.setMouseLeftClick(mouseLeftClick);
         matrixView.setMouseRightClick(mouseRightClick);
         matrixView.update(gc, i);
@@ -115,6 +129,8 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
             Image newRound = new Image("images/newRound.jpg");
             g.drawImage(newRound, GameProperties.GAME_WINDOW_WIDTH / 2 - 200,
                     10);
+            lanternToDedicationBtnX = GameProperties.GAME_WINDOW_WIDTH / 2 - 200;
+            lanternToDedicationBtnY = 10;
             matrixView.render(gc, g);
         }
 
@@ -200,17 +216,17 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
         for (int index : p.getLakeTileList())
         {
             LakeTile lakeTile = gameBoard.getLakeTileByIndex(index);
-            g.drawImage(new Image(lakeTile
-                    .getImage()), x + xCount * 50, y + 40 + yCount * 50);
+            g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y + 40
+                    + yCount * 50);
 
-            lakeTile.setX( x + xCount * 50);
-            lakeTile.setY( y + 40 + yCount * 50);
+            lakeTile.setX(x + xCount * 50);
+            lakeTile.setY(y + 40 + yCount * 50);
             lakeTile.setSize(30);
             gameBoard.setLakeTileByIndex(index, lakeTile);
             xCount++;
         }
-        g.drawString(Integer.toString(p.getLakeTileList().size()), x + xCount
-                * 50, y + 40 + yCount * 50 + 50);
+        g.drawString(Integer.toString(p.getLakeTileList().size()), x
+                + (xCount - 1) * 50, y + 40 + yCount * 50 + 50);
 
         // draw lantern card
         if (p.getSitLocation() == LocationEnum.LEFT
@@ -266,7 +282,7 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
                                 : ".");
             }
             g.drawString(msg, x + xCount * 50, y + 40 + yCount * 50 + 50);
-            xCount++;
+            xCount = xCount + 2;
         }
 
         // draw favor token
@@ -354,16 +370,29 @@ public class GameCanvas extends BasicGame implements ViewEventObserver
         return matrixView;
     }
 
-    public void attach(ViewEventObserver observer)
+    public void attach(ViewLogObserver observer)
     {
-        observers.add(observer);
+        LogObservers.add(observer);
     }
 
     public void notifyAllObservers(String msg)
     {
-        for (ViewEventObserver observer : observers)
+        for (ViewLogObserver observer : LogObservers)
         {
             observer.update(msg);
+        }
+    }
+
+    public void attach(ViewEventObserver observer)
+    {
+        EventObservers.add(observer);
+    }
+
+    public void sendEvent(String msg)
+    {
+        for (ViewEventObserver observer : EventObservers)
+        {
+            observer.updateEvent(msg);
         }
     }
 

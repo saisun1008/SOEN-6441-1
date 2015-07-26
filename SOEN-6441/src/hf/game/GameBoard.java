@@ -47,7 +47,7 @@ public class GameBoard
 
     private ArrayList<Player> m_players;
     private Map<Integer, Integer> matrixLocation_index = new HashMap<>();
-    
+
     /**
      * Number of players
      */
@@ -122,6 +122,39 @@ public class GameBoard
         {
             roundExecutor = 0;
         }
+        verifyGameEndState();
+    }
+
+    private void verifyGameEndState()
+    {
+        int lakeTileCnt = 0;
+        int maxScore = 0;
+        int winner = 0;
+        for (Player player : m_players)
+        {
+            lakeTileCnt = lakeTileCnt + player.getLakeTileList().size();
+            int score = 0;
+            for (ColorEnum index : player.getDedicationTokenList().keySet())
+            {
+                for (int i : player.getDedicationTokenList().get(index))
+                {
+                    score += getDedicationTokenByIndex(i).getCardValue();
+                }
+            }
+            if (maxScore < score)
+            {
+                winner = m_players.indexOf(player);
+                maxScore = score;
+            }
+            player.setScore(score);
+        }
+
+        lakeTileCnt += m_LakeTileDeck.size();
+
+        if (lakeTileCnt == 0)
+        {
+            System.out.println(m_players.get(winner).getName() + " has won!!");
+        }
     }
 
     /**
@@ -176,8 +209,8 @@ public class GameBoard
     {
         this.m_LakeTileCollection = m_LakeTileCollection;
     }
-    
-    public void setLakeTileByIndex(int index,LakeTile lakeTile)
+
+    public void setLakeTileByIndex(int index, LakeTile lakeTile)
     {
         this.m_LakeTileCollection.set(index, lakeTile);
     }
@@ -309,7 +342,7 @@ public class GameBoard
     {
         return m_FavorTokenCollection.get(index);
     }
-    
+
     public Map<Integer, Integer> getMatrixLocationIndex()
     {
         return matrixLocation_index;
@@ -318,5 +351,139 @@ public class GameBoard
     public void setMatrixLocationIndex(Map<Integer, Integer> indexMatrixLocation)
     {
         this.matrixLocation_index = indexMatrixLocation;
+    }
+
+    public boolean exchangeFourOfKind(HashMap<ColorEnum, Integer> exchangeList)
+    {
+        boolean result = false;
+        // valid if the exchange can be done or not
+        for (ColorEnum color : exchangeList.keySet())
+        {
+            // if has enough cards
+            if (exchangeList.get(color) >= 4)
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    // place the cards into deck
+                    m_LatternDecks.get(color).add(
+                            getCurrentRoundPlayer().getLanternList().get(color)
+                                    .get(0));
+                    // first remove lantern cards from player hand
+                    getCurrentRoundPlayer().getLanternList().get(color)
+                            .remove(0);
+                }
+                // give player one red dedication token
+                ArrayList<Integer> origin = getCurrentRoundPlayer()
+                        .getDedicationTokenList().get(ColorEnum.RED);
+                if (origin == null)
+                {
+                    origin = new ArrayList<Integer>();
+                }
+                m_DedicationTokenDecks.get(ColorEnum.RED).remove(0);
+                origin.add(m_DedicationTokenDecks.get(ColorEnum.RED).get(0));
+                getCurrentRoundPlayer().getDedicationTokenList().put(
+                        ColorEnum.RED, origin);
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public boolean exchangeThreePair(HashMap<ColorEnum, Integer> exchangeList)
+    {
+        boolean result = false;
+        int valid = 0;
+        // valid if the exchange can be done or not
+        for (ColorEnum color : exchangeList.keySet())
+        {
+            // if has enough cards
+            if (exchangeList.get(color) >= 2)
+            {
+                valid++;
+            }
+        }
+        if (valid < 3)
+        {
+            return false;
+        }
+        for (ColorEnum color : exchangeList.keySet())
+        {
+            // if has enough cards
+            if (exchangeList.get(color) >= 2)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    // place the cards into deck
+                    m_LatternDecks.get(color).add(
+                            getCurrentRoundPlayer().getLanternList().get(color)
+                                    .get(0));
+                    // first remove lantern cards from player hand
+                    getCurrentRoundPlayer().getLanternList().get(color)
+                            .remove(0);
+                }
+                // give player one red dedication token
+                ArrayList<Integer> origin = getCurrentRoundPlayer()
+                        .getDedicationTokenList().get(ColorEnum.BLUE);
+                if (origin == null)
+                {
+                    origin = new ArrayList<Integer>();
+                }
+                m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
+                origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
+                getCurrentRoundPlayer().getDedicationTokenList().put(
+                        ColorEnum.BLUE, origin);
+                result = true;
+            }
+        }
+        return result;
+    }
+
+    public boolean exchangeSevenUnique(HashMap<ColorEnum, Integer> exchangeList)
+    {
+        boolean result = false;
+        int valid = 0;
+        // valid if the exchange can be done or not
+        for (ColorEnum color : exchangeList.keySet())
+        {
+            // if has enough cards
+            if (exchangeList.get(color) >= 1)
+            {
+                valid++;
+            }
+        }
+        if (valid < 7)
+        {
+            return false;
+        }
+        for (ColorEnum color : exchangeList.keySet())
+        {
+            // if has enough cards
+            if (exchangeList.get(color) >= 1)
+            {
+                for (int i = 0; i < 1; i++)
+                {
+                    // place the cards into deck
+                    m_LatternDecks.get(color).add(
+                            getCurrentRoundPlayer().getLanternList().get(color)
+                                    .get(0));
+                    // first remove lantern cards from player hand
+                    getCurrentRoundPlayer().getLanternList().get(color)
+                            .remove(0);
+                }
+                // give player one red dedication token
+                ArrayList<Integer> origin = getCurrentRoundPlayer()
+                        .getDedicationTokenList().get(ColorEnum.GREEN);
+                if (origin == null)
+                {
+                    origin = new ArrayList<Integer>();
+                }
+                m_DedicationTokenDecks.get(ColorEnum.GREEN).remove(0);
+                origin.add(m_DedicationTokenDecks.get(ColorEnum.GREEN).get(0));
+                getCurrentRoundPlayer().getDedicationTokenList().put(
+                        ColorEnum.GREEN, origin);
+                result = true;
+            }
+        }
+        return result;
     }
 }

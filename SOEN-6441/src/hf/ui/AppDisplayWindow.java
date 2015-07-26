@@ -1,5 +1,6 @@
 package hf.ui;
 
+import hf.game.GameBoard;
 import hf.game.common.GameProperties;
 import hf.game.controller.GameController;
 import hf.game.items.LakeTile;
@@ -90,6 +91,8 @@ public class AppDisplayWindow
                         target = index;
                     }
                 }
+                gView.getSelectionView().setBoard(
+                        GameController.getInstance().getBoard());
                 gView.getLogView().log(target.toString());
             }
         });
@@ -114,7 +117,8 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getPlayers());
                 gView.getMainCanvas().reDrawMatrix();
-                gView.getMatrix().loadMatrix(GameController.getInstance().getBoard());
+                gView.getMatrix().loadMatrix(
+                        GameController.getInstance().getBoard());
                 gView.gameStarted();
 
             }
@@ -141,6 +145,7 @@ public class AppDisplayWindow
             gView = new GameView(GameController.getInstance().getBoard());
             gView.getMatrix().attach(GameController.getInstance());
             GameController.getInstance().attach(gView);
+            gView.getMainCanvas().attach(gView);
             JFrame frame = new JFrame("Havest Festival");
             frame.addWindowListener(new WindowAdapter()
             {
@@ -158,6 +163,10 @@ public class AppDisplayWindow
             gView.getLogView().setPreferredSize(
                     new Dimension(300, GameProperties.GAME_WINDOW_HEIGHT));
             frame.getContentPane().add(gView.getLogView(), BorderLayout.EAST);
+            frame.getContentPane().add(gView.getSelectionView(),
+                    BorderLayout.WEST);
+            gView.getSelectionView().setPreferredSize(new Dimension(200, 500));
+            gView.getSelectionView().setVisible(false);
             frame.setMenuBar(getGameMenuBar());
             frame.pack();
             frame.setVisible(true);

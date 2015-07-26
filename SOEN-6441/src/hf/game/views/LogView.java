@@ -1,6 +1,6 @@
 package hf.game.views;
 
-import hf.game.controller.ViewEventObserver;
+import hf.game.controller.ViewLogObserver;
 
 import java.awt.GridLayout;
 
@@ -18,7 +18,7 @@ import javax.swing.ScrollPaneConstants;
  * @author Sai
  * 
  */
-public class LogView extends JPanel implements ViewEventObserver
+public class LogView extends JPanel implements ViewLogObserver
 {
 
     private static final long serialVersionUID = -2598815322167002189L;

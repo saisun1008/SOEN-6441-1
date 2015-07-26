@@ -6,7 +6,7 @@ import java.util.Map;
 import hf.controller.MatrixCalculator;
 import hf.game.GameBoard;
 import hf.game.controller.MatrixObserver;
-import hf.game.controller.ViewEventObserver;
+import hf.game.controller.ViewLogObserver;
 import hf.game.items.LakeTile;
 import hf.util.MouseEventValidation;
 
@@ -24,7 +24,7 @@ public class Matrix extends BasicGame implements MatrixObserver
 {
 
     private MatrixCalculator ca = new MatrixCalculator();
-    private ArrayList<ViewEventObserver> observers;
+    private ArrayList<ViewLogObserver> observers;
     private ArrayList<MatrixObserver> matrixObservers;
     private boolean isMouseLeftClick = false;
     private boolean isMouseRightClick = false;
@@ -39,7 +39,7 @@ public class Matrix extends BasicGame implements MatrixObserver
     public Matrix(String name)
     {
         super(name);
-        observers = new ArrayList<ViewEventObserver>();
+        observers = new ArrayList<ViewLogObserver>();
         matrixObservers = new ArrayList<MatrixObserver>();
     }
 
@@ -176,14 +176,14 @@ public class Matrix extends BasicGame implements MatrixObserver
 //        }
     }
 
-    public void attach(ViewEventObserver observer)
+    public void attach(ViewLogObserver observer)
     {
         observers.add(observer);
     }
 
     public void notifyAllObservers(String msg)
     {
-        for (ViewEventObserver observer : observers)
+        for (ViewLogObserver observer : observers)
         {
             observer.update(msg);
         }

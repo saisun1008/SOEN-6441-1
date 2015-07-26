@@ -16,6 +16,7 @@ public class Player
     private final ArrayList<Integer> lakeTileList = new ArrayList<Integer>();
     private final HashMap<ColorEnum, ArrayList<Integer>> dedicationTokenList = new HashMap<ColorEnum, ArrayList<Integer>>();
     private final ArrayList<Integer> favorTokenList = new ArrayList<Integer>();
+    private int score = 0;
 
     public HashMap<ColorEnum, ArrayList<Integer>> getLanternList()
     {
@@ -37,10 +38,11 @@ public class Player
         return favorTokenList;
     }
 
-//not use delete by yin    private StartPlayerMarker m_startMarker = null;
+    // not use delete by yin private StartPlayerMarker m_startMarker = null;
     private String m_name = null;
     private LocationEnum m_sitLocation = null;
-//not use delete by yin    private GameBoard m_currentBoard = null;
+
+    // not use delete by yin private GameBoard m_currentBoard = null;
 
     /**
      * Default constructor, include name of the player, sit position of the
@@ -61,7 +63,7 @@ public class Player
         lakeTileList.clear();
         dedicationTokenList.clear();
         favorTokenList.clear();
-//not use delete by yin        m_currentBoard = board;
+        // not use delete by yin m_currentBoard = board;
     }
 
     public void takeCard(Card card)
@@ -126,5 +128,10 @@ public class Player
     public LocationEnum getSitLocation()
     {
         return m_sitLocation;
+    }
+
+    public void setScore(int score)
+    {
+        this.score = score;
     }
 }
