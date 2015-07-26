@@ -67,6 +67,8 @@ public class GameBoard
      */
     Map<Integer, MatrixCell> m_entities;
 
+    public boolean gameEnded = false;
+
     /**
      * Initialize Card collections
      */
@@ -115,17 +117,20 @@ public class GameBoard
     /**
      * Make new round, increase the round token
      */
-    public void makeNewRound()
+    public String makeNewRound()
     {
-        roundExecutor++;
-        if (roundExecutor >= numPlayer)
+        if (!gameEnded)
         {
-            roundExecutor = 0;
+            roundExecutor++;
+            if (roundExecutor >= numPlayer)
+            {
+                roundExecutor = 0;
+            }
         }
-        verifyGameEndState();
+        return verifyGameEndState();
     }
 
-    private void verifyGameEndState()
+    private String verifyGameEndState()
     {
         int lakeTileCnt = 0;
         int maxScore = 0;
@@ -154,7 +159,9 @@ public class GameBoard
         if (lakeTileCnt == 0)
         {
             System.out.println(m_players.get(winner).getName() + " has won!!");
+            gameEnded = true;
         }
+        return m_players.get(winner).getName() + " has won!!";
     }
 
     /**

@@ -218,8 +218,11 @@ public class MatrixCalculator
                 .remove(selectedCardIndex);
         if (gameBoard.getLakeTileDeck() != null
                 && !gameBoard.getLakeTileDeck().isEmpty())
+        {
             gameBoard.getCurrentRoundPlayer().getLakeTileList()
                     .add(gameBoard.getLakeTileDeck().get(0));
+            gameBoard.getLakeTileDeck().remove(0);
+        }
         selectedCardIndex = null;
 
         System.out.println("left lake: "

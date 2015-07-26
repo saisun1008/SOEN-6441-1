@@ -50,6 +50,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
     private int lanternToDedicationBtnY = 0;
     private int favorExchangeBtnX = 0;
     private int favorExchangeBtnY = 0;
+    private boolean gameEndPrinted = false;
 
     public GameCanvas(String title)
     {
@@ -118,6 +119,11 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             }
         }
 
+        if (gameBoard.gameEnded && !gameEndPrinted)
+        {
+            update(gameBoard.makeNewRound());
+            gameEndPrinted = true;
+        }
         matrixView.setMouseLeftClick(mouseLeftClick);
         matrixView.setMouseRightClick(mouseRightClick);
         matrixView.update(gc, i);

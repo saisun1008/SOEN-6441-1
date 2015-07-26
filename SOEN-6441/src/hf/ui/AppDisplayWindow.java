@@ -82,6 +82,8 @@ public class AppDisplayWindow
                 gView.gameStarted();
                 gView.getMatrix().setEntities(
                         GameController.getInstance().getBoard().getEntities());
+                gView.getMatrix().loadMatrix(
+                        GameController.getInstance().getBoard());
                 LakeTile target = null;
                 for (LakeTile index : GameController.getInstance().getBoard()
                         .getLakeTileCollection())
