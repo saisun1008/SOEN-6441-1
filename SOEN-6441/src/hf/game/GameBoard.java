@@ -393,8 +393,9 @@ public class GameBoard
                 {
                     origin = new ArrayList<Integer>();
                 }
-                m_DedicationTokenDecks.get(ColorEnum.RED).remove(0);
                 origin.add(m_DedicationTokenDecks.get(ColorEnum.RED).get(0));
+                m_DedicationTokenDecks.get(ColorEnum.RED).remove(0);
+
                 getCurrentRoundPlayer().getDedicationTokenList().put(
                         ColorEnum.RED, origin);
                 result = true;
@@ -452,8 +453,9 @@ public class GameBoard
         {
             origin = new ArrayList<Integer>();
         }
-        m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
         origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
+        m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
+
         getCurrentRoundPlayer().getDedicationTokenList().put(ColorEnum.BLUE,
                 origin);
         result = true;
@@ -509,8 +511,9 @@ public class GameBoard
         {
             origin = new ArrayList<Integer>();
         }
-        m_DedicationTokenDecks.get(ColorEnum.GREEN).remove(0);
         origin.add(m_DedicationTokenDecks.get(ColorEnum.GREEN).get(0));
+        m_DedicationTokenDecks.get(ColorEnum.GREEN).remove(0);
+
         getCurrentRoundPlayer().getDedicationTokenList().put(ColorEnum.GREEN,
                 origin);
         result = true;
