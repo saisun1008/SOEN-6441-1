@@ -108,6 +108,14 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             {
                 sendEvent("L_TO_D");
             }
+
+            if (input.getMouseX() >= favorExchangeBtnX
+                    && input.getMouseX() <= favorExchangeBtnX + 30
+                    && input.getMouseY() >= favorExchangeBtnY
+                    && input.getMouseY() <= favorExchangeBtnY + 30)
+            {
+                sendEvent("F_TO_L");
+            }
         }
 
         matrixView.setMouseLeftClick(mouseLeftClick);
@@ -126,11 +134,14 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             renderDeckArea(g);
             renderPlayers(g);
             renderTokens(g);
-            Image newRound = new Image("images/newRound.jpg");
-            g.drawImage(newRound, GameProperties.GAME_WINDOW_WIDTH / 2 - 200,
-                    10);
-            lanternToDedicationBtnX = GameProperties.GAME_WINDOW_WIDTH / 2 - 200;
+            Image LtoD = new Image("images/LtoD.jpg");
+            g.drawImage(LtoD, GameProperties.GAME_WINDOW_WIDTH / 2 - 150, 10);
+            Image FtoL = new Image("images/FtoL.jpg");
+            g.drawImage(FtoL, GameProperties.GAME_WINDOW_WIDTH / 2 - 200, 10);
+            lanternToDedicationBtnX = GameProperties.GAME_WINDOW_WIDTH / 2 - 150;
             lanternToDedicationBtnY = 10;
+            favorExchangeBtnX = GameProperties.GAME_WINDOW_WIDTH / 2 - 200;
+            favorExchangeBtnY = 10;
             matrixView.render(gc, g);
         }
 

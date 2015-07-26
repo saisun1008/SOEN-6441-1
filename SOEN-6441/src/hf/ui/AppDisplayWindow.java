@@ -120,6 +120,8 @@ public class AppDisplayWindow
                 gView.getMatrix().loadMatrix(
                         GameController.getInstance().getBoard());
                 gView.gameStarted();
+                gView.getSelectionView().setBoard(
+                        GameController.getInstance().getBoard());
 
             }
         });

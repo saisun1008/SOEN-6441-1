@@ -150,11 +150,7 @@ public class GameView extends JPanel implements BoardObserver, MatrixObserver,
     @Override
     public void updateEvent(String event)
     {
-        if (event.equals("L_TO_D"))
-        {
-            selectionView.showPanel(true);
-            selectionView.buildByType(event);
-        }
-
+        selectionView.showPanel(true);
+        selectionView.buildByType(event);
     }
 }

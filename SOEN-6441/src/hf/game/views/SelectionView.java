@@ -11,10 +11,12 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
@@ -35,6 +37,8 @@ public class SelectionView extends JPanel
     private JButton exchangeBtn;
     private JLabel resultLabel = new JLabel();
     private String exchangeType;
+    private ColorEnum cardToGiveback;
+    private ColorEnum cardToTake;
 
     public SelectionView(GameView gameView, GameBoard board)
     {
@@ -82,6 +86,15 @@ public class SelectionView extends JPanel
                         resultLabel.setText("Exchange failed");
                     }
 
+                } else if (exchangeType.equals("F_TO_L"))
+                {
+                    if (doFavorExchange())
+                    {
+                        resultLabel.setText("Exchange successful");
+                    } else
+                    {
+                        resultLabel.setText("Exchange failed");
+                    }
                 }
             }
         });
@@ -104,9 +117,10 @@ public class SelectionView extends JPanel
                     .getCurrentRoundPlayer().getLanternList();
             this.removeAll();
             setLayout(new GridLayout(list.size() + 4, 1));
-            JLabel l1 = new JLabel(
+            JTextArea l1 = new JTextArea(
                     "Exchange Dedication Token, each \ntype of exchange must be done in turn.");
             l1.setSize(this.getWidth(), this.getHeight());
+            l1.setLineWrap(true);
             add(l1);
 
             for (ColorEnum key : list.keySet())
@@ -128,12 +142,85 @@ public class SelectionView extends JPanel
                 checkboxes.add(checkbox);
             }
 
+        } else if (selectionType.equals("F_TO_L"))
+        {
+            HashMap<ColorEnum, ArrayList<Integer>> list = board
+                    .getCurrentRoundPlayer().getLanternList();
+            this.removeAll();
+            setLayout(new GridLayout(5, 0));
+            JTextArea l1 = new JTextArea(
+                    "Exchange Lantern Card, each \ntype of exchange must be done in turn.");
+            l1.setLineWrap(true);
+            l1.setSize(this.getWidth(), this.getHeight());
+            add(l1);
+            JPanel midPanel = new JPanel();
+            midPanel.setLayout(new GridLayout(0, 2));
+            JPanel m1 = new JPanel();
+            m1.setLayout(new GridLayout(7, 0));
+            JPanel m2 = new JPanel();
+            m2.setLayout(new GridLayout(7, 0));
+            ButtonGroup group1 = new ButtonGroup();
+            // build ratio btns for player lantern
+            for (ColorEnum key : list.keySet())
+            {
+                JRadioButton radionBtn = new JRadioButton(key + ":"
+                        + list.get(key).size());
+                radionBtn.setSelected(false);
+                radionBtn.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (radionBtn.isSelected()
+                                && Integer.parseInt(radionBtn.getText().split(
+                                        ":")[1]) >= 1)
+                        {
+                            cardToGiveback = stringToEnum(radionBtn.getText()
+                                    .split(":")[0]);
+                        }
+                    }
+                });
+                group1.add(radionBtn);
+                m1.add(radionBtn);
+            }
+
+            // build ratio btns for deck
+            ButtonGroup group2 = new ButtonGroup();
+            for (ColorEnum key : board.getLatternDecks().keySet())
+            {
+                JRadioButton radionBtn = new JRadioButton(key + ":"
+                        + board.getLatternDecks().get(key).size());
+                radionBtn.setSelected(false);
+                radionBtn.addActionListener(new ActionListener()
+                {
+                    public void actionPerformed(ActionEvent e)
+                    {
+                        if (radionBtn.isSelected()
+                                && Integer.parseInt(radionBtn.getText().split(
+                                        ":")[1]) >= 1)
+                        {
+                            cardToTake = stringToEnum(radionBtn.getText()
+                                    .split(":")[0]);
+                        }
+                    }
+                });
+                group2.add(radionBtn);
+                m2.add(radionBtn);
+            }
+            midPanel.add(m1);
+            midPanel.add(m2);
+            add(midPanel);
+
         }
 
         addExchangeBtn();
         addCloseBtn();
         resultLabel.setSize(this.getWidth(), 30);
         add(resultLabel);
+        if (board.getCurrentRoundPlayer().getFavorTokenList().size() < 2
+                && selectionType.equals("F_TO_L"))
+        {
+            resultLabel.setText("Insuffcient Favor Token");
+        }
 
     }
 
@@ -169,10 +256,20 @@ public class SelectionView extends JPanel
         {
             // three pair exchange
             result = board.exchangeThreePair(exchangeList);
+            if (result)
+            {
+                buildByType("L_TO_D");
+                resultLabel.setText("Exchange Successful");
+            }
         } else if (cnt == 7)
         {
             // seven unique exchange
             result = board.exchangeSevenUnique(exchangeList);
+            if (result)
+            {
+                buildByType("L_TO_D");
+                resultLabel.setText("Exchange Successful");
+            }
         } else
         {
             resultLabel
@@ -202,6 +299,19 @@ public class SelectionView extends JPanel
 
         default:
             return ColorEnum.BLACK;
+        }
+    }
+
+    private boolean doFavorExchange()
+    {
+        if (board.getCurrentRoundPlayer().getFavorTokenList().size() < 2)
+        {
+            return false;
+        } else
+        {
+            boolean ret = board.useFavorToken(cardToGiveback, cardToTake);
+            buildByType("F_TO_L");
+            return ret;
         }
     }
 }

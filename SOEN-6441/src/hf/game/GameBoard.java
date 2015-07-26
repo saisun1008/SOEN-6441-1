@@ -353,6 +353,13 @@ public class GameBoard
         this.matrixLocation_index = indexMatrixLocation;
     }
 
+    /**
+     * Exchange four of a kind lantern cards
+     * 
+     * @param exchangeList
+     *            list contains cards to be exchanged
+     * @return true if successful
+     */
     public boolean exchangeFourOfKind(HashMap<ColorEnum, Integer> exchangeList)
     {
         boolean result = false;
@@ -389,6 +396,13 @@ public class GameBoard
         return result;
     }
 
+    /**
+     * Exchange three pair lantern cards
+     * 
+     * @param exchangeList
+     *            list contains cards to be exchanged
+     * @return true if successful
+     */
     public boolean exchangeThreePair(HashMap<ColorEnum, Integer> exchangeList)
     {
         boolean result = false;
@@ -421,23 +435,31 @@ public class GameBoard
                     getCurrentRoundPlayer().getLanternList().get(color)
                             .remove(0);
                 }
-                // give player one red dedication token
-                ArrayList<Integer> origin = getCurrentRoundPlayer()
-                        .getDedicationTokenList().get(ColorEnum.BLUE);
-                if (origin == null)
-                {
-                    origin = new ArrayList<Integer>();
-                }
-                m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
-                origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
-                getCurrentRoundPlayer().getDedicationTokenList().put(
-                        ColorEnum.BLUE, origin);
-                result = true;
+
             }
         }
+        // give player one blue dedication token
+        ArrayList<Integer> origin = getCurrentRoundPlayer()
+                .getDedicationTokenList().get(ColorEnum.BLUE);
+        if (origin == null)
+        {
+            origin = new ArrayList<Integer>();
+        }
+        m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
+        origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
+        getCurrentRoundPlayer().getDedicationTokenList().put(ColorEnum.BLUE,
+                origin);
+        result = true;
         return result;
     }
 
+    /**
+     * Exchange seven unique lantern cards
+     * 
+     * @param exchangeList
+     *            list contains cards to be exchanged
+     * @return true if successful
+     */
     public boolean exchangeSevenUnique(HashMap<ColorEnum, Integer> exchangeList)
     {
         boolean result = false;
@@ -470,20 +492,48 @@ public class GameBoard
                     getCurrentRoundPlayer().getLanternList().get(color)
                             .remove(0);
                 }
-                // give player one red dedication token
-                ArrayList<Integer> origin = getCurrentRoundPlayer()
-                        .getDedicationTokenList().get(ColorEnum.GREEN);
-                if (origin == null)
-                {
-                    origin = new ArrayList<Integer>();
-                }
-                m_DedicationTokenDecks.get(ColorEnum.GREEN).remove(0);
-                origin.add(m_DedicationTokenDecks.get(ColorEnum.GREEN).get(0));
-                getCurrentRoundPlayer().getDedicationTokenList().put(
-                        ColorEnum.GREEN, origin);
-                result = true;
             }
         }
+
+        // give player one GREEN dedication token
+        ArrayList<Integer> origin = getCurrentRoundPlayer()
+                .getDedicationTokenList().get(ColorEnum.GREEN);
+        if (origin == null)
+        {
+            origin = new ArrayList<Integer>();
+        }
+        m_DedicationTokenDecks.get(ColorEnum.GREEN).remove(0);
+        origin.add(m_DedicationTokenDecks.get(ColorEnum.GREEN).get(0));
+        getCurrentRoundPlayer().getDedicationTokenList().put(ColorEnum.GREEN,
+                origin);
+        result = true;
         return result;
+    }
+
+    /**
+     * Current player use favor token to switch a lantern card
+     * 
+     * @param cardToGiveback
+     *            card to put back to deck
+     * @param cardToTake
+     *            card to take
+     * @return true if successful
+     */
+    public boolean useFavorToken(ColorEnum cardToGiveback, ColorEnum cardToTake)
+    {
+        // remove two favor tokens from player
+        getCurrentRoundPlayer().getFavorTokenList().remove(0);
+        getCurrentRoundPlayer().getFavorTokenList().remove(0);
+
+        // put @cardToGiveback to deck
+        m_LatternDecks.get(cardToGiveback).add(
+                getCurrentRoundPlayer().getLanternList().get(cardToGiveback)
+                        .get(0));
+
+        // take cardToTake from deck
+        getCurrentRoundPlayer().getLanternList().get(cardToTake)
+                .add(m_LatternDecks.get(cardToTake).get(0));
+        m_LatternDecks.get(cardToTake).remove(0);
+        return true;
     }
 }
