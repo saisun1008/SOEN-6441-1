@@ -6,6 +6,7 @@ import hf.game.GameBoardBuildedr;
 import hf.game.common.ColorEnum;
 import hf.game.items.DedicationToken;
 import hf.game.items.LakeTile;
+import hf.game.items.Player;
 import hf.game.items.LanternCard;
 import hf.ui.matrix.MatrixCell;
 import hf.util.FileSaver;
@@ -86,21 +87,21 @@ public class GameController implements MatrixObserver
     {
         board = new BoardMapper().load(new FileInputStream(file));
 
-        if (verifiedLakeTileCard(board) == 0)
+        if (verifiedLakeTileCard(board) != 0)
         {
-            System.out.println("LakeTileCard ok");
+            System.out.println("LakeTileCard verify not pass");
         }
-        if (verifiedLatternCard(board) == 0)
+        if (verifiedLatternCard(board) != 0)
         {
-            System.out.println("LatternCard ok");
+            System.out.println("LatternCard verify not pass");
         }
-        if (verifiedDedicationCard(board) == 0)
+        if (verifiedDedicationCard(board) != 0)
         {
-            System.out.println("DedicationCard ok");
+            System.out.println("DedicationCard verify not pass");
         }
-        if (verifiedFavorToken(board) == 0)
+        if (verifiedFavorToken(board) != 0)
         {
-            System.out.println("token ok");
+            System.out.println("token verify not pass");
         }
         notifyAllObservers();
     }
@@ -353,7 +354,13 @@ public class GameController implements MatrixObserver
     protected int verifiedFavorToken(GameBoard board)
     {
         int returnvalue = 0;
-        if (board.getFavorTokenCollection().size() != 20)
+        int FavorTokencount = 0;
+        ArrayList<Player> PlayerCollection = board.getPlayers();
+        for(int index =0; index< PlayerCollection.size(); index++)
+        {
+            FavorTokencount = FavorTokencount + PlayerCollection.get(index).getFavorTokenList().size();
+        }
+        if (board.getFavorTokenCollection().size()+FavorTokencount != 20)
         {
             returnvalue = 1;
         }
