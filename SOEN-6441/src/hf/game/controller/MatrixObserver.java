@@ -10,5 +10,5 @@ import java.util.Map;
  */
 public interface MatrixObserver
 {
-    public void update(Map<Integer, MatrixCell> entities);
+    public void update(Map<Integer, Integer> entities);
 }

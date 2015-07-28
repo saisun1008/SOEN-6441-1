@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 import org.newdawn.slick.CanvasGameContainer;
 import org.newdawn.slick.SlickException;
 
-public class GameView extends JPanel implements BoardObserver, MatrixObserver,
+public class GameView extends JPanel implements BoardObserver,
         ViewEventObserver
 {
     private LogView logView;
@@ -139,12 +139,6 @@ public class GameView extends JPanel implements BoardObserver, MatrixObserver,
     {
         gameBoard = board;
         mainView.setGameBoard(board);
-    }
-
-    @Override
-    public void update(Map<Integer, MatrixCell> entities)
-    {
-
     }
 
     @Override

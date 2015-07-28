@@ -31,6 +31,7 @@ public class MatrixCalculator
     public MatrixCalculator()
     {
         observers = new ArrayList<MatrixObserver>();
+        entities = new HashMap<>();
     }
 
     public Map<Integer, MatrixCell> getEntities()
@@ -74,55 +75,6 @@ public class MatrixCalculator
 
     public void initLakeTiles()
     {
-        // LakeTile lake = new LakeTile();
-        // lake.setImage("data/starttile.png");
-        // lake.set_topColor(ColorEnum.BLACK);
-        // lake.set_rightColor(ColorEnum.BLUE);
-        // lake.set_bottomColor(ColorEnum.RED);
-        // lake.set_leftColor(ColorEnum.WHITE);
-        // lake.setIndex(1);
-        // ;
-        //
-        // LakeTile lake2 = new LakeTile();
-        // lake2.setImage("data/starttile.png");
-        // lake2.set_topColor(ColorEnum.BLACK);
-        // lake2.set_rightColor(ColorEnum.BLUE);
-        // lake2.set_bottomColor(ColorEnum.RED);
-        // lake2.set_leftColor(ColorEnum.WHITE);
-        // lake2.setX(200);
-        // lake2.setY(80);
-        // lake2.setSize(30);
-        // lake2.setIndex(2);
-        // lake2.flipFaceUp();
-        //
-        // LakeTile lake3 = new LakeTile();
-        // lake3.setImage("data/starttile.png");
-        // lake3.set_topColor(ColorEnum.BLACK);
-        // lake3.set_rightColor(ColorEnum.BLUE);
-        // lake3.set_bottomColor(ColorEnum.RED);
-        // lake3.set_leftColor(ColorEnum.WHITE);
-        // lake3.setX(231);
-        // lake3.setY(80);
-        // lake3.setSize(30);
-        // lake3.setIndex(3);
-        // lake3.flipFaceUp();
-        //
-        // LakeTile lake4 = new LakeTile();
-        // lake4.setImage("data/starttile.png");
-        // lake4.set_topColor(ColorEnum.BLACK);
-        // lake4.set_rightColor(ColorEnum.BLUE);
-        // lake4.set_bottomColor(ColorEnum.RED);
-        // lake4.set_leftColor(ColorEnum.WHITE);
-        // lake4.setX(262);
-        // lake4.setY(80);
-        // lake4.setSize(30);
-        // lake4.setIndex(4);
-        // lake4.flipFaceUp();
-        //
-        // lakeTiles.put(lake.getIndex(), lake);
-        // lakeTiles.put(lake2.getIndex(), lake2);
-        // lakeTiles.put(lake3.getIndex(), lake3);
-        // lakeTiles.put(lake4.getIndex(), lake4);
     }
 
     public void initMatrixCell()
@@ -473,11 +425,25 @@ public class MatrixCalculator
         observers.add(observer);
     }
 
+    public HashMap<Integer, Integer> entityToIndexMap()
+    {
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for (int key : entities.keySet())
+        {
+            if (entities.get(key).getLake() == null)
+            {
+                continue;
+            }
+            map.put(key, entities.get(key).getLake().getIndex());
+        }
+        return map;
+    }
+
     public void notifyAllObservers()
     {
         for (MatrixObserver observer : observers)
         {
-            observer.update(entities);
+            observer.update(entityToIndexMap());
         }
     }
 }

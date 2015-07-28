@@ -391,8 +391,8 @@ public class GameController implements MatrixObserver
     }
 
     @Override
-    public void update(Map<Integer, MatrixCell> entities)
+    public void update(Map<Integer, Integer> entities)
     {
-        board.setEntities(entities);
+        board.setMatrixLocationIndex(entities);
     }
 }

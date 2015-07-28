@@ -39,6 +39,7 @@ public class GameBoardBuildedr
      */
     public void buildAll()
     {
+        m_board.gameEnded = false;
         loadLakeTileCard();
         loadLatternCard();
         loadDedicationCard();

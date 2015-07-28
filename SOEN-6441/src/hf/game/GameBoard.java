@@ -67,6 +67,9 @@ public class GameBoard
      */
     Map<Integer, MatrixCell> m_entities;
 
+    /**
+     * Variable to indicate game has ended or not
+     */
     public boolean gameEnded = false;
 
     /**
@@ -86,7 +89,7 @@ public class GameBoard
         m_players = new ArrayList<Player>();
         roundExecutor = 0;
         m_entities = new HashMap<Integer, MatrixCell>();
-        matrixLocation_index.put(221, 0);
+        matrixLocation_index.put(221, getStartLakeTileIndex());
     }
 
     public Map<Integer, MatrixCell> getEntities()
@@ -102,6 +105,18 @@ public class GameBoard
     public ArrayList<LanternCard> getLatternCollection()
     {
         return m_LatternCollection;
+    }
+
+    private int getStartLakeTileIndex()
+    {
+        for (LakeTile t : m_LakeTileCollection)
+        {
+            if (t.isFaceUp())
+            {
+                return t.getIndex();
+            }
+        }
+        return 0;
     }
 
     /**
@@ -130,6 +145,12 @@ public class GameBoard
         return verifyGameEndState();
     }
 
+    /**
+     * Verify game state by checking how many lake tiles are still in players'
+     * hands and deck. If none left, then game has ended
+     * 
+     * @return true if game has ended, otherwise false
+     */
     private String verifyGameEndState()
     {
         int lakeTileCnt = 0;

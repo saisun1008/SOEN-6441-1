@@ -43,7 +43,8 @@ public class XmlMapper<T> implements IMapper<T>
                             String fieldName)
                     {
                         if (fieldName.equals("observers")
-                                || fieldName.equals("entities"))
+                                || fieldName.equals("entities")
+                                || fieldName.equals("m_entities"))
                         {
                             return false;
                         }

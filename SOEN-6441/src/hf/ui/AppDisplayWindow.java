@@ -80,10 +80,13 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getCurrentRoundPlayer().toString());
                 gView.gameStarted();
-                gView.getMatrix().setEntities(
-                        GameController.getInstance().getBoard().getEntities());
+                /*
+                 * gView.getMatrix().setEntities(
+                 * GameController.getInstance().getBoard().getEntities());
+                 */
                 gView.getMatrix().loadMatrix(
                         GameController.getInstance().getBoard());
+                gView.getMatrix().attach(GameController.getInstance());
                 LakeTile target = null;
                 for (LakeTile index : GameController.getInstance().getBoard()
                         .getLakeTileCollection())
@@ -119,6 +122,7 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getPlayers());
                 gView.getMainCanvas().reDrawMatrix();
+                gView.getMatrix().attach(GameController.getInstance());
                 gView.getMatrix().loadMatrix(
                         GameController.getInstance().getBoard());
                 gView.gameStarted();
