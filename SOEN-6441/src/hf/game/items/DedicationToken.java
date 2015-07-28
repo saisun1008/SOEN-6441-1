@@ -4,7 +4,11 @@ import java.awt.image.BufferedImage;
 
 import hf.game.common.CardType;
 import hf.game.common.ColorEnum;
-
+/**
+ * Common attributes and functions for dedication tokens
+ * @author Sai
+ *
+ */
 public class DedicationToken extends Card
 {
 
@@ -34,17 +38,29 @@ public class DedicationToken extends Card
         m_numDots = numDots;
     }
 
+    /**
+     * get card type
+     * @return card type
+     */
     public CardType getCardType()
     {
         return CardType.DEDICATION;
     }
 
+    /**
+     * compare function
+     * @return 0
+     */
     @Override
     public int compareTo(Card o)
     {
         return 0;
     }
 
+    /**
+     * get color
+     * @return color enum
+     */
     public ColorEnum getColor()
     {
         return m_color;

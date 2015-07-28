@@ -10,6 +10,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Common attributes and functions for players
+ * @author Sai
+ *
+ */
 public class Player
 {
     private final HashMap<ColorEnum, ArrayList<Integer>> lanternList = new HashMap<ColorEnum, ArrayList<Integer>>();
@@ -18,21 +23,37 @@ public class Player
     private final ArrayList<Integer> favorTokenList = new ArrayList<Integer>();
     private int score = 0;
 
+    /**
+     * get lantern list
+     * @return HashMap<ColorEnum, ArrayList<Integer>>
+     */
     public HashMap<ColorEnum, ArrayList<Integer>> getLanternList()
     {
         return lanternList;
     }
 
+    /**
+     * get lake tile list
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> getLakeTileList()
     {
         return lakeTileList;
     }
 
+    /**
+     * get dedication token list
+     * @return HashMap<ColorEnum, ArrayList<Integer>>
+     */
     public HashMap<ColorEnum, ArrayList<Integer>> getDedicationTokenList()
     {
         return dedicationTokenList;
     }
 
+    /**
+     * get favor token list
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> getFavorTokenList()
     {
         return favorTokenList;
@@ -117,21 +138,37 @@ public class Player
         }
     }
 
+    /**
+     * get name
+     * @return name
+     */
     public String getName()
     {
         return m_name;
     }
 
+    /**
+     * print the result
+     * @return result string
+     */
     public String toString()
     {
         return m_name + " at position " + m_sitLocation;
     }
 
+    /**
+     * get sit location
+     * @return location enum
+     */
     public LocationEnum getSitLocation()
     {
         return m_sitLocation;
     }
 
+    /**
+     * set score
+     * @param score
+     */
     public void setScore(int score)
     {
         this.score = score;

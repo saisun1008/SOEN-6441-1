@@ -119,31 +119,55 @@ public abstract class Card implements Comparable<Card>
         return m_owner;
     }
 
+    /**
+     * Get X
+     * @return x
+     */
     public int getX()
     {
         return x;
     }
 
+    /**
+     * Set x
+     * @param x
+     */
     public void setX(int x)
     {
         this.x = x;
     }
 
+    /**
+     * get y
+     * @return y
+     */
     public int getY()
     {
         return y;
     }
 
+    /**
+     * set y
+     * @param y
+     */
     public void setY(int y)
     {
         this.y = y;
     }
 
+    /**
+     * get size
+     * @return size
+     */
     public int getSize()
     {
         return size;
     }
 
+    /**
+     * set size
+     * @param size
+     */
     public void setSize(int size)
     {
         this.size = size;
@@ -159,6 +183,10 @@ public abstract class Card implements Comparable<Card>
         return m_cardIndex;
     }
 
+    /**
+     * set index
+     * @param index
+     */
     public void setIndex(int index)
     {
         m_cardIndex = index;

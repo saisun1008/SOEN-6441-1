@@ -3,7 +3,11 @@ package hf.game.items;
 import java.awt.image.BufferedImage;
 
 import hf.game.common.CardType;
-
+/**
+ * Common attributes and functions for favor tokens
+ * @author Sai
+ *
+ */
 public class FavorToken extends Card
 {
 
@@ -21,11 +25,19 @@ public class FavorToken extends Card
         super.setImage(image);
     }
 
+    /**
+     * get card type
+     * @return card type
+     */
     public CardType getCardType()
     {
         return CardType.FAVOR;
     }
 
+    /**
+     *override compare function
+     *@return 0
+     */
     @Override
     public int compareTo(Card o)
     {

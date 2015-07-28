@@ -52,11 +52,18 @@ public class LakeTile extends Card
         m_hasSpecialIcon = specialIcon;
     }
 
+    /**
+     * set index
+     * @param index
+     */
     public void setIndex(int i)
     {
         super.setIndex(i);
     }
-
+    /**
+     * get images
+     * @return image path
+     */
     @Override
     public String getImage()
     {
@@ -66,81 +73,141 @@ public class LakeTile extends Card
         return super.getImage();
     }
 
+    /**
+     * check if the current card is the starting card
+     * @return true if it is the starting card
+     */
     public boolean isStartingCard()
     {
         return isStartingCard;
     }
 
+    /**
+     * set starting card
+     * @param isStartingCard
+     */
     public void setStartingCard(boolean isStartingCard)
     {
         this.isStartingCard = isStartingCard;
     }
 
+    /**
+     * check if the card if face up
+     * @return true if it is face up
+     */
     public boolean isFaceUp()
     {
         return m_isFaceUp;
     }
 
+    /**
+     * check if the card is routed
+     */
     public void flipFaceUp()
     {
         this.m_isFaceUp = true;
     }
 
+    /**
+     * check if the card is routed
+     */
     public void flipFaceDown()
     {
         this.m_isFaceUp = false;
     }
 
+    /**
+     * get top color
+     * @return color enum
+     */
     public ColorEnum get_topColor()
     {
         return m_topColor;
     }
 
+    /**
+     * set top color
+     * @param m_topColor
+     */
     public void set_topColor(ColorEnum m_topColor)
     {
         this.m_topColor = m_topColor;
     }
 
+    /**
+     * get bottom color
+     * @return color enum
+     */
     public ColorEnum get_bottomColor()
     {
         return m_bottomColor;
     }
 
+    /**
+     * set bottom color
+     * @param m_bottomColor
+     */
     public void set_bottomColor(ColorEnum m_bottomColor)
     {
         this.m_bottomColor = m_bottomColor;
     }
 
+    /**
+     * get right color
+     * @return color enum
+     */
     public ColorEnum get_rightColor()
     {
         return m_rightColor;
     }
 
+    /**
+     * set right color
+     * @param m_rightColor
+     */
     public void set_rightColor(ColorEnum m_rightColor)
     {
         this.m_rightColor = m_rightColor;
     }
 
+    /**
+     * get left color
+     * @return color enum
+     */
     public ColorEnum get_leftColor()
     {
         return m_leftColor;
     }
-
+    /**
+     * set left color
+     * @param m_leftColor
+     */
     public void set_leftColor(ColorEnum m_leftColor)
     {
         this.m_leftColor = m_leftColor;
     }
 
+    /**
+     * check if the card has a special icon
+     * @return true if it has
+     */
     public boolean hasSpecialIcon()
     {
         return m_hasSpecialIcon;
     }
 
+    /**
+     * set the card to special icon
+     * @param m_hasSpecialIcon
+     */
     public void set_hasSpecialIcon(boolean m_hasSpecialIcon)
     {
         this.m_hasSpecialIcon = m_hasSpecialIcon;
     }
 
+    /**
+     * totate tile
+     */
     public void rotateTile()
     {
         ColorEnum colorEnum = m_topColor;
@@ -153,28 +220,48 @@ public class LakeTile extends Card
             rotateDegrees = 0;
     }
 
+    /**
+     * get card type
+     * @return card type
+     */
     @Override
     public CardType getCardType()
     {
         return CardType.LAKETILE;
     }
 
+    /**
+     * compare function
+     * @return 0
+     */
     @Override
     public int compareTo(Card o)
     {
         return 0;
     }
 
+    /**
+     * get rotate degrees
+     * @return rotate degrees
+     */
     public int getRotateDegrees()
     {
         return rotateDegrees;
     }
 
+    /**
+     * get rotate degrees
+     * @param rotateDegrees
+     */
     public void setRotateDegrees(int rotateDegrees)
     {
         this.rotateDegrees = rotateDegrees;
     }
 
+    /**
+     * print the result
+     * @return result string
+     */
     public String toString()
     {
         return "Lake Tile Card " + m_cardIndex + " Directions: [" + m_topColor

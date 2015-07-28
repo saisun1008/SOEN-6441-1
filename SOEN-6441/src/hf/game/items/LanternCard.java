@@ -26,11 +26,19 @@ public class LanternCard extends Card
         m_color = color;
     }
 
+    /**
+     * get color
+     * @return color enum
+     */
     public ColorEnum getColor()
     {
         return m_color;
     }
 
+    /**
+     * override card type
+     * @return card type
+     */
     @Override
     public CardType getCardType()
     {
