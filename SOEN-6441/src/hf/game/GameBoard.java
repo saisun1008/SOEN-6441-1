@@ -131,6 +131,8 @@ public class GameBoard
 
     /**
      * Make new round, increase the round token
+     * 
+     * @return new round token
      */
     public String makeNewRound()
     {

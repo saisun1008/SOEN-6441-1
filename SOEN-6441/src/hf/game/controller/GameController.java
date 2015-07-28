@@ -22,15 +22,6 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class GameController implements MatrixObserver
 {
-    /**
-     * A dialog for selecting a file (to load)
-     * 
-     * @param label
-     *            A name for the filter
-     * @param extension
-     *            The extension to filter
-     */
-
     private static GameBoard board;
     private GameBoardBuildedr builder;
     private ArrayList<BoardObserver> observers = new ArrayList<BoardObserver>();
@@ -56,7 +47,15 @@ public class GameController implements MatrixObserver
         }
         return controller;
     }
-
+    
+    /**
+     * A dialog for selecting a file (to load)
+     * 
+     * @param label
+     *            A name for the filter
+     * @param extension
+     *            The extension to filter
+     */
     public void loadGameFile(String label, String extension)
     {
 
@@ -77,7 +76,12 @@ public class GameController implements MatrixObserver
             }
         }
     }
-
+    /**
+     * load files
+     * 
+     * @param file
+     * @throws FileNotFoundException
+     */
     protected void fileLoaded(File file) throws FileNotFoundException
     {
         board = new BoardMapper().load(new FileInputStream(file));

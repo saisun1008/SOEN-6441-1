@@ -6,6 +6,7 @@ package hf.game.common;
  * @author Sai
  *
  */
+
 public enum CardType
 {
     LATERN(56), LAKETILE(36), DEDICATION(30), FAVOR(20);
