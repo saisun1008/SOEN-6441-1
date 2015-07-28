@@ -23,7 +23,11 @@ import javax.swing.JFrame;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.SlickException;
-
+/**
+ * display window
+ * @author Sai
+ *
+ */
 public class AppDisplayWindow
 {
     private static MenuBar menuBar;

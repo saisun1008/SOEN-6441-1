@@ -22,13 +22,14 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import junit.textui.ResultPrinter;
-
+/**
+ * Selection view dialog
+ * @author Sai
+ *
+ */
 public class SelectionView extends JPanel
 {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 1L;
     private JButton btn;
     private GameView parent;
@@ -40,6 +41,12 @@ public class SelectionView extends JPanel
     private ColorEnum cardToGiveback;
     private ColorEnum cardToTake;
 
+    /**
+     * Selection View
+     * 
+     * @param gameView
+     * @param board
+     */
     public SelectionView(GameView gameView, GameBoard board)
     {
         setLayout(new GridLayout(1, 1));
@@ -53,6 +60,9 @@ public class SelectionView extends JPanel
         this.board = board;
     }
 
+    /**
+     * add close button
+     */
     private void addCloseBtn()
     {
         btn = new JButton("Close");
@@ -68,6 +78,9 @@ public class SelectionView extends JPanel
         add(btn);
     }
 
+    /**
+     * add exchange button
+     */
     private void addExchangeBtn()
     {
         exchangeBtn = new JButton("Exchange");
@@ -100,13 +113,21 @@ public class SelectionView extends JPanel
         });
         add(exchangeBtn);
     }
-
+    
+    /**
+     * show panel
+     * @param visible
+     */
     public void showPanel(boolean visible)
     {
         this.setVisible(visible);
         parent.getGameCanvas().requestFocus();
     }
 
+    /**
+     * build by type
+     * @param selectionType
+     */
     public void buildByType(String selectionType)
     {
         checkboxes = new ArrayList<JCheckBox>();
@@ -224,6 +245,10 @@ public class SelectionView extends JPanel
 
     }
 
+    /**
+     * exchange lantern
+     * @return true if successful
+     */
     private boolean doLanternExchange()
     {
         // first count how many kinds of lantern cards are selected
@@ -278,6 +303,11 @@ public class SelectionView extends JPanel
         return result;
     }
 
+    /**
+     * set color from string to enum
+     * @param color
+     * @return color enum
+     */
     private ColorEnum stringToEnum(String color)
     {
         switch (color)
@@ -302,6 +332,10 @@ public class SelectionView extends JPanel
         }
     }
 
+    /**
+     * exchange favor
+     * @return true if successful
+     */
     private boolean doFavorExchange()
     {
         if (board.getCurrentRoundPlayer().getFavorTokenList().size() < 2)

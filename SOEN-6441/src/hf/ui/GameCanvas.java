@@ -51,7 +51,11 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
     private int favorExchangeBtnX = 0;
     private int favorExchangeBtnY = 0;
     private boolean gameEndPrinted = false;
-
+    
+    /**
+     * initialization
+     * @param title
+     */
     public GameCanvas(String title)
     {
         super(title);
@@ -62,6 +66,9 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         EventObservers = new ArrayList<ViewEventObserver>();
     }
 
+    /**
+     * redraw matrix
+     */
     public void reDrawMatrix()
     {
         matrixView = new Matrix("battle board");
@@ -69,6 +76,11 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         redrawn = true;
     }
 
+    /**
+     * initialization
+     * @param gc
+     * @throws SlickException
+     */
     @Override
     public void init(GameContainer gc) throws SlickException
     {
@@ -78,6 +90,12 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         matrixView.init(gc);
     }
 
+    /**
+     * Update
+     * @param gc
+     * @param i
+     * @throws SlickException
+     */
     @Override
     public void update(GameContainer gc, int i) throws SlickException
     {
@@ -129,6 +147,13 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         matrixView.update(gc, i);
     }
 
+    /**
+     * render
+     * 
+     * @param gc
+     * @param g
+     * @throws SlickException
+     */
     @Override
     public void render(GameContainer gc, Graphics g) throws SlickException
     {
@@ -158,6 +183,11 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
     }
 
+    /**
+     * render players
+     * @param g
+     * @throws SlickException
+     */
     private void renderPlayers(Graphics g) throws SlickException
     {
         int x = 0;
@@ -224,6 +254,14 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         }
     }
 
+    /**
+     * render cards held by players
+     * @param g
+     * @param p
+     * @param x
+     * @param y
+     * @throws SlickException
+     */
     private void renderPlayerHandCards(Graphics g, Player p, int x, int y)
             throws SlickException
     {

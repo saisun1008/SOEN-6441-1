@@ -26,6 +26,11 @@ public class GameView extends JPanel implements BoardObserver,
     private GameCanvas mainView;
     private SelectionView selectionView;
 
+    /**
+     * initialization
+     * @param board
+     * @throws SlickException
+     */
     public GameView(GameBoard board) throws SlickException
     {
         logView = new LogView();
@@ -52,6 +57,10 @@ public class GameView extends JPanel implements BoardObserver,
         return mainView;
     }
 
+    /**
+     * build canvas
+     * @throws SlickException
+     */
     private void buildCanvas() throws SlickException
     {
         mainView = new GameCanvas("Harvest Festival");
