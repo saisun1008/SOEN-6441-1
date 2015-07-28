@@ -27,6 +27,10 @@ public class GameController implements MatrixObserver
     private GameBoardBuildedr builder;
     private ArrayList<BoardObserver> observers = new ArrayList<BoardObserver>();
 
+    /**
+     * Get board
+     * @return GameBoard
+     */
     public GameBoard getBoard()
     {
         return board;
@@ -34,12 +38,19 @@ public class GameController implements MatrixObserver
 
     private static GameController controller = null;
 
+    /**
+     * Game Controller
+     */
     protected GameController()
     {
         board = new GameBoard();
         builder = new GameBoardBuildedr(board);
     }
 
+    /**
+     * Get instance
+     * @return GameController
+     */
     public static GameController getInstance()
     {
         if (controller == null)
@@ -367,11 +378,18 @@ public class GameController implements MatrixObserver
         return returnvalue;
     }
 
+    /**
+     * Attach to observer
+     * @param observer
+     */
     public void attach(BoardObserver observer)
     {
         observers.add(observer);
     }
 
+    /**
+     * Notify all observers
+     */
     public void notifyAllObservers()
     {
         for (BoardObserver observer : observers)
@@ -380,11 +398,17 @@ public class GameController implements MatrixObserver
         }
     }
 
+    /**
+     * Save game
+     */
     public void saveGame()
     {
         FileSaver.saveFileDialog(board, "Save game board to file", "board");
     }
 
+    /**
+     * new game
+     */
     public void newGame()
     {
         builder = new GameBoardBuildedr(board);
@@ -401,6 +425,10 @@ public class GameController implements MatrixObserver
         builder.buildPlayers(names);
     }
 
+    /**
+     * Update
+     * @param entities
+     */
     @Override
     public void update(Map<Integer, Integer> entities)
     {
