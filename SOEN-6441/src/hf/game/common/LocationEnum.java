@@ -14,6 +14,10 @@ public enum LocationEnum
 
     int index = 0;
 
+    /**
+     * Location Enum
+     * @param directionIndex
+     */
     private LocationEnum(int directionIndex)
     {
         index = directionIndex;

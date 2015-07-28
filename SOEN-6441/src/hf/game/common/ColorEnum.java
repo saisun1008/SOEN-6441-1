@@ -15,11 +15,19 @@ public enum ColorEnum
 
     private String imagePath;
 
+    /**
+     * Set image path
+     * @param imagePath
+     */
     private ColorEnum(String imagePath)
     {
         this.imagePath = imagePath;
     }
 
+    /**
+     * Get image path
+     * @return image path
+     */
     public String getImagePath()
     {
         return this.imagePath;
