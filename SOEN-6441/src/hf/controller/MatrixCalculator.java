@@ -13,7 +13,11 @@ import hf.game.controller.MatrixObserver;
 import hf.game.items.LakeTile;
 import hf.game.items.Player;
 import hf.ui.matrix.MatrixCell;
-
+/**
+ * Calculate the matrix
+ * @author Caogc
+ *
+ */
 public class MatrixCalculator
 {
     private int widthStart = 300;
@@ -27,18 +31,28 @@ public class MatrixCalculator
 
     @XStreamOmitField
     private ArrayList<MatrixObserver> observers;
-   
+    /**
+     * initialization
+     */
     public MatrixCalculator()
     {
         observers = new ArrayList<MatrixObserver>();
         entities = new HashMap<>();
     }
-
+    
+    /**
+     * Get entities
+     * @return Map<Integer, MatrixCell>
+     */
     public Map<Integer, MatrixCell> getEntities()
     {
         return entities;
     }
-
+    
+    /**
+     * Set entities
+     * @param entities
+     */
     public void setEntities(Map<Integer, MatrixCell> entities)
     {
         this.entities = entities;
@@ -55,17 +69,29 @@ public class MatrixCalculator
     // for(int i :lakeTiles.keySet())
     // gameBoard.setLakeTileByIndex(i, lakeTiles.get(i));
     // }
-
+    
+    /**
+     * Get selected card
+     * @return selected card index
+     */
     public Integer getSelectedCard()
     {
         return selectedCardIndex;
     }
-
+    
+    /**
+     * Set selected card
+     * @param selectedCard
+     */
     public void setSelectedCard(Integer selectedCard)
     {
         this.selectedCardIndex = selectedCard;
     }
-
+    
+    /**
+     * initialize game board
+     * @param board
+     */
     public void init(GameBoard board)
     {
         gameBoard = board;
@@ -78,7 +104,6 @@ public class MatrixCalculator
     }
     /**
      * initial matrix cells
-     * @author Guocai
      */
     public void initMatrixCell()
     {
@@ -462,7 +487,10 @@ public class MatrixCalculator
         }
         return map;
     }
-
+    
+    /**
+     * notify all observers
+     */
     public void notifyAllObservers()
     {
         for (MatrixObserver observer : observers)

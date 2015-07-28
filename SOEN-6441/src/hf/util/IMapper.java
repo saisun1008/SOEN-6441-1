@@ -20,7 +20,8 @@ public interface IMapper<T>
      * 
      * @param input
      *            The inputStream
-     * @return
+     * @return object
+     *            The object to be made persistent
      */
     public T load(InputStream input);
 

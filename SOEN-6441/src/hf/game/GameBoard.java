@@ -1,4 +1,4 @@
-package hf.game;
+    package hf.game;
 
 import hf.game.common.ColorEnum;
 import hf.game.common.LocationEnum;
@@ -91,22 +91,38 @@ public class GameBoard
         m_entities = new HashMap<Integer, MatrixCell>();
         matrixLocation_index.put(221, getStartLakeTileIndex());
     }
-
+    
+    /**
+     * Get entities
+     * @return Map<Integer, MatrixCell>
+     */
     public Map<Integer, MatrixCell> getEntities()
     {
         return m_entities;
     }
-
+    
+    /**
+     * Set entities
+     * @param entities
+     */
     public void setEntities(Map<Integer, MatrixCell> entities)
     {
         this.m_entities = entities;
     }
-
+    
+    /**
+     * Get lantern Collection
+     * @return ArrayList<LanternCard>
+     */
     public ArrayList<LanternCard> getLatternCollection()
     {
         return m_LatternCollection;
     }
-
+    
+    /**
+     * Get lake tile index from the beginning
+     * @return late tile index
+     */
     private int getStartLakeTileIndex()
     {
         for (LakeTile t : m_LakeTileCollection)
@@ -231,85 +247,150 @@ public class GameBoard
         return numPlayer;
     }
 
+    /**
+     * Set lantern collection
+     * @param m_LatternCollection
+     */
     public void setLatternCollection(ArrayList<LanternCard> m_LatternCollection)
     {
         this.m_LatternCollection = m_LatternCollection;
     }
-
+    
+    /**
+     * Get lake tile collection
+     * @return ArrayList<LakeTile>
+     */
     public ArrayList<LakeTile> getLakeTileCollection()
     {
         return m_LakeTileCollection;
     }
-
+    
+    /**
+     * Set Lake Tile Collection
+     * @param m_LakeTileCollection
+     */
     public void setLakeTileCollection(ArrayList<LakeTile> m_LakeTileCollection)
     {
         this.m_LakeTileCollection = m_LakeTileCollection;
     }
-
+    
+    /**
+     * Set Lake Tile by index
+     * @param index
+     * @param lakeTile
+     */
     public void setLakeTileByIndex(int index, LakeTile lakeTile)
     {
         this.m_LakeTileCollection.set(index, lakeTile);
     }
-
+    
+    /**
+     * Get dedication token collection
+     * @return ArrayList<DedicationToken>
+     */
     public ArrayList<DedicationToken> getDedicationTokenCollection()
     {
         return m_DedicationTokenCollection;
     }
-
+    
+    /**
+     * Set Dedication Token Collection
+     * @param m_DedicationTokenCollection
+     */
     public void setDedicationTokenCollection(
             ArrayList<DedicationToken> m_DedicationTokenCollection)
     {
         this.m_DedicationTokenCollection = m_DedicationTokenCollection;
     }
 
+    /**
+     * Get Favor Token Collection
+     * @return ArrayList<FavorToken>
+     */
     public ArrayList<FavorToken> getFavorTokenCollection()
     {
         return m_FavorTokenCollection;
     }
 
+    /**
+     * Set Favor Token Collection
+     * @param m_FavorTokenCollection
+     */
     public void setFavorTokenCollection(
             ArrayList<FavorToken> m_FavorTokenCollection)
     {
         this.m_FavorTokenCollection = m_FavorTokenCollection;
     }
-
+    
+    /**
+     * Get lantern decks
+     * @return HashMap<ColorEnum, ArrayList<Integer>>
+     */
     public HashMap<ColorEnum, ArrayList<Integer>> getLatternDecks()
     {
         return m_LatternDecks;
     }
-
+    
+    /**
+     * Set lantern deck
+     * @param m_LatternDecks
+     */
     public void setLatternDeck(
             HashMap<ColorEnum, ArrayList<Integer>> m_LatternDecks)
     {
         this.m_LatternDecks = m_LatternDecks;
     }
-
+    
+    /**
+     * Get lake tile deck
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> getLakeTileDeck()
     {
         return m_LakeTileDeck;
     }
 
+    /**
+     * Set lake tile deck
+     * @param m_LakeTileDeck
+     */
     public void setLakeTileDeck(ArrayList<Integer> m_LakeTileDeck)
     {
         this.m_LakeTileDeck = m_LakeTileDeck;
     }
 
+    /**
+     * Get dedocation token deck
+     * @return HashMap<ColorEnum, ArrayList<Integer>>
+     */
     public HashMap<ColorEnum, ArrayList<Integer>> getDedicationTokenDeck()
     {
         return m_DedicationTokenDecks;
     }
 
+    /**
+     * Set dedication token deck
+     * @param m_DedicationTokenDeck
+     */
     public void setDedicationTokenDeck(
             HashMap<ColorEnum, ArrayList<Integer>> m_DedicationTokenDeck)
     {
         this.m_DedicationTokenDecks = m_DedicationTokenDeck;
     }
-
+    
+    /**
+     * Get players
+     * @return ArrayList<Player>
+     */
     public ArrayList<Player> getPlayers()
     {
         return m_players;
     }
 
+    /**
+     * Set players
+     * @param m_players
+     */
     public void setPlayers(ArrayList<Player> m_players)
     {
         this.m_players = m_players;
@@ -379,11 +460,19 @@ public class GameBoard
         return m_FavorTokenCollection.get(index);
     }
 
+    /**
+     * Get Matrix Location Index
+     * @return Map<Integer, Integer>
+     */
     public Map<Integer, Integer> getMatrixLocationIndex()
     {
         return matrixLocation_index;
     }
-
+    
+    /**
+     * Set Matrix Location Index
+     * @param indexMatrixLocation
+     */
     public void setMatrixLocationIndex(Map<Integer, Integer> indexMatrixLocation)
     {
         this.matrixLocation_index = indexMatrixLocation;

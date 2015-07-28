@@ -28,7 +28,11 @@ import java.util.Random;
 public class GameBoardBuildedr
 {
     private final GameBoard m_board;
-
+    
+    /**
+     * initialization
+     * @param board
+     */
     public GameBoardBuildedr(GameBoard board)
     {
         m_board = board;
@@ -86,7 +90,7 @@ public class GameBoardBuildedr
     }
 
     /**
-     * Load Lattern cards
+     * Load Lantern cards
      */
     public void loadLatternCard()
     {
