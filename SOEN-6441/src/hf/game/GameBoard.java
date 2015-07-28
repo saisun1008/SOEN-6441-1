@@ -174,6 +174,7 @@ public class GameBoard
         int lakeTileCnt = 0;
         int maxScore = 0;
         int winner = 0;
+        String ret = "";
         for (Player player : m_players)
         {
             lakeTileCnt = lakeTileCnt + player.getLakeTileList().size();
@@ -184,6 +185,8 @@ public class GameBoard
                 {
                     score += getDedicationTokenByIndex(i).getCardValue();
                 }
+             
+                
             }
             if (maxScore < score)
             {
@@ -191,16 +194,19 @@ public class GameBoard
                 maxScore = score;
             }
             player.setScore(score);
+            ret = ret.concat( m_players.get(m_players.indexOf(player)).getName() + "score:"+score+"\n ");
         }
 
         lakeTileCnt += m_LakeTileDeck.size();
 
         if (lakeTileCnt == 0)
         {
-            System.out.println(m_players.get(winner).getName() + " has won!!");
+//            System.out.println(m_players.get(winner).getName() + " has won!!");
             gameEnded = true;
         }
-        return m_players.get(winner).getName() + " has won!!";
+        
+        ret = ret.concat(m_players.get(winner).getName() + " has won!!");
+        return ret;
     }
 
     /**
