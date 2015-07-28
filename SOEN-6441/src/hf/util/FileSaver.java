@@ -76,6 +76,12 @@ public final class FileSaver
         return saveFileDialog(player, "Player Files", "player");
     }
 
+    /**
+     * The "Lake tile collection" save to file dialog
+     * @param list
+     *            A reference to lake tile list
+     * @return True if the operation was successful, false otherwise
+     */
     public static String saveLakeTileCollection(ArrayList<LakeTile> list)
     {
         return saveFileDialog(list, "Player Files", "laketile");
