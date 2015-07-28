@@ -27,7 +27,7 @@ public class MatrixCalculator
 
     @XStreamOmitField
     private ArrayList<MatrixObserver> observers;
-
+   
     public MatrixCalculator()
     {
         observers = new ArrayList<MatrixObserver>();
@@ -76,7 +76,10 @@ public class MatrixCalculator
     public void initLakeTiles()
     {
     }
-
+    /**
+     * initial matrix cells
+     * @author Guocai
+     */
     public void initMatrixCell()
     {
         int rows = 21;
@@ -194,6 +197,8 @@ public class MatrixCalculator
      * 
      * @param lake
      *            LakeTile
+     * @param id
+     *            Lake tile id
      */
     public void placeStartLake(LakeTile lake, int id)
     {
@@ -202,7 +207,15 @@ public class MatrixCalculator
         entities.put(id, entities.get(id).setLake(lake));
         giveLanternCard(lake, null, null, null, null);
     }
-
+    
+    /**
+     * Give away lattern card to every player
+     * @param lake
+     * @param lakeLeft
+     * @param lakeRight
+     * @param lakeTop
+     * @param lakeBtm
+     */
     public void giveLanternCard(LakeTile lake, LakeTile lakeLeft,
             LakeTile lakeRight, LakeTile lakeTop, LakeTile lakeBtm)
     {
@@ -420,10 +433,21 @@ public class MatrixCalculator
         // TODO
     }
 
+    /**
+     * Attach to observer
+     * @param observer
+     */
     public void attach(MatrixObserver observer)
     {
         observers.add(observer);
     }
+    
+    /**
+     * Entity to index map
+     * 
+     * @return HashMap<Integer, Integer> 
+     *                                    
+     */
 
     public HashMap<Integer, Integer> entityToIndexMap()
     {
