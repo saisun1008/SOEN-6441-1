@@ -52,8 +52,6 @@ public class Player
      *            name of the player
      * @param sitLocation
      *            sit location of the player
-     * @param board
-     *            game board object it's located at
      */
     public Player(String name, LocationEnum sitLocation)
     {
@@ -65,7 +63,11 @@ public class Player
         favorTokenList.clear();
         // not use delete by yin m_currentBoard = board;
     }
-
+    /**
+     * Take card from the board
+     * 
+     * @param card
+     */
     public void takeCard(Card card)
     {
         switch (card.getCardType())

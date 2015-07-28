@@ -10,7 +10,7 @@ public class DedicationToken extends Card
 
     private ColorEnum m_color;
     private int m_numDots = 0;
-
+    
     /**
      * Default constructor of the dedication token
      * 
@@ -20,6 +20,10 @@ public class DedicationToken extends Card
      *            accept null value, image of the dedication token
      * @param index
      *            index of the card
+     * @param color
+     *            color of the card
+     * @param numDots
+     *            number of dots
      */
     public DedicationToken(int value, String image, int index, ColorEnum color,
             int numDots)
@@ -49,7 +53,7 @@ public class DedicationToken extends Card
     /**
      * Get number of dots on the card
      * 
-     * @return
+     * @return number of dots
      */
     public int getNumDots()
     {

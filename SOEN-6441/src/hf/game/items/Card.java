@@ -102,7 +102,7 @@ public abstract class Card implements Comparable<Card>
     /**
      * Get card value
      * 
-     * @return
+     * @return card value
      */
     public int getCardValue()
     {
@@ -112,7 +112,7 @@ public abstract class Card implements Comparable<Card>
     /**
      * Get owner of the card
      * 
-     * @return
+     * @return card owner
      */
     public LocationEnum getOwner()
     {
@@ -152,7 +152,7 @@ public abstract class Card implements Comparable<Card>
     /**
      * Get index of the card
      * 
-     * @return
+     * @return card index
      */
     public int getIndex()
     {

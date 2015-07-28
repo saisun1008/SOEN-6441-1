@@ -36,11 +36,7 @@ public class LakeTile extends Card
      * @param right
      * @param left
      * @param specialIcon
-     * @param icon
-     * @param topTile
-     * @param botTile
-     * @param rightTile
-     * @param leftTile
+     * @param index
      */
     public LakeTile(boolean faceup, String image, ColorEnum top,
             ColorEnum bottom, ColorEnum right, ColorEnum left,

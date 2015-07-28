@@ -10,7 +10,14 @@ public class LanternCard extends Card
     private ColorEnum m_color = ColorEnum.RED;
     private BufferedImage m_image = null;
     private Player m_owner = null;
-
+    /**
+     * Assign lantern card and set images
+     * 
+     * @param color
+     * @param image
+     * @param p
+     * @param index
+     */
     public LanternCard(ColorEnum color, String image, Player p, int index)
     {
         super(1, index);
@@ -31,8 +38,11 @@ public class LanternCard extends Card
     }
 
     /**
-     * compareto function
-     */
+     * Compareto function
+     * 
+     * @param o
+     * @return 0 if the color matches
+     */    
     @Override
     public int compareTo(Card o)
     {
