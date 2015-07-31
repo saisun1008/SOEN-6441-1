@@ -24,39 +24,59 @@ public class TestBoardBuilder
     }
 
     @Test
-    public void testLoadLakeTile()
+    public void testBeforeLoadLakeTile()
     {
         assertTrue(board.getLakeTileCollection().size() == 0);
         // function to be tested
+    }
+    
+    @Test
+    public void testAfterLoadLakeTile()
+    {
         builder.loadLakeTileCard();
         assertTrue("Lake tile load failed", board.getLakeTileCollection()
                 .size() == CardType.LAKETILE.getNumberOfCard());
     }
 
     @Test
-    public void testLoadLanternCard()
+    public void testBeforeLoadLanternCard()
     {
         assertTrue(board.getLatternCollection().size() == 0);
+    }
+    
+    @Test
+    public void testAfterLoadLanternCard()
+    {
         builder.loadLatternCard();
         assertTrue(board.getLatternCollection().size() == CardType.LATERN
                 .getNumberOfCard());
     }
 
     @Test
-    public void testloadDedicationCard()
+    public void testBeforeloadDedicationCard()
     {
         assertTrue(board.getDedicationTokenCollection().size() == 0);
+    }
+
+    @Test
+    public void testAfterloadDedicationCard()
+    {
         builder.loadDedicationCard();
         assertTrue("actual number is "
                 + board.getDedicationTokenCollection().size(), board
                 .getDedicationTokenCollection().size() == CardType.DEDICATION
                 .getNumberOfCard());
     }
-
+    
     @Test
-    public void testloadFavorToken()
+    public void testBeforeloadFavorToken()
     {
         assertTrue(board.getFavorTokenCollection().size() == 0);
+    }
+
+    @Test
+    public void testAfterloadFavorToken()
+    {
         builder.loadFavorToken();
         assertTrue(
                 "actual number is " + board.getFavorTokenCollection().size(),
@@ -64,10 +84,16 @@ public class TestBoardBuilder
                         .getNumberOfCard());
     }
 
+    
     @Test
-    public void testBuildPlayer()
+    public void testBeforeBuildPlayer()
     {
         assertTrue(board.getPlayers().size() == 0);
+    }
+    
+    @Test
+    public void testAfterBuildPlayer()
+    {
         board.setNumPlayer(3);
         String[] names = new String[]
         { "1", "2", "3" };

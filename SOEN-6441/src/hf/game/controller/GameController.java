@@ -122,7 +122,7 @@ public class GameController implements MatrixObserver
      * 1 check the card collection correct;
      * 
      * @param board
-     * @return 0 success, 1 failed
+     * @return true success, false failed
      */
     protected int verifiedLakeTileCard(GameBoard board)
     {

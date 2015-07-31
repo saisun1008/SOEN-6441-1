@@ -7,15 +7,21 @@ import org.junit.Test;
 
 import hf.controller.MatrixCalculator;
 import hf.game.GameBoard;
+import hf.game.GameBoardBuildedr;
 import hf.game.items.LakeTile;
 
 public class MatrixCalculatorTest
 {
-    MatrixCalculator mc = new MatrixCalculator();
+    private MatrixCalculator mc = new MatrixCalculator();
+    private GameBoard board;
+    private GameBoardBuildedr builder;
+    
     @Before
     public void before()
     {
-        mc.init(new GameBoard());
+        board = new GameBoard();
+        builder = new GameBoardBuildedr(board);        
+        mc.init(board);
     }
 
     @Test
@@ -23,7 +29,7 @@ public class MatrixCalculatorTest
     {
         // No selected card
         mc.setSelectedCard(null);
-        mc.placeLakeTile(3);
+        mc.placeLakeTile(1);
         assertNull(mc.getEntities().get(3).getLake());
     }
 
@@ -42,7 +48,7 @@ public class MatrixCalculatorTest
     public void testPlaceStartLake()
     {
         LakeTile lt = new LakeTile();
-        lt.setIndex(1);
+        lt.setIndex(21);
         assertFalse(lt.isFaceUp());
         mc.placeStartLake(lt,221);
         assertTrue(lt.isFaceUp());
