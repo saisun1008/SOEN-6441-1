@@ -5,6 +5,13 @@ import hf.game.common.CardType;
 
 import org.junit.Test;
 
+/**
+ * card type Test case in common package
+ * 
+ * @author yin
+ *
+ */
+
 public class TestCardType
 {
 

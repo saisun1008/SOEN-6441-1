@@ -10,6 +10,13 @@ import hf.game.items.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * boardbuilder Test case in game package
+ * 
+ * @author Sai
+ *
+ */
+
 public class TestBoardBuilder
 {
 

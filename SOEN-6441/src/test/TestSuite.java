@@ -19,6 +19,13 @@ import test.hf.game.items.TestGameCard;
 import test.hf.game.items.TestGamePlayer;
 import test.hf.util.TestXmlMapper;
 
+/**
+ * Test suite of all test package
+ * 
+ * @author Yin
+ *
+ */
+
 @RunWith(Suite.class)
 @SuiteClasses(
 { TestBoardBuilder.class, TestXmlMapper.class, TestGameCard.class, TestGamePlayer.class,TestGameBoard.class,TestCardType.class,TestColor.class })

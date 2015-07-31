@@ -8,6 +8,13 @@ import hf.game.common.LocationEnum;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * gameboard Test case in game package
+ * 
+ * @author yin
+ *
+ */
+
 public class TestGameBoard
 {
     private GameBoard board;

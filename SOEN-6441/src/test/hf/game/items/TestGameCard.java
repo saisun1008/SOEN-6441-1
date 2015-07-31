@@ -8,6 +8,13 @@ import hf.game.items.*;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * gamecard Test case in items package
+ * 
+ * @author yin
+ *
+ */
+
 public class TestGameCard
 {
     private DedicationToken dedicationCard;

@@ -10,6 +10,13 @@ import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
 import hf.game.items.LakeTile;
 
+/**
+ * Test of MatrixCalculator
+ * 
+ * 
+ *
+ */
+
 public class MatrixCalculatorTest
 {
     private MatrixCalculator mc = new MatrixCalculator();

@@ -5,6 +5,13 @@ import hf.game.common.ColorEnum;
 
 import org.junit.Test;
 
+/**
+ * color Test case in common package
+ * 
+ * @author yin
+ *
+ */
+
 public class TestColor
 {
 

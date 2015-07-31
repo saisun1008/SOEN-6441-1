@@ -9,6 +9,13 @@ import org.junit.Test;
 
 import hf.util.XmlMapper;
 
+/**
+ * XmlMapper Test case in util package
+ * 
+ * @author Sai
+ *
+ */
+
 public class TestXmlMapper
 {
     private class SmallMock
@@ -17,6 +24,16 @@ public class TestXmlMapper
         public boolean isTrue = true;
     }
 
+    /**
+     * init the xml file
+     * 
+     * @param value
+     *            test value
+     * @param isTrue
+     *            test result
+     * @return simple xml file
+     */
+    
     private String xmlMock(int value, boolean isTrue)
     {
         return "<?xml version=\"1.0\" ?><test.hf.util.TestXmlMapper_-SmallMock>"

@@ -15,6 +15,13 @@ import hf.game.items.Player;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * gameplayer Test case in items package
+ * 
+ * @author yin
+ *
+ */
+
 public class TestGamePlayer
 {
     private Player gamePlayer;
