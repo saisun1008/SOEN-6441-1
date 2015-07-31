@@ -1,1 +1,15 @@
+hf.controller
+hf.game
+hf.game.common
 hf.game.controller
+hf.game.items
+hf.game.views
+hf.ui
+hf.ui.matrix
+hf.util
+test
+test.hf.controller
+test.hf.game
+test.hf.game.common
+test.hf.game.items
+test.hf.util
