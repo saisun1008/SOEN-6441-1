@@ -3,8 +3,8 @@ package hf.ui.matrix;
 import java.util.ArrayList;
 import java.util.Map;
 
-import hf.controller.MatrixCalculator;
 import hf.game.GameBoard;
+import hf.game.controller.MatrixCalculator;
 import hf.game.controller.MatrixObserver;
 import hf.game.controller.ViewLogObserver;
 import hf.game.items.LakeTile;

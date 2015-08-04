@@ -1,5 +1,8 @@
 package hf.util;
 
+import hf.game.GameBoard;
+import hf.game.items.Player;
+
 import java.io.InputStream;
 import java.io.OutputStream;
 
@@ -44,7 +47,9 @@ public class XmlMapper<T> implements IMapper<T>
                     {
                         if (fieldName.equals("observers")
                                 || fieldName.equals("entities")
-                                || fieldName.equals("m_entities"))
+                                || fieldName.equals("m_entities")
+                                || fieldName.equals("tmpPlayer")
+                                || fieldName.equals("wantedColor"))
                         {
                             return false;
                         }

@@ -5,9 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import hf.controller.MatrixCalculator;
 import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
+import hf.game.controller.MatrixCalculator;
 import hf.game.items.LakeTile;
 
 /**

@@ -1,17 +1,16 @@
 package hf.game.items;
 
-import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
 import hf.game.common.LocationEnum;
+import hf.game.common.PlayerTypeEnum;
+import hf.game.strategy.PlayerStrategy;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * Common attributes and functions for players
+ * 
  * @author Sai
  *
  */
@@ -23,8 +22,12 @@ public class Player
     private final ArrayList<Integer> favorTokenList = new ArrayList<Integer>();
     private int score = 0;
 
+    private PlayerTypeEnum playerType = null;
+    private PlayerStrategy strategy = null;
+
     /**
      * get lantern list
+     * 
      * @return HashMap<ColorEnum, ArrayList<Integer>>
      */
     public HashMap<ColorEnum, ArrayList<Integer>> getLanternList()
@@ -34,6 +37,7 @@ public class Player
 
     /**
      * get lake tile list
+     * 
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getLakeTileList()
@@ -43,6 +47,7 @@ public class Player
 
     /**
      * get dedication token list
+     * 
      * @return HashMap<ColorEnum, ArrayList<Integer>>
      */
     public HashMap<ColorEnum, ArrayList<Integer>> getDedicationTokenList()
@@ -52,6 +57,7 @@ public class Player
 
     /**
      * get favor token list
+     * 
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getFavorTokenList()
@@ -84,6 +90,7 @@ public class Player
         favorTokenList.clear();
         // not use delete by yin m_currentBoard = board;
     }
+
     /**
      * Take card from the board
      * 
@@ -140,6 +147,7 @@ public class Player
 
     /**
      * get name
+     * 
      * @return name
      */
     public String getName()
@@ -149,6 +157,7 @@ public class Player
 
     /**
      * print the result
+     * 
      * @return result string
      */
     public String toString()
@@ -158,6 +167,7 @@ public class Player
 
     /**
      * get sit location
+     * 
      * @return location enum
      */
     public LocationEnum getSitLocation()
@@ -167,10 +177,31 @@ public class Player
 
     /**
      * set score
+     * 
      * @param score
      */
     public void setScore(int score)
     {
         this.score = score;
+    }
+
+    public PlayerTypeEnum getPlayerType()
+    {
+        return playerType;
+    }
+
+    public void setPlayerType(PlayerTypeEnum playerType)
+    {
+        this.playerType = playerType;
+    }
+
+    public PlayerStrategy getStrategy()
+    {
+        return strategy;
+    }
+
+    public void setStrategy(PlayerStrategy strategy)
+    {
+        this.strategy = strategy;
     }
 }

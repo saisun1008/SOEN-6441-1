@@ -1,6 +1,6 @@
 package hf.ui.matrix;
 
-import hf.controller.MatrixCalculator;
+import hf.game.controller.MatrixCalculator;
 import hf.game.items.LakeTile;
 
 import org.newdawn.slick.*;

@@ -1,4 +1,4 @@
-package hf.controller;
+package hf.game.controller;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,6 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
 import hf.game.common.LocationEnum;
-import hf.game.controller.MatrixObserver;
 import hf.game.items.LakeTile;
 import hf.game.items.Player;
 import hf.ui.matrix.MatrixCell;
