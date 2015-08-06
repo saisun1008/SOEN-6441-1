@@ -41,4 +41,12 @@ public interface PlayerStrategy
      *         due to insufficient card
      */
     public boolean redeemFavorToken(GameBoard board);
+
+    /**
+     * Provide the reasoning behind redeem lantern card, favor token and lake
+     * tile placement
+     * 
+     * @return reasoning for player activities
+     */
+    public String printReasoning();
 }
