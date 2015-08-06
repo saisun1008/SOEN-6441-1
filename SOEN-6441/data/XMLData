@@ -24,9 +24,9 @@
 <m__cardIndex>1</m__cardIndex>
 <m__isFaceUp>false</m__isFaceUp>
 <m__topColor>WHITE</m__topColor>
-<m__bottomColor>BLACK</m__bottomColor>
+<m__bottomColor>ORANGE</m__bottomColor>
 <m__rightColor>BLACK</m__rightColor>
-<m__leftColor>ORANGE</m__leftColor>
+<m__leftColor>BLACK</m__leftColor>
 <m__hasSpecialIcon>false</m__hasSpecialIcon>
 <isStartingCard>false</isStartingCard>
 <rotateDegrees>0</rotateDegrees>
@@ -103,7 +103,7 @@
 <size>0</size>
 <m__cardIndex>6</m__cardIndex>
 <m__isFaceUp>false</m__isFaceUp>
-<m__topColor>BLUE</m__topColor>
+<m__topColor>WHITE</m__topColor>
 <m__bottomColor>ORANGE</m__bottomColor>
 <m__rightColor>GREEN</m__rightColor>
 <m__leftColor>GREEN</m__leftColor>
@@ -203,7 +203,7 @@
 <m__bottomColor>BLUE</m__bottomColor>
 <m__rightColor>PURPLE</m__rightColor>
 <m__leftColor>BLUE</m__leftColor>
-<m__hasSpecialIcon>ture</m__hasSpecialIcon>
+<m__hasSpecialIcon>false</m__hasSpecialIcon>
 <isStartingCard>false</isStartingCard>
 <rotateDegrees>0</rotateDegrees>
 </hf.game.items.LakeTile>
@@ -277,11 +277,11 @@
 <x>0</x>
 <y>0</y>
 <size>0</size>
-<m__cardIndex>18</m__cardIndex>
+<m__cardIndex>17</m__cardIndex>
 <m__isFaceUp>false</m__isFaceUp>
 <m__topColor>BLUE</m__topColor>
-<m__bottomColor>WHITE</m__bottomColor>
-<m__rightColor>BLACK</m__rightColor>
+<m__bottomColor>BLACK</m__bottomColor>
+<m__rightColor>RED</m__rightColor>
 <m__leftColor>GREEN</m__leftColor>
 <m__hasSpecialIcon>false</m__hasSpecialIcon>
 <isStartingCard>false</isStartingCard>
