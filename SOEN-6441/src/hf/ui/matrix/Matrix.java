@@ -43,6 +43,11 @@ public class Matrix extends BasicGame implements MatrixObserver
         matrixObservers = new ArrayList<MatrixObserver>();
     }
 
+    public MatrixCalculator getMatrixCalculator()
+    {
+        return ca;
+    }
+
     public void setMouseLeftClick(boolean isMouseLeftClick)
     {
         this.isMouseLeftClick = isMouseLeftClick;

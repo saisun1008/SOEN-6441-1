@@ -7,6 +7,7 @@ import hf.game.items.Player;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 public class GreedyStrategy implements PlayerStrategy
 {
@@ -41,7 +42,7 @@ public class GreedyStrategy implements PlayerStrategy
         // randomly place a lake tile is fine
         if (wantedColor == null)
         {
-            randomlyPlaceLakeTile(board);
+            placeLakeTile(board, -1);
         }
         // need to check if current owned lake tile can give player the wanted
         // color, if not, randomly place a lake tile
@@ -52,19 +53,54 @@ public class GreedyStrategy implements PlayerStrategy
                 return true;
             } else
             {
-                randomlyPlaceLakeTile(board);
+                placeLakeTile(board, -1);
             }
         }
         return true;
     }
 
     /**
-     * Randomly pick a owned lake tile and place it at a random available
-     * location
+     * Place a lake tile at a random location
+     * 
+     * @param board
+     *            currently playing board
+     * @param cardIndex
+     *            card index of the card to be placed, -1 means random select a
+     *            card and place
      */
-    private void randomlyPlaceLakeTile(GameBoard board)
+    private void placeLakeTile(GameBoard board, int cardIndex)
     {
-
+        int cardID = cardIndex == -1 ? 0 : cardIndex;
+        Map<Integer, Integer> map = board.getMatrixLocationIndex();
+        for (int key : map.keySet())
+        {
+            if (!map.containsKey(key - 1))
+            {
+                map.put(key - 1, board.getCurrentRoundPlayer()
+                        .getLakeTileList().get(cardID));
+                break;
+            } else if (!map.containsKey(key + 1))
+            {
+                map.put(key + 1, board.getCurrentRoundPlayer()
+                        .getLakeTileList().get(cardID));
+                break;
+            } else if (!map.containsKey(key + 21) && key + 21 < 441)
+            {
+                map.put(key + 21, board.getCurrentRoundPlayer()
+                        .getLakeTileList().get(cardID));
+                break;
+            } else if (!map.containsKey(key - 21) && key - 21 >= 0)
+            {
+                map.put(key - 21, board.getCurrentRoundPlayer()
+                        .getLakeTileList().get(cardID));
+                break;
+            }
+        }
+        if (cardIndex != -1)
+        {
+            board.getCurrentRoundPlayer().getLakeTileList().remove(0);
+        }
+        board.manuallySetMap(map);
     }
 
     /**
@@ -77,6 +113,21 @@ public class GreedyStrategy implements PlayerStrategy
      */
     private boolean pickAndPlaceWantedLakeTile(ColorEnum color, GameBoard board)
     {
+        for (int index : board.getCurrentRoundPlayer().getLakeTileList())
+        {
+            if (board.getLakeTileByIndex(index).hasColor(wantedColor))
+            {
+                board.getLakeTileByIndex(index).rotateCardToDesiredDegree(
+                        board.getCurrentRoundPlayer().getSitLocation(),
+                        wantedColor);
+                board.getCurrentRoundPlayer()
+                        .getLakeTileList()
+                        .remove(board.getCurrentRoundPlayer().getLakeTileList()
+                                .get(index));
+                placeLakeTile(board, index);
+                return true;
+            }
+        }
         return false;
     }
 

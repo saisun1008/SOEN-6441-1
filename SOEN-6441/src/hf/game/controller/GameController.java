@@ -4,10 +4,12 @@ import hf.game.BoardMapper;
 import hf.game.GameBoard;
 import hf.game.GameBoardBuildedr;
 import hf.game.common.ColorEnum;
+import hf.game.common.StrategyEnum;
 import hf.game.items.DedicationToken;
 import hf.game.items.LakeTile;
 import hf.game.items.Player;
 import hf.game.items.LanternCard;
+import hf.game.views.GameView;
 import hf.ui.matrix.MatrixCell;
 import hf.util.FileSaver;
 
@@ -29,6 +31,7 @@ public class GameController implements MatrixObserver
 
     /**
      * Get board
+     * 
      * @return GameBoard
      */
     public GameBoard getBoard()
@@ -49,6 +52,7 @@ public class GameController implements MatrixObserver
 
     /**
      * Get instance
+     * 
      * @return GameController
      */
     public static GameController getInstance()
@@ -59,7 +63,7 @@ public class GameController implements MatrixObserver
         }
         return controller;
     }
-    
+
     /**
      * A dialog for selecting a file (to load)
      * 
@@ -88,6 +92,7 @@ public class GameController implements MatrixObserver
             }
         }
     }
+
     /**
      * load files
      * 
@@ -367,11 +372,12 @@ public class GameController implements MatrixObserver
         int returnvalue = 0;
         int FavorTokencount = 0;
         ArrayList<Player> PlayerCollection = board.getPlayers();
-        for(int index =0; index< PlayerCollection.size(); index++)
+        for (int index = 0; index < PlayerCollection.size(); index++)
         {
-            FavorTokencount = FavorTokencount + PlayerCollection.get(index).getFavorTokenList().size();
+            FavorTokencount = FavorTokencount
+                    + PlayerCollection.get(index).getFavorTokenList().size();
         }
-        if (board.getFavorTokenCollection().size()+FavorTokencount != 20)
+        if (board.getFavorTokenCollection().size() + FavorTokencount != 20)
         {
             returnvalue = 1;
         }
@@ -380,11 +386,24 @@ public class GameController implements MatrixObserver
 
     /**
      * Attach to observer
+     * 
      * @param observer
      */
     public void attach(BoardObserver observer)
     {
         observers.add(observer);
+    }
+
+    public GameView getGameView()
+    {
+        for (BoardObserver observer : observers)
+        {
+            if (observer instanceof GameView)
+            {
+                return (GameView) observer;
+            }
+        }
+        return null;
     }
 
     /**
@@ -419,14 +438,16 @@ public class GameController implements MatrixObserver
      * Build players for the game board
      * 
      * @param names
+     * @param strats
      */
-    public void buildPlayers(String[] names)
+    public void buildPlayers(String[] names, StrategyEnum[] strats)
     {
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, strats);
     }
 
     /**
      * Update
+     * 
      * @param entities
      */
     @Override

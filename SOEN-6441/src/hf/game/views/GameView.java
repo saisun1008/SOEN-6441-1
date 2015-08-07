@@ -4,9 +4,16 @@ import java.util.Map;
 
 import hf.game.GameBoard;
 import hf.game.common.GameProperties;
+import hf.game.common.PlayerTypeEnum;
+import hf.game.common.StrategyEnum;
 import hf.game.controller.BoardObserver;
+import hf.game.controller.GameController;
 import hf.game.controller.MatrixObserver;
 import hf.game.controller.ViewEventObserver;
+import hf.game.strategy.FriendlyStrategy;
+import hf.game.strategy.GreedyStrategy;
+import hf.game.strategy.RandomStrategy;
+import hf.game.strategy.UnfriendlyStrategy;
 import hf.ui.GameCanvas;
 import hf.ui.matrix.Matrix;
 import hf.ui.matrix.MatrixCell;
@@ -28,6 +35,7 @@ public class GameView extends JPanel implements BoardObserver,
 
     /**
      * initialization
+     * 
      * @param board
      * @throws SlickException
      */
@@ -59,6 +67,7 @@ public class GameView extends JPanel implements BoardObserver,
 
     /**
      * build canvas
+     * 
      * @throws SlickException
      */
     private void buildCanvas() throws SlickException
@@ -113,6 +122,9 @@ public class GameView extends JPanel implements BoardObserver,
     public String[] enterPlayerNames(int num)
     {
         String[] ret = new String[num];
+        StrategyEnum[] strats = new StrategyEnum[num];
+        Object[] possibilities =
+        { "Greedy", "Friendly", "UnFriendly", "Random", "Human" };
         for (int index = 0; index < num; index++)
         {
             boolean goodname = false;
@@ -134,8 +146,97 @@ public class GameView extends JPanel implements BoardObserver,
                 }
                 ret[index] = s;
             }
+
+            String s = (String) JOptionPane.showInputDialog(this,
+                    "Please select player Strategy:\n", "Player Strategy for "
+                            + ret[index], JOptionPane.PLAIN_MESSAGE, null,
+                    possibilities, "Human");
+
+            if ((s != null) && (s.length() > 0))
+            {
+                if (s.equals("Greedy"))
+                {
+                    strats[index] = StrategyEnum.GREEDY;
+                } else if (s.equals("Friendly"))
+                {
+                    strats[index] = StrategyEnum.FRIENDLY;
+                } else if (s.equals("UnFriendly"))
+                {
+                    strats[index] = StrategyEnum.UNFRIENDLY;
+                } else if (s.equals("Random"))
+                {
+                    strats[index] = StrategyEnum.RANDOM;
+                } else if (s.equals("Human"))
+                {
+                    strats[index] = StrategyEnum.NORMAL;
+                }
+            }
+
+            logView.log("Player " + ret[index] + " is created with strategy: "
+                    + strats[index]);
         }
+
+        GameController.getInstance().buildPlayers(ret, strats);
         return ret;
+    }
+
+    public void reSelectPlayerStrategy()
+    {
+        Object[] possibilities =
+        { "Greedy", "Friendly", "UnFriendly", "Random", "Human" };
+        for (int index = 0; index < GameController.getInstance().getBoard()
+                .getPlayerCount(); index++)
+        {
+            String s = (String) JOptionPane.showInputDialog(this,
+                    "Please select player Strategy:\n", "Player Strategy for "
+                            + GameController.getInstance().getBoard()
+                                    .getPlayers().get(index).getName(),
+                    JOptionPane.PLAIN_MESSAGE, null, possibilities, "Human");
+
+            if ((s != null) && (s.length() > 0))
+            {
+                if (s.equals("Greedy"))
+                {
+                    GameController
+                            .getInstance()
+                            .getBoard()
+                            .getPlayers()
+                            .get(index)
+                            .setStrategy(
+                                    new GreedyStrategy(GameController
+                                            .getInstance().getBoard()
+                                            .getPlayers().get(index)));
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setPlayerType(PlayerTypeEnum.AI);
+                } else if (s.equals("Friendly"))
+                {
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setStrategy(new FriendlyStrategy());
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setPlayerType(PlayerTypeEnum.AI);
+                } else if (s.equals("UnFriendly"))
+                {
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setStrategy(new UnfriendlyStrategy());
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setPlayerType(PlayerTypeEnum.AI);
+                } else if (s.equals("Random"))
+                {
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setStrategy(new RandomStrategy());
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setPlayerType(PlayerTypeEnum.AI);
+                } else if (s.equals("Human"))
+                {
+                    GameController.getInstance().getBoard().getPlayers()
+                            .get(index).setPlayerType(PlayerTypeEnum.HUMAN);
+                }
+            }
+            logView.log("Player "
+                    + GameController.getInstance().getBoard().getPlayers()
+                            .get(index).getName()
+                    + " is created with strategy: " + s);
+        }
     }
 
     public void gameStarted()

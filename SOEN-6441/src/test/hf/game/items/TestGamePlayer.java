@@ -27,7 +27,7 @@ public class TestGamePlayer
     private Player gamePlayer;
     private GameBoard board;
     private GameBoardBuildedr builder;
-    
+
     @Before
     public void setup()
     {
@@ -39,37 +39,37 @@ public class TestGamePlayer
     @Test
     public void testPlayerName()
     {
-        assertEquals("smith",gamePlayer.getName());
+        assertEquals("smith", gamePlayer.getName());
     }
-    
+
     @Test
     public void testPlayerLocation()
     {
-        assertEquals(LocationEnum.BOTTOM,gamePlayer.getSitLocation());
+        assertEquals(LocationEnum.BOTTOM, gamePlayer.getSitLocation());
     }
-    
+
     @Test
     public void testPlayerlaternlist()
     {
         board.setNumPlayer(4);
         String[] names = new String[]
-        { "1", "2", "3","4" };
+        { "1", "2", "3", "4" };
         builder.buildAll();
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, null);
         gamePlayer = board.getPlayerByLocation(LocationEnum.BOTTOM);
-        assertTrue(gamePlayer.getLanternList().size()==0);
+        assertTrue(gamePlayer.getLanternList().size() == 0);
     }
-    
+
     @Test
     public void testPlayerLakeTileList()
     {
         board.setNumPlayer(4);
         String[] names = new String[]
-        { "1", "2", "3","4" };
+        { "1", "2", "3", "4" };
         builder.buildAll();
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, null);
         gamePlayer = board.getPlayerByLocation(LocationEnum.BOTTOM);
-        assertTrue(gamePlayer.getLakeTileList().size()!=0);
+        assertTrue(gamePlayer.getLakeTileList().size() != 0);
     }
 
     @Test
@@ -77,22 +77,22 @@ public class TestGamePlayer
     {
         board.setNumPlayer(4);
         String[] names = new String[]
-        { "1", "2", "3","4" };
+        { "1", "2", "3", "4" };
         builder.buildAll();
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, null);
         gamePlayer = board.getPlayerByLocation(LocationEnum.BOTTOM);
-        assertTrue(gamePlayer.getDedicationTokenList().size()==0);
+        assertTrue(gamePlayer.getDedicationTokenList().size() == 0);
     }
-    
+
     @Test
     public void testPlayerFavorTokenList()
     {
         board.setNumPlayer(4);
         String[] names = new String[]
-        { "1", "2", "3","4" };
+        { "1", "2", "3", "4" };
         builder.buildAll();
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, null);
         gamePlayer = board.getPlayerByLocation(LocationEnum.BOTTOM);
-        assertTrue(gamePlayer.getFavorTokenList().size()==0);
+        assertTrue(gamePlayer.getFavorTokenList().size() == 0);
     }
 }

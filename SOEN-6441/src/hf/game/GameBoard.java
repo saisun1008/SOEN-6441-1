@@ -1,7 +1,8 @@
-    package hf.game;
+package hf.game;
 
 import hf.game.common.ColorEnum;
 import hf.game.common.LocationEnum;
+import hf.game.controller.GameController;
 import hf.game.items.DedicationToken;
 import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
@@ -71,6 +72,7 @@ public class GameBoard
      * Variable to indicate game has ended or not
      */
     public boolean gameEnded = false;
+    public boolean shouldUpdateMatrix = false;
 
     /**
      * Initialize Card collections
@@ -91,36 +93,40 @@ public class GameBoard
         m_entities = new HashMap<Integer, MatrixCell>();
         matrixLocation_index.put(221, getStartLakeTileIndex());
     }
-    
+
     /**
      * Get entities
+     * 
      * @return Map<Integer, MatrixCell>
      */
     public Map<Integer, MatrixCell> getEntities()
     {
         return m_entities;
     }
-    
+
     /**
      * Set entities
+     * 
      * @param entities
      */
     public void setEntities(Map<Integer, MatrixCell> entities)
     {
         this.m_entities = entities;
     }
-    
+
     /**
      * Get lantern Collection
+     * 
      * @return ArrayList<LanternCard>
      */
     public ArrayList<LanternCard> getLatternCollection()
     {
         return m_LatternCollection;
     }
-    
+
     /**
      * Get lake tile index from the beginning
+     * 
      * @return late tile index
      */
     private int getStartLakeTileIndex()
@@ -185,8 +191,7 @@ public class GameBoard
                 {
                     score += getDedicationTokenByIndex(i).getCardValue();
                 }
-             
-                
+
             }
             if (maxScore < score)
             {
@@ -194,17 +199,19 @@ public class GameBoard
                 maxScore = score;
             }
             player.setScore(score);
-            ret = ret.concat( m_players.get(m_players.indexOf(player)).getName() + "score:"+score+"\n ");
+            ret = ret.concat(m_players.get(m_players.indexOf(player)).getName()
+                    + "score:" + score + "\n ");
         }
 
         lakeTileCnt += m_LakeTileDeck.size();
 
         if (lakeTileCnt == 0)
         {
-//            System.out.println(m_players.get(winner).getName() + " has won!!");
+            // System.out.println(m_players.get(winner).getName() +
+            // " has won!!");
             gameEnded = true;
         }
-        
+
         ret = ret.concat(m_players.get(winner).getName() + " has won!!");
         return ret;
     }
@@ -249,33 +256,37 @@ public class GameBoard
 
     /**
      * Set lantern collection
+     * 
      * @param m_LatternCollection
      */
     public void setLatternCollection(ArrayList<LanternCard> m_LatternCollection)
     {
         this.m_LatternCollection = m_LatternCollection;
     }
-    
+
     /**
      * Get lake tile collection
+     * 
      * @return ArrayList<LakeTile>
      */
     public ArrayList<LakeTile> getLakeTileCollection()
     {
         return m_LakeTileCollection;
     }
-    
+
     /**
      * Set Lake Tile Collection
+     * 
      * @param m_LakeTileCollection
      */
     public void setLakeTileCollection(ArrayList<LakeTile> m_LakeTileCollection)
     {
         this.m_LakeTileCollection = m_LakeTileCollection;
     }
-    
+
     /**
      * Set Lake Tile by index
+     * 
      * @param index
      * @param lakeTile
      */
@@ -283,18 +294,20 @@ public class GameBoard
     {
         this.m_LakeTileCollection.set(index, lakeTile);
     }
-    
+
     /**
      * Get dedication token collection
+     * 
      * @return ArrayList<DedicationToken>
      */
     public ArrayList<DedicationToken> getDedicationTokenCollection()
     {
         return m_DedicationTokenCollection;
     }
-    
+
     /**
      * Set Dedication Token Collection
+     * 
      * @param m_DedicationTokenCollection
      */
     public void setDedicationTokenCollection(
@@ -305,6 +318,7 @@ public class GameBoard
 
     /**
      * Get Favor Token Collection
+     * 
      * @return ArrayList<FavorToken>
      */
     public ArrayList<FavorToken> getFavorTokenCollection()
@@ -314,6 +328,7 @@ public class GameBoard
 
     /**
      * Set Favor Token Collection
+     * 
      * @param m_FavorTokenCollection
      */
     public void setFavorTokenCollection(
@@ -321,18 +336,20 @@ public class GameBoard
     {
         this.m_FavorTokenCollection = m_FavorTokenCollection;
     }
-    
+
     /**
      * Get lantern decks
+     * 
      * @return HashMap<ColorEnum, ArrayList<Integer>>
      */
     public HashMap<ColorEnum, ArrayList<Integer>> getLatternDecks()
     {
         return m_LatternDecks;
     }
-    
+
     /**
      * Set lantern deck
+     * 
      * @param m_LatternDecks
      */
     public void setLatternDeck(
@@ -340,9 +357,10 @@ public class GameBoard
     {
         this.m_LatternDecks = m_LatternDecks;
     }
-    
+
     /**
      * Get lake tile deck
+     * 
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getLakeTileDeck()
@@ -352,6 +370,7 @@ public class GameBoard
 
     /**
      * Set lake tile deck
+     * 
      * @param m_LakeTileDeck
      */
     public void setLakeTileDeck(ArrayList<Integer> m_LakeTileDeck)
@@ -361,6 +380,7 @@ public class GameBoard
 
     /**
      * Get dedocation token deck
+     * 
      * @return HashMap<ColorEnum, ArrayList<Integer>>
      */
     public HashMap<ColorEnum, ArrayList<Integer>> getDedicationTokenDeck()
@@ -370,6 +390,7 @@ public class GameBoard
 
     /**
      * Set dedication token deck
+     * 
      * @param m_DedicationTokenDeck
      */
     public void setDedicationTokenDeck(
@@ -377,9 +398,10 @@ public class GameBoard
     {
         this.m_DedicationTokenDecks = m_DedicationTokenDeck;
     }
-    
+
     /**
      * Get players
+     * 
      * @return ArrayList<Player>
      */
     public ArrayList<Player> getPlayers()
@@ -389,6 +411,7 @@ public class GameBoard
 
     /**
      * Set players
+     * 
      * @param m_players
      */
     public void setPlayers(ArrayList<Player> m_players)
@@ -462,20 +485,29 @@ public class GameBoard
 
     /**
      * Get Matrix Location Index
+     * 
      * @return Map<Integer, Integer>
      */
     public Map<Integer, Integer> getMatrixLocationIndex()
     {
         return matrixLocation_index;
     }
-    
+
     /**
      * Set Matrix Location Index
+     * 
      * @param indexMatrixLocation
      */
     public void setMatrixLocationIndex(Map<Integer, Integer> indexMatrixLocation)
     {
         this.matrixLocation_index = indexMatrixLocation;
+    }
+
+    public void manuallySetMap(Map<Integer, Integer> indexMatrixLocation)
+    {
+        this.matrixLocation_index = indexMatrixLocation;
+        GameController.getInstance().getGameView().getMatrix()
+                .getMatrixCalculator().initMatrixCell();
     }
 
     /**

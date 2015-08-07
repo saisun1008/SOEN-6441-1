@@ -3,11 +3,18 @@ package hf.game;
 import hf.game.common.CardType;
 import hf.game.common.ColorEnum;
 import hf.game.common.LocationEnum;
+import hf.game.common.PlayerTypeEnum;
+import hf.game.common.StrategyEnum;
 import hf.game.items.DedicationToken;
 import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
+import hf.game.strategy.FriendlyStrategy;
+import hf.game.strategy.GreedyStrategy;
+import hf.game.strategy.PlayerStrategy;
+import hf.game.strategy.RandomStrategy;
+import hf.game.strategy.UnfriendlyStrategy;
 import hf.ui.matrix.MatrixCell;
 import hf.util.XmlMapper;
 
@@ -28,9 +35,10 @@ import java.util.Random;
 public class GameBoardBuildedr
 {
     private final GameBoard m_board;
-    
+
     /**
      * initialization
+     * 
      * @param board
      */
     public GameBoardBuildedr(GameBoard board)
@@ -280,13 +288,42 @@ public class GameBoardBuildedr
      * 
      * @param names
      *            names of the players
+     * @param strats
      */
-    public void buildPlayers(String[] names)
+    public void buildPlayers(String[] names, StrategyEnum[] strats)
     {
         ArrayList<Player> list = new ArrayList<Player>();
         for (int i = 0; i < m_board.getPlayerCount(); i++)
         {
             Player p = new Player(names[i], LocationEnum.values()[i]);
+            PlayerStrategy strategy = null;
+            if (strats != null)
+            {
+                switch (strats[i])
+                {
+                case GREEDY:
+                    strategy = new GreedyStrategy(p);
+                    p.setPlayerType(PlayerTypeEnum.AI);
+                    break;
+
+                case FRIENDLY:
+                    strategy = new FriendlyStrategy();
+                    p.setPlayerType(PlayerTypeEnum.AI);
+                    break;
+                case UNFRIENDLY:
+                    strategy = new UnfriendlyStrategy();
+                    p.setPlayerType(PlayerTypeEnum.AI);
+                    break;
+                case RANDOM:
+                    strategy = new RandomStrategy();
+                    p.setPlayerType(PlayerTypeEnum.AI);
+                    break;
+                case NORMAL:
+                    p.setPlayerType(PlayerTypeEnum.HUMAN);
+                    break;
+                }
+                p.setStrategy(strategy);
+            }
             list.add(p);
         }
         m_board.setPlayers(list);

@@ -36,7 +36,7 @@ public class TestBoardBuilder
         assertTrue(board.getLakeTileCollection().size() == 0);
         // function to be tested
     }
-    
+
     @Test
     public void testAfterLoadLakeTile()
     {
@@ -50,7 +50,7 @@ public class TestBoardBuilder
     {
         assertTrue(board.getLatternCollection().size() == 0);
     }
-    
+
     @Test
     public void testAfterLoadLanternCard()
     {
@@ -74,7 +74,7 @@ public class TestBoardBuilder
                 .getDedicationTokenCollection().size() == CardType.DEDICATION
                 .getNumberOfCard());
     }
-    
+
     @Test
     public void testBeforeloadFavorToken()
     {
@@ -91,13 +91,12 @@ public class TestBoardBuilder
                         .getNumberOfCard());
     }
 
-    
     @Test
     public void testBeforeBuildPlayer()
     {
         assertTrue(board.getPlayers().size() == 0);
     }
-    
+
     @Test
     public void testAfterBuildPlayer()
     {
@@ -105,7 +104,7 @@ public class TestBoardBuilder
         String[] names = new String[]
         { "1", "2", "3" };
         builder.buildAll();
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, null);
         assertTrue(board.getPlayers().size() == 3);
         for (Player p : board.getPlayers())
         {
@@ -121,7 +120,7 @@ public class TestBoardBuilder
         String[] names = new String[]
         { "1", "2", "3" };
         builder.buildAll();
-        builder.buildPlayers(names);
+        builder.buildPlayers(names, null);
         assertTrue(board.getPlayers().size() == 3);
         for (Player p : board.getPlayers())
         {

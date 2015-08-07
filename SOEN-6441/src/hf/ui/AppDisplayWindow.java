@@ -23,8 +23,10 @@ import javax.swing.JFrame;
 
 import org.lwjgl.opengl.Display;
 import org.newdawn.slick.SlickException;
+
 /**
  * display window
+ * 
  * @author Sai
  *
  */
@@ -84,6 +86,7 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getCurrentRoundPlayer().toString());
                 gView.gameStarted();
+                gView.reSelectPlayerStrategy();
                 /*
                  * gView.getMatrix().setEntities(
                  * GameController.getInstance().getBoard().getEntities());
@@ -118,7 +121,7 @@ public class AppDisplayWindow
                         .setNumPlayer(numPlayers);
 
                 String[] names = gView.enterPlayerNames(numPlayers);
-                GameController.getInstance().buildPlayers(names);
+
                 gView.getLogView().append(
                         "new game is starting with "
                                 + numPlayers
@@ -191,4 +194,5 @@ public class AppDisplayWindow
                     Level.SEVERE, null, ex);
         }
     }
+
 }

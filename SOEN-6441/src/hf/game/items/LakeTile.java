@@ -2,6 +2,7 @@ package hf.game.items;
 
 import hf.game.common.CardType;
 import hf.game.common.ColorEnum;
+import hf.game.common.LocationEnum;
 
 /**
  * LakeTile class is used to build lake tile cards in the game play, it's
@@ -54,14 +55,17 @@ public class LakeTile extends Card
 
     /**
      * set index
+     * 
      * @param index
      */
     public void setIndex(int i)
     {
         super.setIndex(i);
     }
+
     /**
      * get images
+     * 
      * @return image path
      */
     @Override
@@ -75,6 +79,7 @@ public class LakeTile extends Card
 
     /**
      * check if the current card is the starting card
+     * 
      * @return true if it is the starting card
      */
     public boolean isStartingCard()
@@ -84,6 +89,7 @@ public class LakeTile extends Card
 
     /**
      * set starting card
+     * 
      * @param isStartingCard
      */
     public void setStartingCard(boolean isStartingCard)
@@ -93,6 +99,7 @@ public class LakeTile extends Card
 
     /**
      * check if the card if face up
+     * 
      * @return true if it is face up
      */
     public boolean isFaceUp()
@@ -118,6 +125,7 @@ public class LakeTile extends Card
 
     /**
      * get top color
+     * 
      * @return color enum
      */
     public ColorEnum get_topColor()
@@ -127,6 +135,7 @@ public class LakeTile extends Card
 
     /**
      * set top color
+     * 
      * @param m_topColor
      */
     public void set_topColor(ColorEnum m_topColor)
@@ -136,6 +145,7 @@ public class LakeTile extends Card
 
     /**
      * get bottom color
+     * 
      * @return color enum
      */
     public ColorEnum get_bottomColor()
@@ -145,6 +155,7 @@ public class LakeTile extends Card
 
     /**
      * set bottom color
+     * 
      * @param m_bottomColor
      */
     public void set_bottomColor(ColorEnum m_bottomColor)
@@ -154,6 +165,7 @@ public class LakeTile extends Card
 
     /**
      * get right color
+     * 
      * @return color enum
      */
     public ColorEnum get_rightColor()
@@ -163,6 +175,7 @@ public class LakeTile extends Card
 
     /**
      * set right color
+     * 
      * @param m_rightColor
      */
     public void set_rightColor(ColorEnum m_rightColor)
@@ -172,14 +185,17 @@ public class LakeTile extends Card
 
     /**
      * get left color
+     * 
      * @return color enum
      */
     public ColorEnum get_leftColor()
     {
         return m_leftColor;
     }
+
     /**
      * set left color
+     * 
      * @param m_leftColor
      */
     public void set_leftColor(ColorEnum m_leftColor)
@@ -189,6 +205,7 @@ public class LakeTile extends Card
 
     /**
      * check if the card has a special icon
+     * 
      * @return true if it has
      */
     public boolean hasSpecialIcon()
@@ -198,6 +215,7 @@ public class LakeTile extends Card
 
     /**
      * set the card to special icon
+     * 
      * @param m_hasSpecialIcon
      */
     public void set_hasSpecialIcon(boolean m_hasSpecialIcon)
@@ -222,6 +240,7 @@ public class LakeTile extends Card
 
     /**
      * get card type
+     * 
      * @return card type
      */
     @Override
@@ -232,6 +251,7 @@ public class LakeTile extends Card
 
     /**
      * compare function
+     * 
      * @return 0
      */
     @Override
@@ -242,6 +262,7 @@ public class LakeTile extends Card
 
     /**
      * get rotate degrees
+     * 
      * @return rotate degrees
      */
     public int getRotateDegrees()
@@ -251,6 +272,7 @@ public class LakeTile extends Card
 
     /**
      * get rotate degrees
+     * 
      * @param rotateDegrees
      */
     public void setRotateDegrees(int rotateDegrees)
@@ -260,11 +282,69 @@ public class LakeTile extends Card
 
     /**
      * print the result
+     * 
      * @return result string
      */
     public String toString()
     {
         return "Lake Tile Card " + m_cardIndex + " Directions: [" + m_topColor
                 + m_bottomColor + m_rightColor + m_leftColor;
+    }
+
+    public boolean hasColor(ColorEnum color)
+    {
+        if (m_topColor == color)
+        {
+            return true;
+        } else if (m_bottomColor == color)
+        {
+            return true;
+        } else if (m_leftColor == color)
+        {
+            return true;
+        } else if (m_rightColor == color)
+        {
+            return true;
+        } else
+        {
+            return false;
+        }
+    }
+
+    public void rotateCardToDesiredDegree(LocationEnum location, ColorEnum color)
+    {
+        switch (location)
+        {
+        case BOTTOM:
+            while (m_bottomColor != color)
+            {
+                rotateTile();
+            }
+            break;
+
+        case TOP:
+            while (m_topColor != color)
+            {
+                rotateTile();
+            }
+            break;
+
+        case LEFT:
+            while (m_leftColor != color)
+            {
+                rotateTile();
+            }
+            break;
+
+        case RIGHT:
+            while (m_rightColor != color)
+            {
+                rotateTile();
+            }
+            break;
+
+        default:
+            break;
+        }
     }
 }
