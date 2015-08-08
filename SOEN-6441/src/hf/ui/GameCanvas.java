@@ -1,5 +1,6 @@
 package hf.ui;
 
+import java.awt.event.InputEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -101,7 +102,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
     {
         boolean mouseLeftClick = MouseEventValidation.isMouseLeftClick(gc);
         boolean mouseRightClick = MouseEventValidation.isMouseRightClick(gc);
-
+        
         if (redrawn)
         {
             matrixView.init(gc);
@@ -110,6 +111,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             {
                 matrixView.setEntities(gameBoard.getEntities());
             }
+            gameBoard.setMatrix(matrixView);
         }
         if (rerender)
         {

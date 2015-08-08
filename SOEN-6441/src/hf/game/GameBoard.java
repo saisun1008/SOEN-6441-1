@@ -2,6 +2,7 @@ package hf.game;
 
 import hf.game.common.ColorEnum;
 import hf.game.common.LocationEnum;
+import hf.game.common.PlayerTypeEnum;
 import hf.game.controller.GameController;
 import hf.game.items.DedicationToken;
 import hf.game.items.FavorToken;
@@ -167,6 +168,19 @@ public class GameBoard
     {
         return m_players.get(numPlayer - roundExecutor - 1);
     }
+    
+    /**
+     * Get player who should be playing for just after current game round
+     * 
+     * @return player
+     */
+    public Player getNextRoundPlayer()
+    {
+        int next = numPlayer - roundExecutor;
+        next = next==numPlayer?0:next;
+                
+        return m_players.get(numPlayer - roundExecutor);
+    }
 
     /**
      * Make new round, increase the round token
@@ -183,6 +197,10 @@ public class GameBoard
             {
                 roundExecutor = 0;
             }
+            
+            Player currentRoundPlayer = getCurrentRoundPlayer();
+            if(currentRoundPlayer.getPlayerType()==PlayerTypeEnum.AI)
+               currentRoundPlayer.getStrategy().placeLakeTile(this);
         }
         if (gameEndingStrategy != null)
         {

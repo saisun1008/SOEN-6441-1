@@ -120,7 +120,8 @@ public class Matrix extends BasicGame implements MatrixObserver
                 Input input = gc.getInput();
                 int xpos = input.getMouseX();
                 int ypos = input.getMouseY();
-
+                
+                System.out.println("left click"+xpos+":"+ypos);
                 LakeTile lake = gameBoard.getLakeTileByIndex(lakeIndex);
                 if ((xpos > lake.getX() && xpos < lake.getX() + lake.getSize())
                         && (ypos > lake.getY() && ypos < lake.getY()
