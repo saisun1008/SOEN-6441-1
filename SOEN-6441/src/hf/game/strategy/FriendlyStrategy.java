@@ -77,7 +77,9 @@ public class FriendlyStrategy implements PlayerStrategy
             break;
             
             case BOTTOM:
-                freeLocation = matrixLocationIndex.keySet().stream().filter(m->matrixLocationIndex.containsKey(m.intValue()+21)).collect(Collectors.toList());
+                freeLocation = matrixLocationIndex.keySet().stream().filter(m->!matrixLocationIndex.containsKey(m.intValue()+21)).collect(Collectors.toList());
+                
+                OK:
                 for(Integer location:freeLocation)
                 {
                     ColorEnum locationColor = board.getLakeTileByIndex(matrixLocationIndex.get(location)).getLocationColor(sitLocation);
@@ -103,7 +105,7 @@ public class FriendlyStrategy implements PlayerStrategy
                         board.setLakeTileByIndex(index, lakeTileByIndex);
                         lakeTile =lakeTileByIndex;
                         rightLocation = location +21;
-                        break;
+                        break OK;
                     }
                 }
                 
@@ -115,7 +117,9 @@ public class FriendlyStrategy implements PlayerStrategy
                 break;
                 
             case LEFT:
-                freeLocation = matrixLocationIndex.keySet().stream().filter(m->matrixLocationIndex.containsKey(m.intValue()-1)).collect(Collectors.toList());
+                freeLocation = matrixLocationIndex.keySet().stream().filter(m->!matrixLocationIndex.containsKey(m.intValue()-1)).collect(Collectors.toList());
+                
+                OK:
                 for(Integer location:freeLocation)
                 {
                     ColorEnum locationColor = board.getLakeTileByIndex(matrixLocationIndex.get(location)).getLocationColor(sitLocation);
@@ -140,7 +144,7 @@ public class FriendlyStrategy implements PlayerStrategy
                         board.setLakeTileByIndex(index, lakeTileByIndex);
                         lakeTile =lakeTileByIndex;
                         rightLocation = location -1;
-                        break;
+                        break OK;
                     }
                 }
                 
@@ -152,7 +156,9 @@ public class FriendlyStrategy implements PlayerStrategy
                 break;
                 
             case RIGHT:
-                freeLocation = matrixLocationIndex.keySet().stream().filter(m->matrixLocationIndex.containsKey(m.intValue()+1)).collect(Collectors.toList());
+                freeLocation = matrixLocationIndex.keySet().stream().filter(m->!matrixLocationIndex.containsKey(m.intValue()+1)).collect(Collectors.toList());
+                
+                OK:
                 for(Integer location:freeLocation)
                 {
                     ColorEnum locationColor = board.getLakeTileByIndex(matrixLocationIndex.get(location)).getLocationColor(sitLocation);
@@ -177,7 +183,7 @@ public class FriendlyStrategy implements PlayerStrategy
                         board.setLakeTileByIndex(index, lakeTileByIndex);
                         lakeTile =lakeTileByIndex;
                         rightLocation = location +1;
-                        break;
+                        break OK;
                     }
                 }
                 
@@ -192,13 +198,13 @@ public class FriendlyStrategy implements PlayerStrategy
         ca.setSelectedCard(lakeTile.getIndex());
         ca.placeLakeTile(rightLocation);
         
-        try
-        {
-            Thread.sleep(1000);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
+//        try
+//        {
+//            Thread.sleep(1000);
+//        } catch (InterruptedException e)
+//        {
+//            e.printStackTrace();
+//        }
         return true;
     }
 

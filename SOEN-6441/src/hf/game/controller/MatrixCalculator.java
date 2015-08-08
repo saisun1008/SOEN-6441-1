@@ -213,6 +213,7 @@ public class MatrixCalculator
         System.out.println("bottom lake: "
                 + (bottom == null ? "no" : bottom.getIndex()));
         giveLanternCard(lake, left, right, top, bottom);
+        notifyAllObservers();
         gameBoard.makeNewRound();
     }
 
@@ -396,7 +397,7 @@ public class MatrixCalculator
                     p.getLanternList().put(lake.get_bottomColor(), palyLantern);
                 }
 
-                if (lakeBtm.hasSpecialIcon())
+                if (lakeBtm.hasSpecialIcon() && gameBoard.getFavorTokenCollection().size()>0)
                 {
                     gameBoard
                             .getCurrentRoundPlayer()
@@ -409,7 +410,7 @@ public class MatrixCalculator
 
             if (lake.hasSpecialIcon()
                     && p.getName().equals(
-                            gameBoard.getCurrentRoundPlayer().getName()))
+                            gameBoard.getCurrentRoundPlayer().getName()) && gameBoard.getFavorTokenCollection().size()>0)
             {
                 gameBoard
                         .getCurrentRoundPlayer()

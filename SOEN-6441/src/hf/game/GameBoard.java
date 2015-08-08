@@ -236,6 +236,11 @@ public class GameBoard
     public void getRandomStartPlayer()
     {
         roundExecutor = new Random().nextInt(numPlayer);
+        
+        matrix.getMatrixCalculator().init(this);
+        Player currentRoundPlayer = getCurrentRoundPlayer();
+        if(currentRoundPlayer.getPlayerType()==PlayerTypeEnum.AI)
+           currentRoundPlayer.getStrategy().placeLakeTile(this);
     }
 
     /**
