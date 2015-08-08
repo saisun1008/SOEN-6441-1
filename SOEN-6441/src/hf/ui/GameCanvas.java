@@ -271,9 +271,21 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         for (int index : p.getLakeTileList())
         {
             LakeTile lakeTile = gameBoard.getLakeTileByIndex(index);
-            g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y + 40
-                    + yCount * 50);
+//            g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y + 40
+//                    + yCount * 50);
 
+            Image img = new Image(lakeTile.getImage());
+            if (lakeTile != null && lakeTile.getRotateDegrees() != 0)
+            {
+                img.setRotation(lakeTile.getRotateDegrees());
+                img.draw(x + xCount * 50, y + 40
+                      + yCount * 50);
+            } else
+            {
+                g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y + 40
+                        + yCount * 50);
+            }
+            
             lakeTile.setX(x + xCount * 50);
             lakeTile.setY(y + 40 + yCount * 50);
             lakeTile.setSize(30);
