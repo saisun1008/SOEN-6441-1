@@ -10,6 +10,7 @@ import hf.game.items.LanternCard;
 import hf.game.items.Player;
 import hf.game.strategy.GameEndingStrategy;
 import hf.game.strategy.NormalEndingStrategy;
+import hf.ui.matrix.Matrix;
 import hf.ui.matrix.MatrixCell;
 
 import java.util.ArrayList;
@@ -77,6 +78,7 @@ public class GameBoard
     public boolean shouldUpdateMatrix = false;
 
     private GameEndingStrategy gameEndingStrategy = null;
+    private Matrix matrix = null;
 
     /**
      * Initialize Card collections
@@ -129,6 +131,16 @@ public class GameBoard
         return m_LatternCollection;
     }
 
+    public Matrix getMatrix()
+    {
+        return matrix;
+    }
+
+    public void setMatrix(Matrix matrix)
+    {
+        this.matrix = matrix;
+    }
+    
     /**
      * Get lake tile index from the beginning
      * 

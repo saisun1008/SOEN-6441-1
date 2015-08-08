@@ -424,6 +424,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
     {
         gameBoard = board;
         matrixView.setGameBoard(board);
+        board.setMatrix(matrixView);
     }
 
     public void setEntities()
