@@ -179,7 +179,7 @@ public class GameBoard
         int next = numPlayer - roundExecutor;
         next = next==numPlayer?0:next;
                 
-        return m_players.get(numPlayer - roundExecutor);
+        return m_players.get(next);
     }
 
     /**

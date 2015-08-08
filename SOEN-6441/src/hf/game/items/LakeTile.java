@@ -152,6 +152,26 @@ public class LakeTile extends Card
     {
         return m_bottomColor;
     }
+    
+    public ColorEnum getLocationColor(LocationEnum loc)
+    {
+        switch (loc)
+        {
+            case TOP:
+                return m_topColor;
+            case BOTTOM:
+                return m_bottomColor;
+            case LEFT:
+                return m_leftColor;
+            case RIGHT:
+                return m_rightColor;
+    
+            default:
+                break;
+        }
+        
+        return m_bottomColor;
+    }
 
     /**
      * set bottom color
