@@ -1,6 +1,7 @@
 package hf.game.strategy;
 
 import hf.game.GameBoard;
+import hf.game.items.Player;
 
 public interface GameEndingStrategy
 {
@@ -12,4 +13,11 @@ public interface GameEndingStrategy
      * @return true if game ending condition has been met
      */
     public boolean validateGameEndingCondition(GameBoard board);
+
+    /**
+     * Print out winner info
+     * 
+     * @return String contains winner information
+     */
+    public String printoutWinner();
 }

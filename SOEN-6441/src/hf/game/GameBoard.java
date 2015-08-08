@@ -8,6 +8,8 @@ import hf.game.items.FavorToken;
 import hf.game.items.LakeTile;
 import hf.game.items.LanternCard;
 import hf.game.items.Player;
+import hf.game.strategy.GameEndingStrategy;
+import hf.game.strategy.NormalEndingStrategy;
 import hf.ui.matrix.MatrixCell;
 
 import java.util.ArrayList;
@@ -74,6 +76,8 @@ public class GameBoard
     public boolean gameEnded = false;
     public boolean shouldUpdateMatrix = false;
 
+    private GameEndingStrategy gameEndingStrategy = null;
+
     /**
      * Initialize Card collections
      */
@@ -92,6 +96,7 @@ public class GameBoard
         roundExecutor = 0;
         m_entities = new HashMap<Integer, MatrixCell>();
         matrixLocation_index.put(221, getStartLakeTileIndex());
+        gameEndingStrategy = new NormalEndingStrategy();
     }
 
     /**
@@ -158,6 +163,7 @@ public class GameBoard
      */
     public String makeNewRound()
     {
+        String winner = "";
         if (!gameEnded)
         {
             roundExecutor++;
@@ -166,54 +172,12 @@ public class GameBoard
                 roundExecutor = 0;
             }
         }
-        return verifyGameEndState();
-    }
-
-    /**
-     * Verify game state by checking how many lake tiles are still in players'
-     * hands and deck. If none left, then game has ended
-     * 
-     * @return true if game has ended, otherwise false
-     */
-    private String verifyGameEndState()
-    {
-        int lakeTileCnt = 0;
-        int maxScore = 0;
-        int winner = 0;
-        String ret = "";
-        for (Player player : m_players)
+        if (gameEndingStrategy != null)
         {
-            lakeTileCnt = lakeTileCnt + player.getLakeTileList().size();
-            int score = 0;
-            for (ColorEnum index : player.getDedicationTokenList().keySet())
-            {
-                for (int i : player.getDedicationTokenList().get(index))
-                {
-                    score += getDedicationTokenByIndex(i).getCardValue();
-                }
-
-            }
-            if (maxScore < score)
-            {
-                winner = m_players.indexOf(player);
-                maxScore = score;
-            }
-            player.setScore(score);
-            ret = ret.concat(m_players.get(m_players.indexOf(player)).getName()
-                    + "score:" + score + "\n ");
+            gameEnded = gameEndingStrategy.validateGameEndingCondition(this);
+            winner = gameEndingStrategy.printoutWinner();
         }
-
-        lakeTileCnt += m_LakeTileDeck.size();
-
-        if (lakeTileCnt == 0)
-        {
-            // System.out.println(m_players.get(winner).getName() +
-            // " has won!!");
-            gameEnded = true;
-        }
-
-        ret = ret.concat(m_players.get(winner).getName() + " has won!!");
-        return ret;
+        return winner;
     }
 
     /**

@@ -12,4 +12,11 @@ public class NLakeTileEndingStrategy implements GameEndingStrategy
         return false;
     }
 
+    @Override
+    public String printoutWinner()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
