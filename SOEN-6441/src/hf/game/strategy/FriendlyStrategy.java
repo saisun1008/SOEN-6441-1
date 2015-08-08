@@ -192,6 +192,13 @@ public class FriendlyStrategy implements PlayerStrategy
         ca.setSelectedCard(lakeTile.getIndex());
         ca.placeLakeTile(rightLocation);
         
+        try
+        {
+            Thread.sleep(1000);
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
+        }
         return true;
     }
 
