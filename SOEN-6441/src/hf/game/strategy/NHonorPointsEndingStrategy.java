@@ -5,6 +5,10 @@ import hf.game.GameBoard;
 public class NHonorPointsEndingStrategy implements GameEndingStrategy
 {
 
+    public NHonorPointsEndingStrategy(int nValue)
+    {
+    }
+
     @Override
     public boolean validateGameEndingCondition(GameBoard board)
     {

@@ -86,6 +86,7 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getCurrentRoundPlayer().toString());
                 gView.gameStarted();
+                gView.selectGameEndingStrategy();
                 gView.reSelectPlayerStrategy();
                 /*
                  * gView.getMatrix().setEntities(
@@ -119,7 +120,7 @@ public class AppDisplayWindow
                 int numPlayers = Integer.parseInt(gView.selectPlayerCount());
                 GameController.getInstance().getBoard()
                         .setNumPlayer(numPlayers);
-
+                gView.selectGameEndingStrategy();
                 String[] names = gView.enterPlayerNames(numPlayers);
 
                 gView.getLogView().append(

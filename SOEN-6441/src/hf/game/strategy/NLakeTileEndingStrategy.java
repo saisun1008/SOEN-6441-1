@@ -5,6 +5,10 @@ import hf.game.GameBoard;
 public class NLakeTileEndingStrategy implements GameEndingStrategy
 {
 
+    public NLakeTileEndingStrategy(int nValue)
+    {
+    }
+
     @Override
     public boolean validateGameEndingCondition(GameBoard board)
     {

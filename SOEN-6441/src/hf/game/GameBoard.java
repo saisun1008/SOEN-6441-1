@@ -672,4 +672,14 @@ public class GameBoard
         m_LatternDecks.get(cardToTake).remove(0);
         return true;
     }
+
+    public GameEndingStrategy getGameEndingStrategy()
+    {
+        return gameEndingStrategy;
+    }
+
+    public void setGameEndingStrategy(GameEndingStrategy gameEndingStrategy)
+    {
+        this.gameEndingStrategy = gameEndingStrategy;
+    }
 }

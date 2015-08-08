@@ -11,7 +11,10 @@ import hf.game.controller.GameController;
 import hf.game.controller.MatrixObserver;
 import hf.game.controller.ViewEventObserver;
 import hf.game.strategy.FriendlyStrategy;
+import hf.game.strategy.GameEndingStrategy;
 import hf.game.strategy.GreedyStrategy;
+import hf.game.strategy.NHonorPointsEndingStrategy;
+import hf.game.strategy.NLakeTileEndingStrategy;
 import hf.game.strategy.RandomStrategy;
 import hf.game.strategy.UnfriendlyStrategy;
 import hf.ui.GameCanvas;
@@ -236,6 +239,64 @@ public class GameView extends JPanel implements BoardObserver,
                     + GameController.getInstance().getBoard().getPlayers()
                             .get(index).getName()
                     + " is created with strategy: " + s);
+        }
+    }
+
+    public void selectGameEndingStrategy()
+    {
+        Object[] possibilities =
+        { "Normal Ending", "N Lake Tile Ending", "N Honor points Ending" };
+        String s = (String) JOptionPane
+                .showInputDialog(this, "Please select Game Ending Strategy:\n",
+                        "Game Ending Strategy for current game",
+                        JOptionPane.PLAIN_MESSAGE, null, possibilities,
+                        "Normal Ending");
+
+        if ((s != null) && (s.length() > 0))
+        {
+            if (s.equals("Normal Ending"))
+            {
+                logView.log("Normal Ending Strategy has been selected");
+                // don't have to do anything
+            } else if (s.equals("N Lake Tile Ending"))
+            {
+                int NValue = 0;
+                String N = (String) JOptionPane.showInputDialog(this, "",
+                        "Please enter N value", JOptionPane.PLAIN_MESSAGE,
+                        null, null, "0");
+                if ((N == null) || (N.length() <= 0))
+                {
+                    NValue = Integer.parseInt(N);
+                } else
+                {
+                    NValue = 3;
+                }
+                GameEndingStrategy stra = new NLakeTileEndingStrategy(NValue);
+                GameController.getInstance().getBoard()
+                        .setGameEndingStrategy(stra);
+
+                logView.log("N Lake Tile Ending Strategy has been selected, N value is set to "
+                        + NValue);
+            } else if (s.equals("N Honor points Ending"))
+            {
+                int NValue = 0;
+                String N = (String) JOptionPane.showInputDialog(this, "",
+                        "Please enter N value", JOptionPane.PLAIN_MESSAGE,
+                        null, null, "0");
+                if ((N == null) || (N.length() <= 0))
+                {
+                    NValue = Integer.parseInt(N);
+                } else
+                {
+                    NValue = 3;
+                }
+                GameEndingStrategy stra = new NHonorPointsEndingStrategy(NValue);
+                GameController.getInstance().getBoard()
+                        .setGameEndingStrategy(stra);
+
+                logView.log("N Honor points Ending Strategy has been selected, N value is set to "
+                        + NValue);
+            }
         }
     }
 
