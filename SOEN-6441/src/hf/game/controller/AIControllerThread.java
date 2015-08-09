@@ -45,6 +45,7 @@ public class AIControllerThread implements Runnable
             if (GameController.getInstance().getBoard().getCurrentRoundPlayer()
                     .getPlayerType() == PlayerTypeEnum.AI)
             {
+                String msg;
                 GameController
                         .getInstance()
                         .getBoard()
@@ -59,20 +60,21 @@ public class AIControllerThread implements Runnable
                         .getStrategy()
                         .redeemLanternCard(
                                 GameController.getInstance().getBoard());
+                msg = GameController.getInstance().getBoard()
+                        .getCurrentRoundPlayer().getStrategy().printReasoning();
                 GameController.getInstance().getBoard().getCurrentRoundPlayer()
                         .getStrategy()
                         .placeLakeTile(GameController.getInstance().getBoard());
-                log.log(GameController.getInstance().getBoard()
-                        .getCurrentRoundPlayer().getStrategy().printReasoning());
-                // after each AI player, let's wait a little bit...
-                try
-                {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e)
-                {
-                    e.printStackTrace();
-                }
+                log.log(msg);
 
+            }
+            // after each AI player, let's wait a little bit...
+            try
+            {
+                Thread.sleep(2000);
+            } catch (InterruptedException e)
+            {
+                e.printStackTrace();
             }
 
         }
