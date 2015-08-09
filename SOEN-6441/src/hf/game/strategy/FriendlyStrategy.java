@@ -21,6 +21,8 @@ import hf.ui.matrix.Matrix;
 
 public class FriendlyStrategy implements PlayerStrategy
 {
+    private StringBuilder sb = new StringBuilder();
+    
     /**
      * this strategy is always do best thing for next play.
      * 
@@ -29,6 +31,8 @@ public class FriendlyStrategy implements PlayerStrategy
      * 
      * place the lake tile to the location.
      * 
+     * 
+     * @param board GameBoard
      * @return boolean place the lake tile success or not
      */
     @Override
@@ -38,10 +42,16 @@ public class FriendlyStrategy implements PlayerStrategy
         Player currentRoundPlayer = board.getCurrentRoundPlayer();
         Player nextRoundPlayer = board.getNextRoundPlayer();
 
+        sb.append("To be helped palyer is " +nextRoundPlayer.getName()+";\r\n");
         if (currentRoundPlayer.getLakeTileList().size() == 0)
+        {
+            sb.append("There is no lake tile to place;\r\n");
             return false;
+        }
 
         LocationEnum sitLocation = nextRoundPlayer.getSitLocation();
+        sb.append("sit in the location " + sitLocation.name()+";\r\n");
+        
         Map<Integer, Integer> matrixLocationIndex = board
                 .getMatrixLocationIndex();
         MatrixCalculator ca = matrix.getMatrixCalculator();
@@ -81,10 +91,16 @@ public class FriendlyStrategy implements PlayerStrategy
                     } else if (lakeTileByIndex.get_rightColor() == locationColor)
                     {
                         lakeTileByIndex.rotateTile();
+                    }else
+                    {
+                        continue;
                     }
+                    
                     board.setLakeTileByIndex(index, lakeTileByIndex);
                     lakeTile = lakeTileByIndex;
                     rightLocation = location - 21;
+                    sb.append("lake tile index " + index+" in the location " + rightLocation +"and rotate "+ lakeTile.getRotateDegrees()+";\r\n");
+                    sb.append("can get two lartern cards.\r\n");
                     break OK;
                 }
             }
@@ -94,7 +110,11 @@ public class FriendlyStrategy implements PlayerStrategy
                         .getLakeTileList().get(0));
 
             if (rightLocation == 0)
+            {
                 rightLocation = freeLocation.get(0) - 21;
+                sb.append("lake tile index " + lakeTile.getIndex()+" in the location " + rightLocation+" randomly;\r\n");
+                sb.append("no better lake tile for him;\r\n");
+            }
             break;
 
         case BOTTOM:
@@ -127,10 +147,17 @@ public class FriendlyStrategy implements PlayerStrategy
                         lakeTileByIndex.rotateTile();
                         lakeTileByIndex.rotateTile();
                         lakeTileByIndex.rotateTile();
+                    }else
+                    {
+                        continue;
                     }
                     board.setLakeTileByIndex(index, lakeTileByIndex);
                     lakeTile = lakeTileByIndex;
                     rightLocation = location + 21;
+                    
+                    sb.append("lake tile index " + index+" in the location " + rightLocation +"and rotate "+ lakeTile.getRotateDegrees()+";\r\n");
+                    sb.append("can get two lartern cards.\r\n");
+                    
                     break OK;
                 }
             }
@@ -140,7 +167,11 @@ public class FriendlyStrategy implements PlayerStrategy
                         .getLakeTileList().get(0));
 
             if (rightLocation == 0)
+            {
                 rightLocation = freeLocation.get(0) + 21;
+                sb.append("lake tile index " + lakeTile.getIndex()+" in the location " + rightLocation+" randomly;\r\n");
+                sb.append("no better lake tile for him;\r\n");
+            }
             break;
 
         case LEFT:
@@ -172,10 +203,16 @@ public class FriendlyStrategy implements PlayerStrategy
                         lakeTileByIndex.rotateTile();
                     } else if (lakeTileByIndex.get_rightColor() == locationColor)
                     {
+                    }else
+                    {
+                        continue;
                     }
                     board.setLakeTileByIndex(index, lakeTileByIndex);
                     lakeTile = lakeTileByIndex;
                     rightLocation = location - 1;
+                    
+                    sb.append("lake tile index " + index+" in the location " + rightLocation +"and rotate "+ lakeTile.getRotateDegrees()+"\r\n");
+                    sb.append("can get two lartern cards.\r\n");
                     break OK;
                 }
             }
@@ -185,7 +222,11 @@ public class FriendlyStrategy implements PlayerStrategy
                         .getLakeTileList().get(0));
 
             if (rightLocation == 0)
+            {
                 rightLocation = freeLocation.get(0) - 1;
+                sb.append("lake tile index " + lakeTile.getIndex()+" in the location " + rightLocation+" randomly;\r\n");
+                sb.append("no better lake tile for him;\r\n");
+            }
             break;
 
         case RIGHT:
@@ -217,10 +258,15 @@ public class FriendlyStrategy implements PlayerStrategy
                     {
                         lakeTileByIndex.rotateTile();
                         lakeTileByIndex.rotateTile();
+                    }else
+                    {
+                        continue;
                     }
                     board.setLakeTileByIndex(index, lakeTileByIndex);
                     lakeTile = lakeTileByIndex;
                     rightLocation = location + 1;
+                    sb.append("lake tile index " + index+" in the location " + rightLocation +"and rotate "+ lakeTile.getRotateDegrees()+";\r\n");
+                    sb.append("can get two lartern cards.\r\n");
                     break OK;
                 }
             }
@@ -230,7 +276,11 @@ public class FriendlyStrategy implements PlayerStrategy
                         .getLakeTileList().get(0));
 
             if (rightLocation == 0)
+            {
                 rightLocation = freeLocation.get(0) + 1;
+                sb.append("lake tile index " + lakeTile.getIndex()+" in the location " + rightLocation+" randomly;\r\n");
+                sb.append("no better lake tile for him;\r\n");
+            }
             break;
         }
 
@@ -308,8 +358,7 @@ public class FriendlyStrategy implements PlayerStrategy
     @Override
     public String printReasoning()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return sb.toString();
     }
 
 }

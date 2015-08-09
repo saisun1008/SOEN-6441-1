@@ -484,6 +484,9 @@ public class GameBoard
      */
     public FavorToken getFavorTokenByIndex(int index)
     {
+        if(m_FavorTokenCollection.size()==0)
+            return null;
+        
         return m_FavorTokenCollection.get(index);
     }
 
@@ -607,9 +610,13 @@ public class GameBoard
         {
             origin = new ArrayList<Integer>();
         }
-        origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
-        m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
-
+        
+        if(m_DedicationTokenDecks.get(ColorEnum.BLUE).size()>0)
+        {
+            origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
+            m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
+        }
+        
         getCurrentRoundPlayer().getDedicationTokenList().put(ColorEnum.BLUE,
                 origin);
         result = true;

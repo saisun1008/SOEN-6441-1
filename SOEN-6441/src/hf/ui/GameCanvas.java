@@ -412,7 +412,11 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         }
 
         // render favor token
-        Image im = new Image(gameBoard.getFavorTokenByIndex(0).getImage());
+        String image = "images/favor_token.jpg";
+        if(gameBoard.getFavorTokenByIndex(0)!=null)
+            image = gameBoard.getFavorTokenByIndex(0).getImage();
+        
+        Image im = new Image(image);
         g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
         g.drawString(
                 Integer.toString(gameBoard.getFavorTokenCollection().size()),
