@@ -57,7 +57,13 @@ public class NormalEndingStrategy implements GameEndingStrategy
     @Override
     public String printoutWinner()
     {
-        return winner.getName() + " has won!! with Score of "
-                + winner.getScore();
+        if (winner != null)
+        {
+            return winner.getName() + " has won!! with Score of "
+                    + winner.getScore();
+        } else
+        {
+            return "";
+        }
     }
 }

@@ -1,6 +1,8 @@
 package hf.game.controller;
 
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import hf.game.common.ColorEnum;
@@ -13,7 +15,7 @@ import hf.game.views.LogView;
  * @author Sai
  *
  */
-public class DisasterThread extends Thread
+public class DisasterThread implements Runnable
 {
     private LogView log;
     private boolean terminated = true;
@@ -21,7 +23,7 @@ public class DisasterThread extends Thread
     private int passingBoartTiming = 0;
     private int lightningTiming = 0;
     private Random generator;
-    private final int BOUND = 500;
+    private final int BOUND = 200;
     private int timer = 0;
 
     public DisasterThread(LogView log)
@@ -36,15 +38,7 @@ public class DisasterThread extends Thread
     public void start()
     {
         terminated = false;
-        try
-        {
-            Thread.sleep(10000);
-        } catch (InterruptedException e)
-        {
-            e.printStackTrace();
-        }
         log.log("Disasters will start at any time now");
-        run();
     }
 
     public void stopDisaster()
@@ -54,15 +48,17 @@ public class DisasterThread extends Thread
 
     public void run()
     {
-        while (!terminated)
+        try
         {
-            if (GameController.getInstance().getBoard().gameEnded)
+            Thread.sleep(10000);
+            while (!terminated)
             {
-                terminated = true;
-                break;
-            }
-            try
-            {
+                if (GameController.getInstance().getBoard().gameEnded)
+                {
+                    terminated = true;
+                    break;
+                }
+
                 Thread.sleep(500);
                 timer++;
                 if (timer == tsunamiTiming)
@@ -81,10 +77,11 @@ public class DisasterThread extends Thread
                 {
                     timer = 0;
                 }
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
+
             }
+        } catch (InterruptedException e)
+        {
+            e.printStackTrace();
         }
     }
 
@@ -97,11 +94,13 @@ public class DisasterThread extends Thread
         Map<Integer, Integer> map = GameController.getInstance().getBoard()
                 .getMatrixLocationIndex();
 
-        for (int key : map.keySet())
+        Iterator<Entry<Integer, Integer>> it = map.entrySet().iterator();
+        while (it.hasNext())
         {
-            if (key != 221)
+            Entry<Integer, Integer> item = it.next();
+            if (item.getKey() != 221)
             {
-                map.remove(key);
+                it.remove();
             }
         }
 
@@ -115,7 +114,8 @@ public class DisasterThread extends Thread
         int numlakeTiles = generator.nextInt(3);
         Map<Integer, Integer> map = GameController.getInstance().getBoard()
                 .getMatrixLocationIndex();
-
+        log.log("Passing boat has been triggered: " + numlakeTiles
+                + " will be removed: ");
         int attempts = 0;
         int tileIndex = 0;
         while (numlakeTiles > 0)
@@ -137,13 +137,15 @@ public class DisasterThread extends Thread
             if (!map.containsKey(tileIndex + 21)
                     && !map.containsKey(tileIndex - 21)
                     || !map.containsKey(tileIndex + 1)
-                    && !map.containsKey(tileIndex - 1))
+                    && !map.containsKey(tileIndex - 1) || tileIndex == 221)
             {
                 attempts++;
                 continue;
             } else
             {
                 map.remove(tileIndex);
+                log.log("Passing boat now removing lake tile which has index of  "
+                        + tileIndex);
                 numlakeTiles--;
             }
             if (attempts >= map.size())
@@ -164,7 +166,7 @@ public class DisasterThread extends Thread
     private void createLightning()
     {
         int numPlayer = generator.nextInt(GameController.getInstance()
-                .getBoard().getPlayerCount());
+                .getBoard().getPlayerCount()) + 1;
         int numDedication = generator.nextInt(6);
 
         int tmp = generator.nextInt(3);
@@ -178,6 +180,7 @@ public class DisasterThread extends Thread
                 + " "
                 + dedicationColor
                 + " dedication card(s) will be removed from the affected players");
+        numDedication = numDedication * numPlayer;
         while (numPlayer > 0)
         {
             for (Player p : GameController.getInstance().getBoard()
@@ -188,7 +191,9 @@ public class DisasterThread extends Thread
                     if (p.getLanternList().get(dedicationColor).size() > 0)
                     {
                         p.getLanternList().get(dedicationColor).remove(0);
+
                     }
+                    numDedication--;
                 }
             }
             numPlayer--;

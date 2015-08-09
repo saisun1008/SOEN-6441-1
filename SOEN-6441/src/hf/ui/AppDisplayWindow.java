@@ -53,7 +53,7 @@ public class AppDisplayWindow
     /**
      * Create a new menu bar
      */
-    private static void createMenuBar()
+    private void createMenuBar()
     {
         menuBar = new MenuBar();
         Menu menu = new Menu("File");
@@ -91,8 +91,7 @@ public class AppDisplayWindow
                 gView.reSelectPlayerStrategy();
                 if (gView.EnableDisaster())
                 {
-                    DisasterThread t = new DisasterThread(gView.getLogView());
-                    t.start();
+                    startDisasterThread();
                 }
                 /*
                  * gView.getMatrix().setEntities(
@@ -132,8 +131,7 @@ public class AppDisplayWindow
                 String[] names = gView.enterPlayerNames(numPlayers);
                 if (gView.EnableDisaster())
                 {
-                    DisasterThread t = new DisasterThread(gView.getLogView());
-                    t.start();
+                    startDisasterThread();
                 }
                 gView.getLogView().append(
                         "new game is starting with "
@@ -164,11 +162,19 @@ public class AppDisplayWindow
         gView.getLogView().append("new game is starting");
     }
 
+    private void startDisasterThread()
+    {
+        DisasterThread t = new DisasterThread(gView.getLogView());
+        t.start();
+        Thread thread = new Thread(t);
+        thread.start();
+    }
+
     public static void main(String[] args)
     {
         try
         {
-            createMenuBar();
+            new AppDisplayWindow().createMenuBar();
 
             gView = new GameView(GameController.getInstance().getBoard());
             gView.getMatrix().attach(GameController.getInstance());
