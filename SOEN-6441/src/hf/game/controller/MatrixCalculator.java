@@ -277,7 +277,7 @@ public class MatrixCalculator
                     p.getLanternList().put(lake.get_leftColor(), palyLantern);
                 }
 
-                if (lakeLeft.hasSpecialIcon())
+                if (lakeLeft.hasSpecialIcon() && gameBoard.getFavorTokenCollection().size()>0)
                 {
                     gameBoard
                             .getCurrentRoundPlayer()
