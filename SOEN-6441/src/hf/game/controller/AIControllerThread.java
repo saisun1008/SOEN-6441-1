@@ -47,6 +47,13 @@ public class AIControllerThread implements Runnable
             {
                 String msg;
                 GameController
+                .getInstance()
+                .getBoard()
+                .getCurrentRoundPlayer()
+                .getStrategy()
+                .redeemLanternCard(
+                        GameController.getInstance().getBoard());
+                GameController
                         .getInstance()
                         .getBoard()
                         .getCurrentRoundPlayer()

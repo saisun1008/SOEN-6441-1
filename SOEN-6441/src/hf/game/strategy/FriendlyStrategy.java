@@ -287,13 +287,6 @@ public class FriendlyStrategy implements PlayerStrategy
         ca.setSelectedCard(lakeTile.getIndex());
         ca.placeLakeTile(rightLocation);
 
-        // try
-        // {
-        // Thread.sleep(1000);
-        // } catch (InterruptedException e)
-        // {
-        // e.printStackTrace();
-        // }
         return true;
     }
 
@@ -351,7 +344,146 @@ public class FriendlyStrategy implements PlayerStrategy
     @Override
     public boolean redeemFavorToken(GameBoard board)
     {
-        // TODO Auto-generated method stub
+        Player currentRoundPlayer = board.getCurrentRoundPlayer();
+        if(currentRoundPlayer.getFavorTokenList().size()<=2)
+            return false;
+
+        HashMap<ColorEnum, ArrayList<Integer>> lanternList = currentRoundPlayer
+                .getLanternList();
+
+        HashMap<ColorEnum, ArrayList<Integer>> latternDecks = board.getLatternDecks();
+        ColorEnum colorTake=null;
+        List<ColorEnum> four = lanternList.keySet().stream()
+                .filter(c -> lanternList.get(c).size() == 3)
+                .collect(Collectors.toList());
+        if (four.size() > 0)
+        {
+            for(ColorEnum color:four)
+            {
+                if(latternDecks.get(color)!=null && latternDecks.get(color).size()>0)
+                {
+                    colorTake = color;
+                    break;
+                }
+            }
+        }
+        
+        if(useFavorToken(board, lanternList, colorTake))
+            return true;
+
+        List<ColorEnum> three = lanternList.keySet().stream()
+                .filter(c -> lanternList.get(c).size() >= 2)
+                .collect(Collectors.toList());
+        if (three.size() == 2)
+        {
+            List<ColorEnum> one = lanternList.keySet().stream()
+            .filter(c -> lanternList.get(c).size() == 1)
+            .collect(Collectors.toList());
+            
+            if (one.size() > 0)
+            {
+                for(ColorEnum color:one)
+                {
+                    if(latternDecks.get(color)!=null && latternDecks.get(color).size()>0)
+                    {
+                        colorTake = color;
+                        break;
+                    }
+                }
+            }
+            
+            if(useFavorToken4Three(board, lanternList, colorTake,three))
+                return true;
+        }
+
+        List<ColorEnum> seven = lanternList.keySet().stream()
+                .filter(c -> lanternList.get(c).size() >= 1)
+                .collect(Collectors.toList());
+        if (seven.size() == 6)
+        {
+            List<ColorEnum> six = board.getLatternDecks().keySet().stream()
+                    .filter(c -> !lanternList.containsKey(c) && board.getLatternDecks().get(c).size()>0)
+                    .collect(Collectors.toList());
+            
+            if (six.size() > 0)
+            {
+                        colorTake = six.get(0);
+            }
+            
+            if(useFavorToken4six(board, lanternList, colorTake,seven))
+                return true;
+            
+        }
+
+        return true;
+    }
+
+    private boolean useFavorToken4six(GameBoard board,
+            HashMap<ColorEnum, ArrayList<Integer>> lanternList,
+            ColorEnum colorTake, List<ColorEnum> seven)
+    {
+        ColorEnum colorGive;
+        if(colorTake!=null)
+        {
+            for(ColorEnum c:lanternList.keySet())
+            {
+                if(!colorTake.equals(c) && lanternList.get(c).size()>0)
+                {
+                    if(seven.contains(c) &&  lanternList.get(c).size()==1)
+                        continue;
+                    
+                    colorGive = c;
+                    board.useFavorToken(colorGive, colorTake);
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean useFavorToken4Three(GameBoard board,
+            HashMap<ColorEnum, ArrayList<Integer>> lanternList,
+            ColorEnum colorTake, List<ColorEnum> three)
+    {
+        ColorEnum colorGive;
+        if(colorTake!=null)
+        {
+            for(ColorEnum c:lanternList.keySet())
+            {
+                if(!colorTake.equals(c) && lanternList.get(c).size()>0)
+                {
+                    if(three.contains(c) &&  lanternList.get(c).size()==2)
+                        continue;
+                    
+                    colorGive = c;
+                    board.useFavorToken(colorGive, colorTake);
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean useFavorToken(GameBoard board,
+            HashMap<ColorEnum, ArrayList<Integer>> lanternList,
+            ColorEnum colorTake)
+    {
+        ColorEnum colorGive;
+        if(colorTake!=null)
+        {
+            for(ColorEnum c:lanternList.keySet())
+            {
+                if(!colorTake.equals(c) && lanternList.get(c).size()>0)
+                {
+                    colorGive = c;
+                    board.useFavorToken(colorGive, colorTake);
+                    return true;
+                }
+            }
+        }
+        
         return false;
     }
 
