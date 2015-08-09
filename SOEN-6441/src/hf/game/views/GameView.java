@@ -300,6 +300,22 @@ public class GameView extends JPanel implements BoardObserver,
         }
     }
 
+    public boolean EnableDisaster()
+    {
+        int n = JOptionPane.showConfirmDialog(this,
+                "Would you like to enable disasters?", "Disaster Control",
+                JOptionPane.YES_NO_OPTION);
+
+        if (n == 0)
+        {
+            logView.log("Disasters have been enabled, have FUN!");
+        } else
+        {
+            logView.log("Disasters have been disabled...");
+        }
+        return n == 0 ? true : false;
+    }
+
     public void gameStarted()
     {
         mainView.gameStarted();

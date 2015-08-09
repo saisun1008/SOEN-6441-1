@@ -2,6 +2,7 @@ package hf.ui;
 
 import hf.game.GameBoard;
 import hf.game.common.GameProperties;
+import hf.game.controller.DisasterThread;
 import hf.game.controller.GameController;
 import hf.game.items.LakeTile;
 import hf.game.views.GameView;
@@ -88,6 +89,11 @@ public class AppDisplayWindow
                 gView.gameStarted();
                 gView.selectGameEndingStrategy();
                 gView.reSelectPlayerStrategy();
+                if (gView.EnableDisaster())
+                {
+                    DisasterThread t = new DisasterThread(gView.getLogView());
+                    t.start();
+                }
                 /*
                  * gView.getMatrix().setEntities(
                  * GameController.getInstance().getBoard().getEntities());
@@ -107,6 +113,7 @@ public class AppDisplayWindow
                 gView.getSelectionView().setBoard(
                         GameController.getInstance().getBoard());
                 gView.getLogView().log(target.toString());
+
             }
         });
 
@@ -121,8 +128,13 @@ public class AppDisplayWindow
                 GameController.getInstance().getBoard()
                         .setNumPlayer(numPlayers);
                 gView.selectGameEndingStrategy();
-                String[] names = gView.enterPlayerNames(numPlayers);
 
+                String[] names = gView.enterPlayerNames(numPlayers);
+                if (gView.EnableDisaster())
+                {
+                    DisasterThread t = new DisasterThread(gView.getLogView());
+                    t.start();
+                }
                 gView.getLogView().append(
                         "new game is starting with "
                                 + numPlayers
