@@ -284,16 +284,19 @@ public class GreedyStrategy implements PlayerStrategy
         maxValues = new HashMap<ColorEnum, Integer>();
         for (ColorEnum color : list.keySet())
         {
-            if (list.get(color).size()>0 && board.getDedicationTokenCollection().size()>0 && board.getDedicationTokenByIndex(list.get(color).get(0))
-                    .getCardValue() > maxValue )
+            if (list.get(color).size()>0 && board.getDedicationTokenCollection().size()>0)
             {
-                maxValue = board.getDedicationTokenByIndex(
-                        list.get(color).get(0)).getCardValue();
-                result = color;
+                if (board.getDedicationTokenByIndex(list.get(color).get(0))
+                        .getCardValue() > maxValue )
+                {
+                    maxValue = board.getDedicationTokenByIndex(
+                            list.get(color).get(0)).getCardValue();
+                    result = color;
+                }
+                maxValues.put(color,
+                        board.getDedicationTokenByIndex(list.get(color).get(0))
+                                .getCardValue());
             }
-            maxValues.put(color,
-                    board.getDedicationTokenByIndex(list.get(color).get(0))
-                            .getCardValue());
         }
         wantedDedicationColor = result;
         return result;
