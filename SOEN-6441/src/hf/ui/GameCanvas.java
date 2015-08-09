@@ -398,13 +398,17 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             ArrayList<Integer> list = gameBoard.getDedicationTokenDeck().get(
                     color);
             Collections.sort(list);
-            Image im = new Image(gameBoard.getDedicationTokenByIndex(
-                    list.get(0)).getImage());
-            g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
-            g.drawString(Integer.toString(list.size()),
-                    GameProperties.DECK_WIDTH + 10, imageCount
-                            * GameProperties.DECK_HEIGHT + 10);
-            imageCount++;
+            
+            if(list.size()>0)
+            {
+                Image im = new Image(gameBoard.getDedicationTokenByIndex(
+                        list.get(0)).getImage());
+                g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
+                g.drawString(Integer.toString(list.size()),
+                        GameProperties.DECK_WIDTH + 10, imageCount
+                                * GameProperties.DECK_HEIGHT + 10);
+                imageCount++;
+            }
         }
 
         // render favor token

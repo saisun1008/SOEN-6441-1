@@ -200,7 +200,10 @@ public class GameBoard
             
             Player currentRoundPlayer = getCurrentRoundPlayer();
             if(currentRoundPlayer.getPlayerType()==PlayerTypeEnum.AI)
-               currentRoundPlayer.getStrategy().placeLakeTile(this);
+            {
+                currentRoundPlayer.getStrategy().redeemLanternCard(this);
+                currentRoundPlayer.getStrategy().placeLakeTile(this);
+            }
         }
         if (gameEndingStrategy != null)
         {

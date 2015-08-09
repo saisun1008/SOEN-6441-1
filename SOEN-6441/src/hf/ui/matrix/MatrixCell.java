@@ -93,7 +93,6 @@ public class MatrixCell extends BasicGame
         if ((xpos > x && xpos < x + size) && (ypos > y && ypos < y + size))
         {
             System.out.println("maxtrix cell " + id + "has been clicked");
-            System.out.println("maxtrix cell location is "+xpos+":"+ypos);
             ca.placeLakeTile(id);
         }
     }

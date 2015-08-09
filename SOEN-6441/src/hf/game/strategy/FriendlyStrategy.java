@@ -3,8 +3,11 @@ package hf.game.strategy;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import hf.game.GameBoard;
@@ -17,6 +20,16 @@ import hf.ui.matrix.Matrix;
 
 public class FriendlyStrategy implements PlayerStrategy
 {
+    /**
+     * this strategy is always do best thing for next play.
+     * 
+     * calculate which is best lake tile to place.
+     * calculate which is best location.
+     * 
+     * place the lake tile to the location.
+     * 
+     * @return boolean place the lake tile success or not
+     */
     @Override
     public boolean placeLakeTile(GameBoard board)
     {
@@ -211,8 +224,36 @@ public class FriendlyStrategy implements PlayerStrategy
     @Override
     public boolean redeemLanternCard(GameBoard board)
     {
-        // TODO Auto-generated method stub
-        return false;
+        Player currentRoundPlayer = board.getCurrentRoundPlayer();
+        
+        //{RED=[33], ORANGE=[28, 14], BLUE=[32]}
+        HashMap<ColorEnum, ArrayList<Integer>> lanternList = currentRoundPlayer.getLanternList();
+        
+        List<ColorEnum> four = lanternList.keySet().stream().filter(c->lanternList.get(c).size()>=4).collect(Collectors.toList());
+        if(four.size()>0)
+        {
+            HashMap<ColorEnum, Integer> fourMap = new HashMap<>();
+            four.stream().forEach(c->fourMap.put(c, lanternList.get(c).size()));
+            board.exchangeFourOfKind(fourMap);
+        }
+        
+        List<ColorEnum> three = lanternList.keySet().stream().filter(c->lanternList.get(c).size()>=2).collect(Collectors.toList());
+        if(three.size()>=3)
+        {
+            HashMap<ColorEnum, Integer> threeMap = new HashMap<>();
+            three.stream().forEach(c->{if(threeMap.size()<3) threeMap.put(c, 2);});
+            board.exchangeThreePair(threeMap);
+        }
+        
+        List<ColorEnum> seven = lanternList.keySet().stream().filter(c->lanternList.get(c).size()>=1).collect(Collectors.toList());
+        if(seven.size()>=7)
+        {
+            HashMap<ColorEnum, Integer> sevenMap = new HashMap<>();
+            seven.stream().forEach(c->{if(sevenMap.size()<7) sevenMap.put(c, 1);});
+            board.exchangeSevenUnique(sevenMap);
+        }
+        
+        return true;
     }
 
     @Override
