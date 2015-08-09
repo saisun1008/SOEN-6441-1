@@ -141,7 +141,7 @@ public class GameBoard
     {
         this.matrix = matrix;
     }
-    
+
     /**
      * Get lake tile index from the beginning
      * 
@@ -168,7 +168,7 @@ public class GameBoard
     {
         return m_players.get(numPlayer - roundExecutor - 1);
     }
-    
+
     /**
      * Get player who should be playing for just after current game round
      * 
@@ -177,8 +177,8 @@ public class GameBoard
     public Player getNextRoundPlayer()
     {
         int next = numPlayer - roundExecutor;
-        next = next==numPlayer?0:next;
-                
+        next = next == numPlayer ? 0 : next;
+
         return m_players.get(next);
     }
 
@@ -197,13 +197,15 @@ public class GameBoard
             {
                 roundExecutor = 0;
             }
-            
-            Player currentRoundPlayer = getCurrentRoundPlayer();
-            if(currentRoundPlayer.getPlayerType()==PlayerTypeEnum.AI)
-            {
-                currentRoundPlayer.getStrategy().redeemLanternCard(this);
-                currentRoundPlayer.getStrategy().placeLakeTile(this);
-            }
+            // please use AI controller thread to control AI behaviors
+
+            /*
+             * Player currentRoundPlayer = getCurrentRoundPlayer();
+             * if(currentRoundPlayer.getPlayerType()==PlayerTypeEnum.AI) {
+             * currentRoundPlayer.getStrategy().redeemLanternCard(this);
+             * currentRoundPlayer.getStrategy().placeLakeTile(this); }
+             */
+
         }
         if (gameEndingStrategy != null)
         {
@@ -239,11 +241,11 @@ public class GameBoard
     public void getRandomStartPlayer()
     {
         roundExecutor = new Random().nextInt(numPlayer);
-        
+
         matrix.getMatrixCalculator().init(this);
         Player currentRoundPlayer = getCurrentRoundPlayer();
-        if(currentRoundPlayer.getPlayerType()==PlayerTypeEnum.AI)
-           currentRoundPlayer.getStrategy().placeLakeTile(this);
+        if (currentRoundPlayer.getPlayerType() == PlayerTypeEnum.AI)
+            currentRoundPlayer.getStrategy().placeLakeTile(this);
     }
 
     /**
@@ -693,6 +695,11 @@ public class GameBoard
                         .get(0));
 
         // take cardToTake from deck
+        if (getCurrentRoundPlayer().getLanternList().get(cardToTake) == null)
+        {
+            getCurrentRoundPlayer().getLanternList().put(cardToTake,
+                    new ArrayList<Integer>());
+        }
         getCurrentRoundPlayer().getLanternList().get(cardToTake)
                 .add(m_LatternDecks.get(cardToTake).get(0));
         m_LatternDecks.get(cardToTake).remove(0);

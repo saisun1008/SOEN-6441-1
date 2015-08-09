@@ -329,7 +329,7 @@ public class GameBoardBuildedr
         m_board.setPlayers(list);
         buildDecks();
         assignInitialHandCards();
-        m_board.getRandomStartPlayer();
+        // m_board.getRandomStartPlayer();
 
     }
 

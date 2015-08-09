@@ -2,12 +2,15 @@ package hf.game.strategy;
 
 import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
+import hf.game.controller.MatrixCalculator;
 import hf.game.items.Player;
+import hf.ui.matrix.Matrix;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class GreedyStrategy implements PlayerStrategy
 {
@@ -16,6 +19,8 @@ public class GreedyStrategy implements PlayerStrategy
     private Player tmpPlayer;
     private ColorEnum wantedColor = null;
     private ColorEnum leastWantedColor = null;
+    private ColorEnum wantedDedicationColor = null;
+    private HashMap<ColorEnum, Integer> maxValues = null;
 
     public GreedyStrategy(Player p)
     {
@@ -70,37 +75,47 @@ public class GreedyStrategy implements PlayerStrategy
      */
     private void placeLakeTile(GameBoard board, int cardIndex)
     {
+        Matrix matrix = board.getMatrix();
+        MatrixCalculator ca = matrix.getMatrixCalculator();
         int cardID = cardIndex == -1 ? 0 : cardIndex;
         Map<Integer, Integer> map = board.getMatrixLocationIndex();
+        int rightLocation = -1;
+        int randomplace = new Random().nextInt(4);
         for (int key : map.keySet())
         {
-            if (!map.containsKey(key - 1))
+            if (!map.containsKey(key - 1) && randomplace == 0)
             {
-                map.put(key - 1, board.getCurrentRoundPlayer()
-                        .getLakeTileList().get(cardID));
+                rightLocation = key - 1;
                 break;
-            } else if (!map.containsKey(key + 1))
+            } else if (!map.containsKey(key + 1) && randomplace == 1)
             {
-                map.put(key + 1, board.getCurrentRoundPlayer()
-                        .getLakeTileList().get(cardID));
+                rightLocation = key + 1;
                 break;
-            } else if (!map.containsKey(key + 21) && key + 21 < 441)
+            } else if (!map.containsKey(key + 21) && key + 21 < 441
+                    && randomplace == 2)
             {
-                map.put(key + 21, board.getCurrentRoundPlayer()
-                        .getLakeTileList().get(cardID));
+                rightLocation = key + 21;
                 break;
-            } else if (!map.containsKey(key - 21) && key - 21 >= 0)
+            } else if (!map.containsKey(key - 21) && key - 21 >= 0
+                    && randomplace == 3)
             {
-                map.put(key - 21, board.getCurrentRoundPlayer()
-                        .getLakeTileList().get(cardID));
+                rightLocation = key - 21;
                 break;
             }
         }
-        if (cardIndex != -1)
+        if (cardIndex == -1)
         {
-            board.getCurrentRoundPlayer().getLakeTileList().remove(0);
+            board.getCurrentRoundPlayer().getLakeTileList().remove(cardID);
         }
-        board.manuallySetMap(map);
+        ca.setSelectedCard(cardID);
+        ca.placeLakeTile(rightLocation);
+    }
+
+    private boolean validateLakeTileLocation(int location)
+    {
+
+        boolean ret = false;
+        return ret;
     }
 
     /**
@@ -120,10 +135,9 @@ public class GreedyStrategy implements PlayerStrategy
                 board.getLakeTileByIndex(index).rotateCardToDesiredDegree(
                         board.getCurrentRoundPlayer().getSitLocation(),
                         wantedColor);
-                board.getCurrentRoundPlayer()
-                        .getLakeTileList()
-                        .remove(board.getCurrentRoundPlayer().getLakeTileList()
-                                .get(index));
+                int pos = board.getCurrentRoundPlayer().getLakeTileList()
+                        .indexOf(index);
+                board.getCurrentRoundPlayer().getLakeTileList().remove(pos);
                 placeLakeTile(board, index);
                 return true;
             }
@@ -154,6 +168,84 @@ public class GreedyStrategy implements PlayerStrategy
                 break;
             }
             return true;
+        } else
+        {
+            // now we can't get the max dedication card, let's try the second
+            // max
+            int secondlargest = 0;
+            ColorEnum second = null;
+            for (ColorEnum key : maxValues.keySet())
+            {
+                if (key == color)
+                {
+                    continue;
+                } else
+                {
+                    if (secondlargest < board.getDedicationTokenByIndex(
+                            board.getDedicationTokenDeck().get(key).get(0))
+                            .getCardValue())
+                    {
+                        second = key;
+                        secondlargest = board.getDedicationTokenByIndex(
+                                board.getDedicationTokenDeck().get(key).get(0))
+                                .getCardValue();
+
+                    }
+                }
+            }
+
+            HashMap<ColorEnum, Integer> list1 = validateLanternCards(tmpPlayer,
+                    second);
+            if (list1 != null)
+            {
+                switch (second)
+                {
+                case RED:
+                    board.exchangeFourOfKind(list1);
+                    break;
+                case BLUE:
+                    board.exchangeThreePair(list1);
+                    break;
+                case GREEN:
+                    board.exchangeSevenUnique(list1);
+                    break;
+                default:
+                    break;
+                }
+                return true;
+            } else
+            {
+                for (ColorEnum key : maxValues.keySet())
+                {
+                    if (key == color || key == second || key == ColorEnum.WHITE)
+                    {
+                        continue;
+                    } else
+                    {
+                        HashMap<ColorEnum, Integer> list2 = validateLanternCards(
+                                tmpPlayer, key);
+                        if (list2 != null)
+                        {
+                            switch (key)
+                            {
+                            case RED:
+                                board.exchangeFourOfKind(list2);
+                                break;
+                            case BLUE:
+                                board.exchangeThreePair(list2);
+                                break;
+                            case GREEN:
+                                board.exchangeSevenUnique(list2);
+                                break;
+                            default:
+                                break;
+                            }
+                            return true;
+                        }
+                    }
+                }
+            }
+
         }
         return false;
     }
@@ -161,10 +253,18 @@ public class GreedyStrategy implements PlayerStrategy
     @Override
     public boolean redeemFavorToken(GameBoard board)
     {
-        ColorEnum color = getCurrentMaxDedicationColor(board);
-        HashMap<ColorEnum, Integer> list = validateLanternCards(tmpPlayer,
-                color);
-        board.useFavorToken(leastWantedColor, wantedColor);
+        if (board.getCurrentRoundPlayer().getFavorTokenList().size() >= 2
+                && board.getLatternDecks().get(wantedColor).size() > 0)
+        {
+            ColorEnum color = getCurrentMaxDedicationColor(board);
+            HashMap<ColorEnum, Integer> list = validateLanternCards(tmpPlayer,
+                    color);
+            if (tmpPlayer.getLanternList().get(leastWantedColor).size() > 0)
+            {
+                board.useFavorToken(leastWantedColor, wantedColor);
+            }
+            return true;
+        }
         return false;
     }
 
@@ -181,6 +281,7 @@ public class GreedyStrategy implements PlayerStrategy
         int maxValue = 0;
         HashMap<ColorEnum, ArrayList<Integer>> list = board
                 .getDedicationTokenDeck();
+        maxValues = new HashMap<ColorEnum, Integer>();
         for (ColorEnum color : list.keySet())
         {
             if (board.getDedicationTokenByIndex(list.get(color).get(0))
@@ -190,7 +291,11 @@ public class GreedyStrategy implements PlayerStrategy
                         list.get(color).get(0)).getCardValue();
                 result = color;
             }
+            maxValues.put(color,
+                    board.getDedicationTokenByIndex(list.get(color).get(0))
+                            .getCardValue());
         }
+        wantedDedicationColor = result;
         return result;
     }
 
@@ -209,12 +314,13 @@ public class GreedyStrategy implements PlayerStrategy
         case RED:
             wantedColor = null;
             mostClosedCandidate = 100;
+            exchangeList = new HashMap<ColorEnum, Integer>();
             for (ColorEnum key : lanternHandCards.keySet())
             {
                 if (lanternHandCards.get(key).size() >= 4)
                 {
-                    exchangeList = new HashMap<ColorEnum, Integer>();
-                    exchangeList.put(key, 0);
+
+                    exchangeList.put(key, 4);
                     break;
                 } else
                 {
@@ -241,12 +347,13 @@ public class GreedyStrategy implements PlayerStrategy
             mostClosedCandidate = 100;
             mostImpossibleCandidate = 0;
             wantedColor = null;
+            exchangeList = new HashMap<ColorEnum, Integer>();
             for (ColorEnum key : lanternHandCards.keySet())
             {
                 if (lanternHandCards.get(key).size() >= 2)
                 {
-                    exchangeList = new HashMap<ColorEnum, Integer>();
-                    exchangeList.put(key, 0);
+
+                    exchangeList.put(key, 2);
                     comboCnter++;
                     if (comboCnter == 3)
                     {
@@ -282,13 +389,13 @@ public class GreedyStrategy implements PlayerStrategy
             comboCnter = 0;
             mostClosedCandidate = 100;
             wantedColor = null;
-
+            exchangeList = new HashMap<ColorEnum, Integer>();
             for (ColorEnum key : lanternHandCards.keySet())
             {
                 if (lanternHandCards.get(key).size() >= 1)
                 {
-                    exchangeList = new HashMap<ColorEnum, Integer>();
-                    exchangeList.put(key, 0);
+
+                    exchangeList.put(key, 1);
                     comboCnter++;
                     if (lanternHandCards.get(key).size() >= 2)
                     {
@@ -328,7 +435,13 @@ public class GreedyStrategy implements PlayerStrategy
                         targets.remove(key);
                     }
                 }
-                wantedColor = targets.get(0);
+                if (targets.size() > 0)
+                {
+                    wantedColor = targets.get(0);
+                } else
+                {
+                    wantedColor = ColorEnum.RED;
+                }
             }
             // set list to null if not enough cards
             if (comboCnter < 7)
@@ -346,6 +459,10 @@ public class GreedyStrategy implements PlayerStrategy
     @Override
     public String printReasoning()
     {
-        return null;
+        String msg = "Player " + tmpPlayer.getName() + " wanted " + wantedColor
+                + " lantern card, in order to get  " + wantedDedicationColor
+                + " dedication card";
+
+        return msg;
     }
 }

@@ -23,7 +23,7 @@ public class DisasterThread implements Runnable
     private int passingBoartTiming = 0;
     private int lightningTiming = 0;
     private Random generator;
-    private final int BOUND = 200;
+    private final int BOUND = 500;
     private int timer = 0;
 
     public DisasterThread(LogView log)
@@ -111,29 +111,23 @@ public class DisasterThread implements Runnable
 
     private void createPassingBoat()
     {
-        int numlakeTiles = generator.nextInt(3);
+        int numlakeTiles = generator.nextInt(10);
         Map<Integer, Integer> map = GameController.getInstance().getBoard()
                 .getMatrixLocationIndex();
         log.log("Passing boat has been triggered: " + numlakeTiles
                 + " will be removed: ");
         int attempts = 0;
         int tileIndex = 0;
+        Integer[] arr = new Integer[map.keySet().size()];
         while (numlakeTiles > 0)
         {
-            int item = new Random().nextInt(map.size()); // In real life, the
-                                                         // Random object should
-                                                         // be rather more
-                                                         // shared than this
-            int i = 0;
-
-            for (int obj : map.keySet())
+            if (attempts >= map.size())
             {
-                if (i == item)
-                {
-                    tileIndex = obj;
-                }
-                i = i + 1;
+                break;
             }
+            arr = map.keySet().toArray(arr);
+            tileIndex = arr[generator.nextInt(arr.length)];
+
             if (!map.containsKey(tileIndex + 21)
                     && !map.containsKey(tileIndex - 21)
                     || !map.containsKey(tileIndex + 1)
@@ -147,10 +141,6 @@ public class DisasterThread implements Runnable
                 log.log("Passing boat now removing lake tile which has index of  "
                         + tileIndex);
                 numlakeTiles--;
-            }
-            if (attempts >= map.size())
-            {
-                break;
             }
         }
 
@@ -188,9 +178,16 @@ public class DisasterThread implements Runnable
             {
                 while (numDedication > 0)
                 {
-                    if (p.getLanternList().get(dedicationColor).size() > 0)
+                    if (p.getDedicationTokenList().get(dedicationColor) == null)
                     {
-                        p.getLanternList().get(dedicationColor).remove(0);
+                        break;
+                    }
+                    if (p.getDedicationTokenList().size() != 0
+                            && p.getDedicationTokenList().get(dedicationColor)
+                                    .size() > 0)
+                    {
+                        p.getDedicationTokenList().get(dedicationColor)
+                                .remove(0);
 
                     }
                     numDedication--;

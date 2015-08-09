@@ -2,6 +2,7 @@ package hf.ui;
 
 import hf.game.GameBoard;
 import hf.game.common.GameProperties;
+import hf.game.controller.AIControllerThread;
 import hf.game.controller.DisasterThread;
 import hf.game.controller.GameController;
 import hf.game.items.LakeTile;
@@ -35,6 +36,8 @@ public class AppDisplayWindow
 {
     private static MenuBar menuBar;
     private static GameView gView;
+    private DisasterThread disasterThread;
+    private AIControllerThread aiController;
 
     public AppDisplayWindow()
     {
@@ -112,6 +115,7 @@ public class AppDisplayWindow
                 gView.getSelectionView().setBoard(
                         GameController.getInstance().getBoard());
                 gView.getLogView().log(target.toString());
+                startAIControllerThread();
 
             }
         });
@@ -146,6 +150,7 @@ public class AppDisplayWindow
                 gView.gameStarted();
                 gView.getSelectionView().setBoard(
                         GameController.getInstance().getBoard());
+                startAIControllerThread();
 
             }
         });
@@ -164,9 +169,16 @@ public class AppDisplayWindow
 
     private void startDisasterThread()
     {
-        DisasterThread t = new DisasterThread(gView.getLogView());
-        t.start();
-        Thread thread = new Thread(t);
+        disasterThread = new DisasterThread(gView.getLogView());
+        disasterThread.start();
+        Thread thread = new Thread(disasterThread);
+        thread.start();
+    }
+
+    private void startAIControllerThread()
+    {
+        aiController = new AIControllerThread(gView.getLogView());
+        Thread thread = new Thread(aiController);
         thread.start();
     }
 
