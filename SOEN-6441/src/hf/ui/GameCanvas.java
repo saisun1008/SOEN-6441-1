@@ -361,7 +361,12 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             yCount = 4;
             xCount = 0;
         }
-        g.drawImage(new Image(gameBoard.getFavorTokenByIndex(0).getImage()), x
+        
+        String image = "images/favor_token.jpg";
+        if(gameBoard.getFavorTokenByIndex(0)!=null)
+            image = gameBoard.getFavorTokenByIndex(0).getImage();
+        
+        g.drawImage(new Image(image), x
                 + xCount * 50, y + 40 + yCount * 50);
         g.drawString(Integer.toString(p.getFavorTokenList().size()), x + xCount
                 * 50, y + 40 + yCount * 50 + 50);

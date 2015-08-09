@@ -285,7 +285,7 @@ public class GreedyStrategy implements PlayerStrategy
         for (ColorEnum color : list.keySet())
         {
             if (board.getDedicationTokenByIndex(list.get(color).get(0))
-                    .getCardValue() > maxValue && list.get(color).size()>0)
+                    .getCardValue() > maxValue && list.get(color).size()>0 && list.get(color).size()>0)
             {
                 maxValue = board.getDedicationTokenByIndex(
                         list.get(color).get(0)).getCardValue();
