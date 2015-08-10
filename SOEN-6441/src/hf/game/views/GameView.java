@@ -242,7 +242,7 @@ public class GameView extends JPanel implements BoardObserver,
         }
     }
 
-    public void selectGameEndingStrategy()
+    public void selectGameEndingStrategy(int playernumber)
     {
         Object[] possibilities =
         { "Normal Ending", "N Lake Tile Ending", "N Honor points Ending" };
@@ -261,7 +261,40 @@ public class GameView extends JPanel implements BoardObserver,
             } else if (s.equals("N Lake Tile Ending"))
             {
                 int NValue = 0;
-                String N = (String) JOptionPane.showInputDialog(this, "",
+                switch(playernumber)
+                {
+                case 2:
+                    Object[] Nlaketile_2 =
+                    { "2", "3", "4" , "5", "6", "7", "8", "9", "10", "11"};
+                    String snlaketile_2 = (String) JOptionPane
+                        .showInputDialog(this, "Please select N value:\n",
+                                "N value for Nlaketile Strategy",
+                                JOptionPane.PLAIN_MESSAGE, null, Nlaketile_2,
+                                "2");
+                    NValue = Integer.parseInt(snlaketile_2);
+                    break;
+                case 3:
+                    Object[] Nlaketile_3 =
+                    { "2", "3", "4" , "5", "6", "7", "8", "9"};
+                    String snlaketile_3 = (String) JOptionPane
+                        .showInputDialog(this, "Please select N value:\n",
+                            "N value for Nlaketile Strategy",
+                            JOptionPane.PLAIN_MESSAGE, null, Nlaketile_3,
+                            "2");
+                    NValue = Integer.parseInt(snlaketile_3);
+                    break;
+                case 4:
+                    Object[] Nlaketile_4 =
+                    { "2", "3", "4" , "5", "6", "7", "8"};
+                    String snlaketile_4 = (String) JOptionPane
+                    .showInputDialog(this, "Please select N value:\n",
+                            "N value for Nlaketile Strategy",
+                            JOptionPane.PLAIN_MESSAGE, null, Nlaketile_4,
+                            "2");
+                    NValue = Integer.parseInt(snlaketile_4);
+                    break;
+                 }              
+/*                String N = (String) JOptionPane.showInputDialog(this, "",
                         "Please enter N value", JOptionPane.PLAIN_MESSAGE,
                         null, null, "0");
                 if ((N == null) || (N.length() <= 0))
@@ -271,6 +304,7 @@ public class GameView extends JPanel implements BoardObserver,
                 {
                     NValue = 3;
                 }
+*/
                 GameEndingStrategy stra = new NLakeTileEndingStrategy(NValue);
                 GameController.getInstance().getBoard()
                         .setGameEndingStrategy(stra);
@@ -279,23 +313,72 @@ public class GameView extends JPanel implements BoardObserver,
                         + NValue);
             } else if (s.equals("N Honor points Ending"))
             {
-                int NValue = 0;
-                String N = (String) JOptionPane.showInputDialog(this, "",
+                boolean correctNum = false;
+                while(!correctNum){
+                    int NValue = 0;
+                    String N = (String) JOptionPane.showInputDialog(this, "",
                         "Please enter N value", JOptionPane.PLAIN_MESSAGE,
                         null, null, "0");
+                    NValue = Integer.parseInt(N);
+                    switch(playernumber)
+                    {
+                    case 2:
+                        if ((NValue >= 4) && NValue <= 72)
+                        {
+                            correctNum = true;
+                            GameEndingStrategy stra = new NHonorPointsEndingStrategy(NValue);
+                            GameController.getInstance().getBoard()
+                                    .setGameEndingStrategy(stra);
+
+                            logView.log("N Honor points Ending Strategy has been selected, N value is set to "
+                                    + NValue);
+                        } else
+                        {
+                            logView.log("Number are not correct, please make sure the number are correct!");
+                        }
+                        break;
+                    case 3:
+                        if ((NValue >= 4) && NValue <= 57)
+                        {
+                            correctNum = true;
+                            GameEndingStrategy stra = new NHonorPointsEndingStrategy(NValue);
+                            GameController.getInstance().getBoard()
+                                    .setGameEndingStrategy(stra);
+
+                            logView.log("N Honor points Ending Strategy has been selected, N value is set to "
+                                    + NValue);
+                        } else
+                        {
+                            logView.log("Number are not correct, please make sure the number are correct!");
+                        }
+                        break;
+                    case 4:
+                        if ((NValue >= 4) && NValue <= 48)
+                        {
+                            correctNum = true;
+                            GameEndingStrategy stra = new NHonorPointsEndingStrategy(NValue);
+                            GameController.getInstance().getBoard()
+                                    .setGameEndingStrategy(stra);
+
+                            logView.log("N Honor points Ending Strategy has been selected, N value is set to "
+                                    + NValue);
+                        } else
+                        {
+                            logView.log("Number are not correct, please make sure the number are correct!");
+                        }
+                        break;
+                    }     
+/*
                 if ((N == null) || (N.length() <= 0))
                 {
                     NValue = Integer.parseInt(N);
                 } else
                 {
-                    NValue = 3;
+                    logView.log("Number are not correct, please make sure the number are correct!");
                 }
-                GameEndingStrategy stra = new NHonorPointsEndingStrategy(NValue);
-                GameController.getInstance().getBoard()
-                        .setGameEndingStrategy(stra);
-
-                logView.log("N Honor points Ending Strategy has been selected, N value is set to "
-                        + NValue);
+*/
+                                    
+                }
             }
         }
     }

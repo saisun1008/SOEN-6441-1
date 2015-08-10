@@ -92,7 +92,8 @@ public class AppDisplayWindow
                                 + GameController.getInstance().getBoard()
                                         .getCurrentRoundPlayer().toString());
                 gView.gameStarted();
-                gView.selectGameEndingStrategy();
+                gView.selectGameEndingStrategy(GameController.getInstance().getBoard()
+                        .getPlayerCount());
                 gView.reSelectPlayerStrategy();
                 if (gView.EnableDisaster())
                 {
@@ -138,7 +139,7 @@ public class AppDisplayWindow
                 int numPlayers = Integer.parseInt(gView.selectPlayerCount());
                 GameController.getInstance().getBoard()
                         .setNumPlayer(numPlayers);
-                gView.selectGameEndingStrategy();
+                gView.selectGameEndingStrategy(numPlayers);
 
                 String[] names = gView.enterPlayerNames(numPlayers);
                 if (gView.EnableDisaster())
