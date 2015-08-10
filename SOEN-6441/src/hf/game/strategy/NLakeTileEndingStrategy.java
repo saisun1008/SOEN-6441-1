@@ -82,8 +82,14 @@ public class NLakeTileEndingStrategy implements GameEndingStrategy
     @Override
     public String printoutWinner()
     {
-        // TODO Auto-generated method stub
-        return null;
+        if (winner != null)
+        {
+            return winner.getName() + " has won!! with Score of "
+                    + winner.getScore();
+        } else
+        {
+            return "";
+        }
     }
 
 }
