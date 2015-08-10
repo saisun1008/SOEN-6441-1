@@ -2,10 +2,12 @@ package hf.ui;
 
 import hf.game.GameBoard;
 import hf.game.common.GameProperties;
+import hf.game.common.PlayerTypeEnum;
 import hf.game.controller.AIControllerThread;
 import hf.game.controller.DisasterThread;
 import hf.game.controller.GameController;
 import hf.game.items.LakeTile;
+import hf.game.items.Player;
 import hf.game.views.GameView;
 import hf.ui.matrix.Matrix;
 
@@ -36,8 +38,8 @@ public class AppDisplayWindow
 {
     private static MenuBar menuBar;
     private static GameView gView;
-    private DisasterThread disasterThread;
-    private AIControllerThread aiController;
+    private DisasterThread disaster = null;
+    private AIControllerThread aiController = null;
 
     public AppDisplayWindow()
     {
@@ -95,6 +97,12 @@ public class AppDisplayWindow
                 if (gView.EnableDisaster())
                 {
                     startDisasterThread();
+                } else
+                {
+                    if (disaster != null)
+                    {
+                        disaster.stopDisaster();
+                    }
                 }
                 /*
                  * gView.getMatrix().setEntities(
@@ -136,6 +144,12 @@ public class AppDisplayWindow
                 if (gView.EnableDisaster())
                 {
                     startDisasterThread();
+                } else
+                {
+                    if (disaster != null)
+                    {
+                        disaster.stopDisaster();
+                    }
                 }
                 gView.getLogView().append(
                         "new game is starting with "
@@ -169,17 +183,42 @@ public class AppDisplayWindow
 
     private void startDisasterThread()
     {
-        disasterThread = new DisasterThread(gView.getLogView());
-        disasterThread.start();
-        Thread thread = new Thread(disasterThread);
-        thread.start();
+        if (disaster == null)
+        {
+            disaster = new DisasterThread(gView.getLogView());
+            disaster.start();
+            Thread thread = new Thread(disaster);
+            thread.start();
+        } else
+        {
+            disaster.restart();
+        }
     }
 
     private void startAIControllerThread()
     {
-        aiController = new AIControllerThread(gView.getLogView());
-        Thread thread = new Thread(aiController);
-        thread.start();
+        boolean ai = false;
+        for (Player p : GameController.getInstance().getBoard().getPlayers())
+        {
+            if (p.getPlayerType() == PlayerTypeEnum.AI)
+            {
+                ai = true;
+                break;
+            }
+        }
+        if (ai)
+        {
+            if (aiController == null)
+            {
+                aiController = new AIControllerThread(gView.getLogView());
+                Thread thread = new Thread(aiController);
+                thread.start();
+            } else
+            {
+                aiController.restart();
+            }
+        }
+
     }
 
     public static void main(String[] args)

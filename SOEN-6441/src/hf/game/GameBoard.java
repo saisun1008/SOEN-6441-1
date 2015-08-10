@@ -484,9 +484,9 @@ public class GameBoard
      */
     public FavorToken getFavorTokenByIndex(int index)
     {
-        if(m_FavorTokenCollection.size()==0)
+        if (m_FavorTokenCollection.size() == 0)
             return null;
-        
+
         return m_FavorTokenCollection.get(index);
     }
 
@@ -610,13 +610,13 @@ public class GameBoard
         {
             origin = new ArrayList<Integer>();
         }
-        
-        if(m_DedicationTokenDecks.get(ColorEnum.BLUE).size()>0)
+
+        if (m_DedicationTokenDecks.get(ColorEnum.BLUE).size() > 0)
         {
             origin.add(m_DedicationTokenDecks.get(ColorEnum.BLUE).get(0));
             m_DedicationTokenDecks.get(ColorEnum.BLUE).remove(0);
         }
-        
+
         getCurrentRoundPlayer().getDedicationTokenList().put(ColorEnum.BLUE,
                 origin);
         result = true;
@@ -721,5 +721,12 @@ public class GameBoard
     public void setGameEndingStrategy(GameEndingStrategy gameEndingStrategy)
     {
         this.gameEndingStrategy = gameEndingStrategy;
+    }
+
+    public void resetMatrix()
+    {
+        m_entities = new HashMap<Integer, MatrixCell>();
+        matrixLocation_index = new HashMap<Integer, Integer>();
+        matrixLocation_index.put(221, getStartLakeTileIndex());
     }
 }

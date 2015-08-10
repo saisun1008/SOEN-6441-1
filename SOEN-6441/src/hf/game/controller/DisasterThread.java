@@ -46,11 +46,44 @@ public class DisasterThread implements Runnable
         terminated = true;
     }
 
+    public void restart()
+    {
+        terminated = true;
+        try
+        {
+            log.log("Disasters will commence in 10 seconds:");
+            int counter = 9;
+            for (; counter >= 0; counter--)
+            {
+                Thread.sleep(1000);
+                log.log("Disasters will start at " + counter + " seconds");
+            }
+
+        } catch (InterruptedException e1)
+        {
+            e1.printStackTrace();
+        }
+        terminated = false;
+    }
+
     public void run()
     {
         try
         {
-            Thread.sleep(10000);
+            try
+            {
+                log.log("Disasters will commence in 10 seconds:");
+                int counter = 9;
+                for (; counter >= 0; counter--)
+                {
+                    Thread.sleep(1000);
+                    log.log("Disasters will start at " + counter + " seconds");
+                }
+
+            } catch (InterruptedException e1)
+            {
+                e1.printStackTrace();
+            }
             while (!terminated)
             {
                 if (GameController.getInstance().getBoard().gameEnded)

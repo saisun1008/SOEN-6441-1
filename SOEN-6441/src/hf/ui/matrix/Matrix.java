@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import hf.game.GameBoard;
+import hf.game.controller.GameController;
 import hf.game.controller.MatrixCalculator;
 import hf.game.controller.MatrixObserver;
 import hf.game.controller.ViewLogObserver;
@@ -88,7 +89,7 @@ public class Matrix extends BasicGame implements MatrixObserver
 
     public void loadMatrix(GameBoard gameBoard)
     {
-        this.gameBoard = gameBoard;
+        this.gameBoard = GameController.getInstance().getBoard();
         ca.init(gameBoard);
     }
 
@@ -120,8 +121,8 @@ public class Matrix extends BasicGame implements MatrixObserver
                 Input input = gc.getInput();
                 int xpos = input.getMouseX();
                 int ypos = input.getMouseY();
-                
-                System.out.println("left click"+xpos+":"+ypos);
+
+                System.out.println("left click" + xpos + ":" + ypos);
                 LakeTile lake = gameBoard.getLakeTileByIndex(lakeIndex);
                 if ((xpos > lake.getX() && xpos < lake.getX() + lake.getSize())
                         && (ypos > lake.getY() && ypos < lake.getY()
@@ -218,7 +219,7 @@ public class Matrix extends BasicGame implements MatrixObserver
 
     public void setGameBoard(GameBoard board)
     {
-        gameBoard = board;
+        gameBoard = GameController.getInstance().getBoard();
     }
     /*
      * public static void main(String [] arguments) { try { AppGameContainer app

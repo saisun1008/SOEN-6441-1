@@ -3,6 +3,7 @@ package hf.game.views;
 import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
 import hf.game.common.GameProperties;
+import hf.game.controller.GameController;
 
 import java.awt.Component;
 import java.awt.GridLayout;
@@ -22,8 +23,10 @@ import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 
 import junit.textui.ResultPrinter;
+
 /**
  * Selection view dialog
+ * 
  * @author Sai
  *
  */
@@ -52,12 +55,12 @@ public class SelectionView extends JPanel
         setLayout(new GridLayout(1, 1));
 
         parent = gameView;
-        this.board = board;
+        this.board = GameController.getInstance().getBoard();
     }
 
     public void setBoard(GameBoard board)
     {
-        this.board = board;
+        this.board = GameController.getInstance().getBoard();
     }
 
     /**
@@ -113,9 +116,10 @@ public class SelectionView extends JPanel
         });
         add(exchangeBtn);
     }
-    
+
     /**
      * show panel
+     * 
      * @param visible
      */
     public void showPanel(boolean visible)
@@ -126,6 +130,7 @@ public class SelectionView extends JPanel
 
     /**
      * build by type
+     * 
      * @param selectionType
      */
     public void buildByType(String selectionType)
@@ -247,6 +252,7 @@ public class SelectionView extends JPanel
 
     /**
      * exchange lantern
+     * 
      * @return true if successful
      */
     private boolean doLanternExchange()
@@ -305,6 +311,7 @@ public class SelectionView extends JPanel
 
     /**
      * set color from string to enum
+     * 
      * @param color
      * @return color enum
      */
@@ -334,6 +341,7 @@ public class SelectionView extends JPanel
 
     /**
      * exchange favor
+     * 
      * @return true if successful
      */
     private boolean doFavorExchange()

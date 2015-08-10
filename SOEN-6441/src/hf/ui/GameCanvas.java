@@ -22,6 +22,7 @@ import hf.game.GameBoard;
 import hf.game.common.ColorEnum;
 import hf.game.common.GameProperties;
 import hf.game.common.LocationEnum;
+import hf.game.controller.GameController;
 import hf.game.controller.ViewEventObserver;
 import hf.game.controller.ViewLogObserver;
 import hf.game.items.LakeTile;
@@ -52,9 +53,10 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
     private int favorExchangeBtnX = 0;
     private int favorExchangeBtnY = 0;
     private boolean gameEndPrinted = false;
-    
+
     /**
      * initialization
+     * 
      * @param title
      */
     public GameCanvas(String title)
@@ -79,6 +81,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
     /**
      * initialization
+     * 
      * @param gc
      * @throws SlickException
      */
@@ -93,6 +96,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
     /**
      * Update
+     * 
      * @param gc
      * @param i
      * @throws SlickException
@@ -102,7 +106,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
     {
         boolean mouseLeftClick = MouseEventValidation.isMouseLeftClick(gc);
         boolean mouseRightClick = MouseEventValidation.isMouseRightClick(gc);
-        
+
         if (redrawn)
         {
             matrixView.init(gc);
@@ -187,6 +191,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
     /**
      * render players
+     * 
      * @param g
      * @throws SlickException
      */
@@ -258,6 +263,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
     /**
      * render cards held by players
+     * 
      * @param g
      * @param p
      * @param x
@@ -273,21 +279,21 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
         for (int index : p.getLakeTileList())
         {
             LakeTile lakeTile = gameBoard.getLakeTileByIndex(index);
-//            g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y + 40
-//                    + yCount * 50);
+            // g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y +
+            // 40
+            // + yCount * 50);
 
             Image img = new Image(lakeTile.getImage());
             if (lakeTile != null && lakeTile.getRotateDegrees() != 0)
             {
                 img.setRotation(lakeTile.getRotateDegrees());
-                img.draw(x + xCount * 50, y + 40
-                      + yCount * 50);
+                img.draw(x + xCount * 50, y + 40 + yCount * 50);
             } else
             {
-                g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y + 40
-                        + yCount * 50);
+                g.drawImage(new Image(lakeTile.getImage()), x + xCount * 50, y
+                        + 40 + yCount * 50);
             }
-            
+
             lakeTile.setX(x + xCount * 50);
             lakeTile.setY(y + 40 + yCount * 50);
             lakeTile.setSize(30);
@@ -361,13 +367,12 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             yCount = 4;
             xCount = 0;
         }
-        
+
         String image = "images/favor_token.jpg";
-        if(gameBoard.getFavorTokenByIndex(0)!=null)
+        if (gameBoard.getFavorTokenByIndex(0) != null)
             image = gameBoard.getFavorTokenByIndex(0).getImage();
-        
-        g.drawImage(new Image(image), x
-                + xCount * 50, y + 40 + yCount * 50);
+
+        g.drawImage(new Image(image), x + xCount * 50, y + 40 + yCount * 50);
         g.drawString(Integer.toString(p.getFavorTokenList().size()), x + xCount
                 * 50, y + 40 + yCount * 50 + 50);
     }
@@ -403,12 +408,13 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
             ArrayList<Integer> list = gameBoard.getDedicationTokenDeck().get(
                     color);
             Collections.sort(list);
-            
-            if(list.size()>0)
+
+            if (list.size() > 0)
             {
                 Image im = new Image(gameBoard.getDedicationTokenByIndex(
                         list.get(0)).getImage());
-                g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
+                g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT
+                        + 10);
                 g.drawString(Integer.toString(list.size()),
                         GameProperties.DECK_WIDTH + 10, imageCount
                                 * GameProperties.DECK_HEIGHT + 10);
@@ -418,9 +424,9 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
         // render favor token
         String image = "images/favor_token.jpg";
-        if(gameBoard.getFavorTokenByIndex(0)!=null)
+        if (gameBoard.getFavorTokenByIndex(0) != null)
             image = gameBoard.getFavorTokenByIndex(0).getImage();
-        
+
         Image im = new Image(image);
         g.drawImage(im, 10, imageCount * GameProperties.DECK_HEIGHT + 10);
         g.drawString(
@@ -437,7 +443,7 @@ public class GameCanvas extends BasicGame implements ViewLogObserver
 
     public void setGameBoard(GameBoard board)
     {
-        gameBoard = board;
+        gameBoard = GameController.getInstance().getBoard();
         matrixView.setGameBoard(board);
         board.setMatrix(matrixView);
     }

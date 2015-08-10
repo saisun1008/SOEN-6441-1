@@ -12,8 +12,10 @@ import hf.game.common.LocationEnum;
 import hf.game.items.LakeTile;
 import hf.game.items.Player;
 import hf.ui.matrix.MatrixCell;
+
 /**
  * Calculate the matrix
+ * 
  * @author Caogc
  *
  */
@@ -30,6 +32,7 @@ public class MatrixCalculator
 
     @XStreamOmitField
     private ArrayList<MatrixObserver> observers;
+
     /**
      * initialization
      */
@@ -38,18 +41,20 @@ public class MatrixCalculator
         observers = new ArrayList<MatrixObserver>();
         entities = new HashMap<>();
     }
-    
+
     /**
      * Get entities
+     * 
      * @return Map<Integer, MatrixCell>
      */
     public Map<Integer, MatrixCell> getEntities()
     {
         return entities;
     }
-    
+
     /**
      * Set entities
+     * 
      * @param entities
      */
     public void setEntities(Map<Integer, MatrixCell> entities)
@@ -68,32 +73,35 @@ public class MatrixCalculator
     // for(int i :lakeTiles.keySet())
     // gameBoard.setLakeTileByIndex(i, lakeTiles.get(i));
     // }
-    
+
     /**
      * Get selected card
+     * 
      * @return selected card index
      */
     public Integer getSelectedCard()
     {
         return selectedCardIndex;
     }
-    
+
     /**
      * Set selected card
+     * 
      * @param selectedCard
      */
     public void setSelectedCard(Integer selectedCard)
     {
         this.selectedCardIndex = selectedCard;
     }
-    
+
     /**
      * initialize game board
+     * 
      * @param board
      */
     public void init(GameBoard board)
     {
-        gameBoard = board;
+        gameBoard = GameController.getInstance().getBoard();
         initLakeTiles();
         initMatrixCell();
     }
@@ -101,6 +109,7 @@ public class MatrixCalculator
     public void initLakeTiles()
     {
     }
+
     /**
      * initial matrix cells
      */
@@ -232,9 +241,10 @@ public class MatrixCalculator
         entities.put(id, entities.get(id).setLake(lake));
         giveLanternCard(lake, null, null, null, null);
     }
-    
+
     /**
      * Give away lattern card to every player
+     * 
      * @param lake
      * @param lakeLeft
      * @param lakeRight
@@ -277,7 +287,8 @@ public class MatrixCalculator
                     p.getLanternList().put(lake.get_leftColor(), palyLantern);
                 }
 
-                if (lakeLeft.hasSpecialIcon() && gameBoard.getFavorTokenCollection().size()>0)
+                if (lakeLeft.hasSpecialIcon()
+                        && gameBoard.getFavorTokenCollection().size() > 0)
                 {
                     gameBoard
                             .getCurrentRoundPlayer()
@@ -317,7 +328,8 @@ public class MatrixCalculator
                     p.getLanternList().put(lake.get_rightColor(), palyLantern);
                 }
 
-                if (lakeRight.hasSpecialIcon() && gameBoard.getFavorTokenCollection().size()>0)
+                if (lakeRight.hasSpecialIcon()
+                        && gameBoard.getFavorTokenCollection().size() > 0)
                 {
                     gameBoard
                             .getCurrentRoundPlayer()
@@ -357,7 +369,8 @@ public class MatrixCalculator
                     p.getLanternList().put(lake.get_topColor(), palyLantern);
                 }
 
-                if (lakeTop.hasSpecialIcon() && gameBoard.getFavorTokenCollection().size()>0)
+                if (lakeTop.hasSpecialIcon()
+                        && gameBoard.getFavorTokenCollection().size() > 0)
                 {
                     gameBoard
                             .getCurrentRoundPlayer()
@@ -397,7 +410,8 @@ public class MatrixCalculator
                     p.getLanternList().put(lake.get_bottomColor(), palyLantern);
                 }
 
-                if (lakeBtm.hasSpecialIcon() && gameBoard.getFavorTokenCollection().size()>0)
+                if (lakeBtm.hasSpecialIcon()
+                        && gameBoard.getFavorTokenCollection().size() > 0)
                 {
                     gameBoard
                             .getCurrentRoundPlayer()
@@ -410,7 +424,8 @@ public class MatrixCalculator
 
             if (lake.hasSpecialIcon()
                     && p.getName().equals(
-                            gameBoard.getCurrentRoundPlayer().getName()) && gameBoard.getFavorTokenCollection().size()>0)
+                            gameBoard.getCurrentRoundPlayer().getName())
+                    && gameBoard.getFavorTokenCollection().size() > 0)
             {
                 gameBoard
                         .getCurrentRoundPlayer()
@@ -460,18 +475,19 @@ public class MatrixCalculator
 
     /**
      * Attach to observer
+     * 
      * @param observer
      */
     public void attach(MatrixObserver observer)
     {
         observers.add(observer);
     }
-    
+
     /**
      * Entity to index map
      * 
-     * @return HashMap<Integer, Integer> 
-     *                                    
+     * @return HashMap<Integer, Integer>
+     * 
      */
 
     public HashMap<Integer, Integer> entityToIndexMap()
@@ -487,7 +503,7 @@ public class MatrixCalculator
         }
         return map;
     }
-    
+
     /**
      * notify all observers
      */

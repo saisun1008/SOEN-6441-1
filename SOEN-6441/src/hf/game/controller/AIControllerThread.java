@@ -29,13 +29,39 @@ public class AIControllerThread implements Runnable
         paused = false;
     }
 
+    public void restart()
+    {
+        paused = true;
+        try
+        {
+            log.log("AI Playing will commence in 10 seconds:");
+            int counter = 9;
+            for (; counter >= 0; counter--)
+            {
+                Thread.sleep(1000);
+                log.log("AI will start playing at " + counter + " seconds");
+            }
+
+        } catch (InterruptedException e1)
+        {
+            e1.printStackTrace();
+        }
+        paused = false;
+    }
+
     @Override
     public void run()
     {
         try
         {
-            log.log("AI Playing will commence in 10 seconds");
-            Thread.sleep(10000);
+            log.log("AI Playing will commence in 10 seconds:");
+            int counter = 9;
+            for (; counter >= 0; counter--)
+            {
+                Thread.sleep(1000);
+                log.log("AI will start playing at " + counter + " seconds");
+            }
+
         } catch (InterruptedException e1)
         {
             e1.printStackTrace();
@@ -47,12 +73,12 @@ public class AIControllerThread implements Runnable
             {
                 String msg;
                 GameController
-                .getInstance()
-                .getBoard()
-                .getCurrentRoundPlayer()
-                .getStrategy()
-                .redeemLanternCard(
-                        GameController.getInstance().getBoard());
+                        .getInstance()
+                        .getBoard()
+                        .getCurrentRoundPlayer()
+                        .getStrategy()
+                        .redeemLanternCard(
+                                GameController.getInstance().getBoard());
                 GameController
                         .getInstance()
                         .getBoard()

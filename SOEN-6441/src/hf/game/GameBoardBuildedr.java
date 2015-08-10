@@ -56,6 +56,7 @@ public class GameBoardBuildedr
         loadLatternCard();
         loadDedicationCard();
         loadFavorToken();
+        m_board.resetMatrix();
     }
 
     /**

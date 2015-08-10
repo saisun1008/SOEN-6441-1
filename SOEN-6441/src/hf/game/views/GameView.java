@@ -46,7 +46,7 @@ public class GameView extends JPanel implements BoardObserver,
     {
         logView = new LogView();
 
-        gameBoard = board;
+        gameBoard = GameController.getInstance().getBoard();
 
         selectionView = new SelectionView(this, board);
 
@@ -324,7 +324,7 @@ public class GameView extends JPanel implements BoardObserver,
     @Override
     public void update(GameBoard board)
     {
-        gameBoard = board;
+        gameBoard = GameController.getInstance().getBoard();
         mainView.setGameBoard(board);
     }
 
