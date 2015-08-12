@@ -66,50 +66,57 @@ public class AIControllerThread implements Runnable
         {
             e1.printStackTrace();
         }
-        while (!paused && !GameController.getInstance().getBoard().gameEnded)
+        while (!GameController.getInstance().getBoard().gameEnded)
         {
-            if (GameController.getInstance().getBoard().getCurrentRoundPlayer()
-                    .getPlayerType() == PlayerTypeEnum.AI)
+            if (!paused)
             {
-                String msg;
-                GameController
-                        .getInstance()
-                        .getBoard()
-                        .getCurrentRoundPlayer()
-                        .getStrategy()
-                        .redeemLanternCard(
-                                GameController.getInstance().getBoard());
-                GameController
-                        .getInstance()
-                        .getBoard()
-                        .getCurrentRoundPlayer()
-                        .getStrategy()
-                        .redeemFavorToken(
-                                GameController.getInstance().getBoard());
-                GameController
-                        .getInstance()
-                        .getBoard()
-                        .getCurrentRoundPlayer()
-                        .getStrategy()
-                        .redeemLanternCard(
-                                GameController.getInstance().getBoard());
-                msg = GameController.getInstance().getBoard()
-                        .getCurrentRoundPlayer().getStrategy().printReasoning();
-                GameController.getInstance().getBoard().getCurrentRoundPlayer()
-                        .getStrategy()
-                        .placeLakeTile(GameController.getInstance().getBoard());
-                log.log(msg);
+                if (GameController.getInstance().getBoard()
+                        .getCurrentRoundPlayer().getPlayerType() == PlayerTypeEnum.AI)
+                {
+                    String msg;
+                    GameController
+                            .getInstance()
+                            .getBoard()
+                            .getCurrentRoundPlayer()
+                            .getStrategy()
+                            .redeemLanternCard(
+                                    GameController.getInstance().getBoard());
+                    GameController
+                            .getInstance()
+                            .getBoard()
+                            .getCurrentRoundPlayer()
+                            .getStrategy()
+                            .redeemFavorToken(
+                                    GameController.getInstance().getBoard());
+                    GameController
+                            .getInstance()
+                            .getBoard()
+                            .getCurrentRoundPlayer()
+                            .getStrategy()
+                            .redeemLanternCard(
+                                    GameController.getInstance().getBoard());
+                    msg = GameController.getInstance().getBoard()
+                            .getCurrentRoundPlayer().getStrategy()
+                            .printReasoning();
+                    GameController
+                            .getInstance()
+                            .getBoard()
+                            .getCurrentRoundPlayer()
+                            .getStrategy()
+                            .placeLakeTile(
+                                    GameController.getInstance().getBoard());
+                    log.log(msg);
 
+                }
+                // after each AI player, let's wait a little bit...
+                try
+                {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e)
+                {
+                    e.printStackTrace();
+                }
             }
-            // after each AI player, let's wait a little bit...
-            try
-            {
-                Thread.sleep(2000);
-            } catch (InterruptedException e)
-            {
-                e.printStackTrace();
-            }
-
         }
     }
 }

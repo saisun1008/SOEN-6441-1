@@ -19,6 +19,7 @@ public class DisasterThread implements Runnable
 {
     private LogView log;
     private boolean terminated = true;
+    private boolean paused = true;
     private int tsunamiTiming = 0;
     private int passingBoartTiming = 0;
     private int lightningTiming = 0;
@@ -48,7 +49,7 @@ public class DisasterThread implements Runnable
 
     public void restart()
     {
-        terminated = true;
+        paused = true;
         try
         {
             log.log("Disasters will commence in 10 seconds:");
@@ -63,7 +64,7 @@ public class DisasterThread implements Runnable
         {
             e1.printStackTrace();
         }
-        terminated = false;
+        paused = false;
     }
 
     public void run()
@@ -86,31 +87,34 @@ public class DisasterThread implements Runnable
             }
             while (!terminated)
             {
-                if (GameController.getInstance().getBoard().gameEnded)
+                if (!paused)
                 {
-                    terminated = true;
-                    break;
-                }
+                    if (GameController.getInstance().getBoard().gameEnded)
+                    {
+                        terminated = true;
+                        break;
+                    }
 
-                Thread.sleep(500);
-                timer++;
-                if (timer == tsunamiTiming)
-                {
-                    createTsunami();
-                }
-                if (timer == passingBoartTiming)
-                {
-                    createPassingBoat();
-                }
-                if (timer == lightningTiming)
-                {
-                    createLightning();
-                }
-                if (timer > BOUND)
-                {
-                    timer = 0;
-                }
+                    Thread.sleep(500);
+                    timer++;
+                    if (timer == tsunamiTiming)
+                    {
+                        createTsunami();
+                    }
+                    if (timer == passingBoartTiming)
+                    {
+                        createPassingBoat();
+                    }
+                    if (timer == lightningTiming)
+                    {
+                        createLightning();
+                    }
+                    if (timer > BOUND)
+                    {
+                        timer = 0;
+                    }
 
+                }
             }
         } catch (InterruptedException e)
         {
