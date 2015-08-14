@@ -1,8 +1,8 @@
-hf.controller
 hf.game
 hf.game.common
 hf.game.controller
 hf.game.items
+hf.game.strategy
 hf.game.views
 hf.ui
 hf.ui.matrix

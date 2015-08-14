@@ -318,7 +318,7 @@ public class GameView extends JPanel implements BoardObserver,
                     int NValue = 0;
                     String N = (String) JOptionPane.showInputDialog(this, "",
                         "Please enter N value", JOptionPane.PLAIN_MESSAGE,
-                        null, null, "0");
+                        null, null, "4");
                     NValue = Integer.parseInt(N);
                     switch(playernumber)
                     {

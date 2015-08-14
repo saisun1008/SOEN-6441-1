@@ -21,7 +21,7 @@ public class Player
     private final HashMap<ColorEnum, ArrayList<Integer>> dedicationTokenList = new HashMap<ColorEnum, ArrayList<Integer>>();
     private final ArrayList<Integer> favorTokenList = new ArrayList<Integer>();
     private int score = 0;
-
+    private int rounds = 0;
     private PlayerTypeEnum playerType = null;
     private PlayerStrategy strategy = null;
 
@@ -208,5 +208,14 @@ public class Player
     public void setStrategy(PlayerStrategy strategy)
     {
         this.strategy = strategy;
+    }
+    public int getRounds()
+    {
+        return rounds;
+    }
+
+    public void setRounds(int rounds)
+    {
+        this.rounds = rounds;
     }
 }

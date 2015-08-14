@@ -204,6 +204,8 @@ public class MatrixCalculator
 
         gameBoard.getCurrentRoundPlayer().getLakeTileList()
                 .remove(selectedCardIndex);
+        gameBoard.getCurrentRoundPlayer().setRounds(gameBoard.getCurrentRoundPlayer().getRounds()+1);
+        System.out.println(gameBoard.getCurrentRoundPlayer().getRounds());
         if (gameBoard.getLakeTileDeck() != null
                 && !gameBoard.getLakeTileDeck().isEmpty())
         {

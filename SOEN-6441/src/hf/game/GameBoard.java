@@ -172,7 +172,7 @@ public class GameBoard
             makeNewRound();
         }
         while (m_players.get(numPlayer - roundExecutor - 1).getLakeTileList()
-                .size() < 3
+                .size() < 2
                 && getLakeTileDeck().size() > 0)
         {
             m_players.get(numPlayer - roundExecutor - 1).getLakeTileList()
@@ -203,7 +203,13 @@ public class GameBoard
     public String makeNewRound()
     {
         String winner = "";
-
+/*        
+        for (Player prounds : m_players)
+        {
+            prounds.setRounds(prounds.getRounds()+1);
+            System.out.println(prounds.getRounds());
+        }
+*/
         if (!gameEnded)
         {
             roundExecutor++;

@@ -39,6 +39,7 @@ public class DisasterThread implements Runnable
     public void start()
     {
         terminated = false;
+        paused = false;
         log.log("Disasters will start at any time now");
     }
 

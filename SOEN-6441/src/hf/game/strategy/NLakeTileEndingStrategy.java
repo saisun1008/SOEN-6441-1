@@ -21,10 +21,12 @@ public class NLakeTileEndingStrategy implements GameEndingStrategy
         int lakeTileCnt = 0;
         int maxScore = 0;
         int winner = 0;
+        int rounds = 0;
         String ret = "";
         int playernum = board.getPlayerCount();
         for (Player player : board.getPlayers())
         {
+            rounds += player.getRounds();
             lakeTileCnt = lakeTileCnt + player.getLakeTileList().size();
             int score = 0;
             for (ColorEnum index : player.getDedicationTokenList().keySet())
@@ -45,7 +47,10 @@ public class NLakeTileEndingStrategy implements GameEndingStrategy
                     .get(board.getPlayers().indexOf(player)).getName()
                     + "score:" + score + "\n ");
         }
-
+        if(rounds >= playernum*Nlaketile)
+            gameend = true;
+        
+/*
         lakeTileCnt += board.getLakeTileDeck().size();
 
         switch(playernum)
@@ -65,7 +70,7 @@ public class NLakeTileEndingStrategy implements GameEndingStrategy
                 gameend = true;
             break;
         }
-        
+*/        
         if (gameend)
         {
             // System.out.println(m_players.get(winner).getName() +
