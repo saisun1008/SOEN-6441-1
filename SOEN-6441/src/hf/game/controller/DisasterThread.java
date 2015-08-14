@@ -96,7 +96,7 @@ public class DisasterThread implements Runnable
                         break;
                     }
 
-                    Thread.sleep(500);
+                    Thread.sleep(10);
                     timer++;
                     if (timer == tsunamiTiming)
                     {
